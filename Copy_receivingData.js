@@ -9,7 +9,7 @@ async function getJsonWithAcceptHeader() {
    const pool = new Pool({
         user: 'postgres',
         host: '127.0.0.1',
-        database: 'cong_app',
+        database: 'bills',
         password: 'congapp', //add your postgreSQL databse password~ 
         port: 5432,
         max: 20, // maximum number of clients in the pool
