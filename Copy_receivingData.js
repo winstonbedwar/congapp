@@ -10,7 +10,7 @@ async function getJsonWithAcceptHeader() {
         user: 'postgres',
         host: '127.0.0.1',
         database: 'cong_app',
-        password: 'congapp', //add your postgreSQL databse password~ 
+        password: 'Bills', //add your postgreSQL databse password~ 
         port: 5432,
         max: 20, // maximum number of clients in the pool
         idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
