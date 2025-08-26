@@ -35,7 +35,7 @@ async function getJsonWithAcceptHeader() {
       console.log('JSON response:', data);
       // to store data into SQL server Table Users 
       //YT video code here basically.
-        await pool.query('SELECT * FROM Bills');
+        await pool.query('SELECT * FROM public."Bills"');
   console.log('Data inserted into congapp table');
 
 
