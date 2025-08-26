@@ -10,7 +10,7 @@ async function getJsonWithAcceptHeader() {
         user: 'postgres',
         host: '127.0.0.1',
         database: 'cong_app',
-        password: 'Bills', //add your postgreSQL databse password~ 
+        password: 'congapp', //add your postgreSQL databse password~ 
         port: 5432,
         max: 20, // maximum number of clients in the pool
         idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
@@ -35,7 +35,7 @@ async function getJsonWithAcceptHeader() {
       console.log('JSON response:', data);
       // to store data into SQL server Table Users 
       //YT video code here basically.
-        await pool.query('INSERT INTO congapp (data) VALUES ($1)', [data]);
+        await pool.query('INSERT INTO Bills (data) VALUES ($1)', [data]);
   console.log('Data inserted into congapp table');
 
 
