@@ -1,10 +1,11 @@
-import {database} from './firebase_config.js';
+import {database, app} from './firebase_config.js';
 import { getDatabase, ref, set } from "firebase/database";
+import {deleteApp} from "firebase/app";
 import { initializeApp } from "firebase/app";
 import fetch from 'node-fetch';
 
 async function pushJsontoFirebase() {
-  const url = 'https://api.congress.gov/v3/bill/119?format=json&offset=0&limit=10&fromDateTime=2022-08-04T04:02:00Z&toDateTime=2025-09-30T04:03:00Z&sort=updateDate+desc&api_key=FacEHXl6iKxBi2ejlZV3YtTo9EIPYMoscmDYvTgj';
+  const url = 'https://api.congress.gov/v3/bill/119?format=json&offset=0&limit=100&fromDateTime=2022-08-04T04:02:00Z&toDateTime=2025-09-30T04:03:00Z&sort=updateDate+desc&api_key=FacEHXl6iKxBi2ejlZV3YtTo9EIPYMoscmDYvTgj';
 
   try {
     const response = await fetch(url, {
@@ -25,9 +26,9 @@ async function pushJsontoFirebase() {
       console.log('JSON response:', data);
 
 
-              const bills = data.bills;
+        const bills = data.bills;
 
-      // Iterate through each bill and store it separately
+     // Iterate through each bill and store it separately
       for (const bill of bills) {
         const billTitle = bill.title || 'unknown';
         //dumb fixture for path name problem 
@@ -43,7 +44,9 @@ async function pushJsontoFirebase() {
 
 
         // Define a unique path for each bill
-        const billRef = ref(database, `congress/bills/${newBillTitle}`);
+        const billKey = `${bill.type}-${bill.number}`;  // e.g., hr-123
+        const billRef = ref(database, `congress/bills/${billKey}`);
+
 
         // Store just the bill info
         await set(billRef, {
@@ -62,6 +65,11 @@ async function pushJsontoFirebase() {
     }
   } catch (error) {
     console.error('Error fetching or storing data:', error);
+  }
+  finally {
+    // Terminate Firebase app to close all connections
+    await deleteApp(app);
+    console.log("Firebase app deleted, process will now exit.");
   }
 }
 
