@@ -3,11 +3,11 @@
     <head>
          <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>SIGN UP for Orwell</title>
+     <title>Orwell</title>
      <style>
             body { font-family: Arial; padding: 20px; }
     form { max-width: 400px; }
-    input, button { display: block; margin-bottom: 10px; width: 100%; padding: 8px; }
+    input, button { display: block; margin-bottom: 10px; width: 50%; padding: 8px; }
 
      </style>
     </head>
@@ -16,17 +16,20 @@
 
         <!-- make this sign up form more interesting later on!-->
   <form id="signup-form">
-    <input type="text" id="username" placeholder="username" required>
-    <input type="text" id="location" placeholder="location" required>
-    <input type="number" id="age" placeholder="age" required>
+    <input type="text" id="username" placeholder="username">
+    <input type="text" id ="password" placeholder="password...choose carefully!">
+    <input type="text" id="location" placeholder="location" >
+    <input type="number" id="age" placeholder="age" >
      <input type="text" id="occupation" placeholder="occupation">
-    <input type="number" id="income" placeholder="income" required>
+    <input type="number" id="income" placeholder="income" >
     <input type="text" id="gender" placeholder="gender">
     <input type="text" id="ethnicity"  placeholder="ethnicity">
     <button type="submit">Sign Up</button>
+    
+    <a href="logIn.html">OR Log In</a>
   </form>
 
-   <p id="message">...</p>   
+   <p id="message"></p>   
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -55,6 +58,7 @@
 
 
       const name = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
       const age = document.getElementById('age').value.trim();
       const occupation = document.getElementById('occupation').value.trim();
       const income = document.getElementById('income').value.trim();
@@ -64,6 +68,7 @@
       try {
         await push(ref(db, 'users'), {
           name,
+          password,
           age,
           occupation,
           income,

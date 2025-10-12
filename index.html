@@ -3,11 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Congress Bills</title>
-  <style>    body {
+  <title>Orwell</title> 
+  <style>    
+
+  body {
+      margin: 0;
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Enable flexbox */
+    flex-direction: row; /* Default: horizontal layout */
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    text-align: center;
+    color: #db552c;
+  }
+
+   .sidebar {
+         width: 250px;
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      /* Make sidebar fixed height and full height */
+      height: 100vh;
+    }
+        
+
+     .main-content {
+     flex-grow: 1; /* Take remaining space */
+      padding: 20px;
+      background-color: #f4f4f4;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+  a {
+    color: #7a4a11;
+    font-family: sans-serif;
+  }
+  body {
       font-family: Arial, sans-serif;
       padding: 20px;    
-    }
+    }   
     .bill {
       border: 1px solid #107ce8;
       padding: 10px    #f9a3d6;
@@ -17,9 +54,21 @@
 </head>
 
 <body>
-  <h1>Congress Bills </h1>
-  <a href="signIN.html">SIGN IN</a>
+
+
+      <nav class="sidebar">
+    <h2>Navigation</h2>
+    <a href="index.html">Home</a><br>
+    <a href="signIN.html">back to sign in</a><br>
+    <a href="logIn.html">back to log in</a><br>
+    <a href="profile.html">view profile</a>
+    <!-- add more links as needed -->
+  </nav>
+
+  <div class="main-content">
+      <h1>Orwell</h1>
   <div id = "bills">Loading...</div>
+
   <script type ="module">
 
 
@@ -75,5 +124,7 @@
 });
 
   </script>
+
+  </div>
 </body>
 </html> 

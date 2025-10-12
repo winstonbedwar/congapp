@@ -1,0 +1,105 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orwell</title>
+    <style>
+
+        body { font-family: Arial; padding: 20px; }
+        form { max-width: 400px; }
+        input, button { 
+            display: block; margin-bottom: 10px; width: 50%; padding: 8px; 
+        }
+        form {
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    </head>
+    <body>  
+        <h1>log into orwell</h1>
+        <form id="signup-form">
+            <input type="text" id="username" placeholder="username">
+            <input type="text" id ="password" placeholder="password...choose carefully!">
+
+            <button type="submit">Log in</button>
+        </form>
+        <p id="message"></p>
+        <a href="signIN.html">back to sign up</a>
+
+        <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+         import {getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+         import { get, child } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+
+            const firebaseConfig = {
+        apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+        authDomain: "orwell-ea558.firebaseapp.com",
+        databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+        projectId: "orwell-ea558",
+        storageBucket: "orwell-ea558.firebasestorage.app",
+        messagingSenderId: "301391502605",
+        appId: "1:301391502605:web:67c58902e72044cd03a444"
+        };
+
+         const app = initializeApp(firebaseConfig);
+         const db = getDatabase(app);   
+        const form = document.getElementById('signup-form');
+        const message = document.getElementById('message');
+
+        form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        
+        let loggedIn = false;
+            try {
+            const snapshot = await get(child(ref(db), 'users'));
+
+            if (snapshot.exists()) {
+            const users = snapshot.val();
+            loggedIn = false;
+
+            for (const key in users) {
+                if (
+                users[key].name === username &&
+                users[key].password === password
+                ) {
+                loggedIn = true;
+                break;
+                }   
+            }
+
+            if (loggedIn) {
+                message.textContent = "Login successful!";
+                message.style.color = "green";
+                  setTimeout(() => {
+             window.location.href = 'index.html'}, 1000);
+
+                // Redirect or continue
+            } else {
+                message.textContent = "Invalid username or password.";
+                message.style.color = "red";
+            }
+
+            } else {
+            message.textContent = "No users found in database.";
+            message.style.color = "red";
+            }
+
+        } catch (error) {
+            console.error(error);
+            message.textContent = "Error connecting to database.";
+            message.style.color = "orange";
+        }
+        });
+
+        </script>   
+
+
+
+    </body>
