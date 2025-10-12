@@ -4,9 +4,85 @@
          <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
      <title>SIGN UP for Orwell</title>
+     <style>
+            body { font-family: Arial; padding: 20px; }
+    form { max-width: 400px; }
+    input, button { display: block; margin-bottom: 10px; width: 100%; padding: 8px; }
+
+     </style>
     </head>
-    <body>
-        <h1>SIGN IN PAGE</h1>
+    <body>  
+        <h1>Sign Up</h1>
+
+        <!-- make this sign up form more interesting later on!-->
+  <form id="signup-form">
+    <input type="text" id="username" placeholder="username" required>
+    <input type="text" id="location" placeholder="location" required>
+    <input type="number" id="age" placeholder="age" required>
+     <input type="text" id="occupation" placeholder="occupation">
+    <input type="number" id="income" placeholder="income" required>
+    <input type="text" id="gender" placeholder="gender">
+    <input type="text" id="ethnicity"  placeholder="ethnicity">
+    <button type="submit">Sign Up</button>
+  </form>
+
+   <p id="message">...</p>   
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import {getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+
+     const firebaseConfig = {
+      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+      authDomain: "orwell-ea558.firebaseapp.com",
+      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+      projectId: "orwell-ea558",
+      storageBucket: "orwell-ea558.firebasestorage.app",
+      messagingSenderId: "301391502605",
+      appId: "1:301391502605:web:67c58902e72044cd03a444"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    
+    const form = document.getElementById('signup-form');
+    const message = document.getElementById('message');
+
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+
+      const name = document.getElementById('username').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const occupation = document.getElementById('occupation').value.trim();
+      const income = document.getElementById('income').value.trim();
+      const gender = document.getElementById('gender').value.trim();
+      const ethnicity = document.getElementById('ethnicity').value.trim(); 
+
+      try {
+        await push(ref(db, 'users'), {
+          name,
+          age,
+          occupation,
+          income,
+          gender,
+          ethnicity
+        });
+
+         message.innerHTML = `<p style="color: green;">User registered successfully!</p>`;
+        form.reset();
+      } catch (err) {
+        console.error('Error writing to database:', err);
+        message.innerHTML = `<p style="color: red;">Failed to register user.</p>`;
+      }
+    });
+
+
+
+  </script>
+
 
     </body>
 </html>
