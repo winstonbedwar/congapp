@@ -12,7 +12,7 @@ async function pushJsontoFirebase() {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
-      }
+      } 
     });
 
     if (!response.ok) {
@@ -51,11 +51,13 @@ async function pushJsontoFirebase() {
         // Store just the bill info
         await set(billRef, {
           number: bill.number,
+          title: bill.title,
           type: bill.type,
-          updateDate: bill.updateDate,
+          actionDate: bill.latestAction.actionDate,
           url: bill.url          // Add more fields here as needed
         });
 
+        
         console.log(`Stored bill ${newBillTitle} successfully.`);
       }
 

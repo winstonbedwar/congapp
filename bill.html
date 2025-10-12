@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bill Details</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .bill-details { border: 1px solid #ccc; padding: 20px; }
+  </style>
+</head>
+<body>
+  <div id="bill-details">Loading...</div>
+  <p id ="summary">Summary HERE
+    ** 
+    **
+  </p>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+      authDomain: "orwell-ea558.firebaseapp.com",
+      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+      projectId: "orwell-ea558",
+      storageBucket: "orwell-ea558.firebasestorage.app",
+      messagingSenderId: "301391502605",
+      appId: "1:301391502605:web:67c58902e72044cd03a444"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Helper: Get query param from URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const billId = getQueryParam("id");
+    const billRef = ref(db, `congress/bills/${billId}`);
+    const container = document.getElementById('bill-details');
+
+    if (!billId) {  
+      container.innerHTML = "<p>No bill ID provided.</p>";
+    } else {
+      get(billRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const bill = snapshot.val();
+          container.innerHTML = `
+            <div class="bill-details"> 
+                <h1><strong>${bill.title}</strong></h1>
+              <p><strong>Number:</strong> ${bill.number}</p>
+              <p><strong>Type:</strong> ${bill.type}</p>
+              <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
+              <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
+              <a href="${bill.url}" target="_blank">View on Congress.gov</a>
+            </div>
+          `;
+        } else {
+          container.innerHTML = "<p>Bill not found.</p>";
+        }
+      }).catch((error) => {
+        console.error("Error fetching bill:", error);
+        container.innerHTML = "<p>Error loading bill details.</p>";
+      });
+    }
+  </script>
+</body>
+</html>
