@@ -31,7 +31,7 @@
         <script type="module">
           import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
          import {getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-         import { get, child } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+         import { get, child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
 
             const firebaseConfig = {
@@ -70,8 +70,10 @@
                 users[key].password === password
                 ) {
                 loggedIn = true;
+                await update(ref(db, `users/${key}`), { active: true });
+
                 break;
-                }   
+                }   else { await update(ref(db, `users/${key}`), { active: false });}
             }
 
             if (loggedIn) {

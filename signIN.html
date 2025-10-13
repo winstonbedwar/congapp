@@ -64,6 +64,7 @@
       const income = document.getElementById('income').value.trim();
       const gender = document.getElementById('gender').value.trim();
       const ethnicity = document.getElementById('ethnicity').value.trim(); 
+      const active = true; 
 
       try {
         await push(ref(db, 'users'), {
@@ -73,11 +74,17 @@
           occupation,
           income,
           gender,
-          ethnicity
+          ethnicity,
+          active 
         });
 
          message.innerHTML = `<p style="color: green;">User registered successfully!</p>`;
         form.reset();
+      
+        setTimeout(() => {
+          window.location.href = 'index.html'}, 1000);
+    
+
       } catch (err) {
         console.error('Error writing to database:', err);
         message.innerHTML = `<p style="color: red;">Failed to register user.</p>`;

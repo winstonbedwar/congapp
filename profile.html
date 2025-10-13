@@ -1,27 +1,137 @@
-<!DOCTYPE html><html>
-<head>
+    <!DOCTYPE html><html>
+    <head>
 
-    <meta charset="UTF-8">
-    <title>Orwell</title>
+        <meta charset="UTF-8">
+        <title>Orwell</title>
 
-    <style>
-         h1 {
-    text-align: center;
-    color: #db552c;
-  }
+        <style>
 
 
-    </style>
-</head>
-<body>
-    <h1>Profile</h1>
+            h1 {
+            justify-content: center;
+            align-items: center;
+            color: #db552c;
+            font-family: sans-serif;
+    }
 
-    <script type="module">
+        #streak {
+            border: 3px solid #ff9808; padding: 20px; width: 33%;
+            height: 100px;
+        }
+
+        #quiztracker {
+            border: 3px solid #ff9808; padding: 20px; width: 33%; height: 100px; 
+        }
 
 
-    </script>
+
+        </style>
+    </head>
+    <body>
+        <h1>Profile</h1>
+        <a href="index.html">back to Home</a>
+        <h2 id="welcome"></h2>
+
+        <div id="streak">
+            <h2> STREAK 🔥</h2>
+            <h2> ### </h2>
+        </div>
+
+        <div id="quiztracker">
+            <h2> quiz tracker !!!!</h2>
+            <h2> ### </h2>
+        </div>
+
+        <button id="logout">logout</button>
+        <p id="message"></p>
+
+        <script type="module">
+            import { initializeApp} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+            import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+            import {child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+            let currentUser = "";
+            
+        const firebaseConfig = {
+        apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+        authDomain: "orwell-ea558.firebaseapp.com",
+        databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+        projectId: "orwell-ea558",
+        storageBucket: "orwell-ea558.firebasestorage.app",
+        messagingSenderId: "301391502605",
+        appId: "1:301391502605:web:67c58902e72044cd03a444"
+        };
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
+
+            const logout = document.getElementById('logout');
+            const message = document.getElementById('message');
+            const welcome = document.getElementById('welcome');
+
+    async function loadActiveUser() {
+    try {
+        const snapshot = await get(child(ref(db), 'users'));
+
+        if (snapshot.exists()) {
+        const users = snapshot.val();
+
+        for(const key in users){
+            if (users[key].active === true){
+                currentUser = users[key].name; 
+                break;  // once found, no need to continue
+            } 
+        }
+        }
+
+        welcome.textContent = currentUser ? `Welcome, ${currentUser}!` : "Welcome!";
+
+    } catch (error) {
+        console.error(error);
+        welcome.textContent = "Welcome!";
+    }
+    }
+
+    loadActiveUser();
 
 
-</body>
 
-</html>
+            logout.addEventListener('click', async(e)=>{
+                e.preventDefault();
+
+                try {
+                const snapshot = await get(child(ref(db), 'users'));
+
+                if (snapshot.exists()) {
+                const users = snapshot.val();
+
+                for (const key in users) {
+                    if (
+                    users[key].active === true
+                    ) {
+                    await update(ref(db, `users/${key}`), { active: false });
+
+
+                    message.textContent = "Logout successful!";
+                    message.style.color = "green";
+                    setTimeout(() => {
+                window.location.href = 'signIn.html'}, 1000);
+                    break;
+                    }  
+                }
+            }} catch (error) {
+                console.error(error);
+                message.textContent = "Error connecting to database.";
+                message.style.color = "orange";
+            }
+
+        })
+
+
+
+        //later add Welcome _______ account name. ???? how to search for specific account name with logged in id??
+
+        </script>
+
+
+    </body>
+
+    </html>
