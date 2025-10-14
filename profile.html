@@ -3,47 +3,84 @@
 
         <meta charset="UTF-8">
         <title>Orwell</title>
+        <link rel="stylesheet" href="style.css">
+
 
         <style>
-
-
+           
             h1 {
             justify-content: center;
             align-items: center;
             color: #db552c;
-            font-family: sans-serif;
-    }
+            font-family: sans-serif;}
+            
+ 
 
-        #streak {
-            border: 3px solid #ff9808; padding: 20px; width: 33%;
-            height: 100px;
+
+
+        #streak, #quiztracker, #currentLevel {
+             border: 3px solid #ff9808;
+    
+    width: 100%; /* Let flexbox manage spacing */
+    height: 100px;
+    width: 300px;
+    box-sizing: border-box;
+    background-color: white;
+    text-align: center;
+    flex: 1; /* Distribute space evenly */
         }
 
-        #quiztracker {
-            border: 3px solid #ff9808; padding: 20px; width: 33%; height: 100px; 
-        }
 
-
+        .stats-container {
+    display: flex;
+    justify-content: space-between; /* even spacing between boxes */
+    gap: 100px; /* optional: adds consistent space between boxes */
+    margin-top: 20px;
+}
 
         </style>
     </head>
     <body>
-        <h1>Profile</h1>
-        <a href="index.html">back to Home</a>
+     
+          <nav>
+    <h1 id ="nameApp">Orwell</h1>
+    <a href="index.html">Home</a><br><br>
+    <a href="signIN.html">back to sign in</a><br><br>
+    <a href="logIn.html">back to log in</a><br><br>
+    <a href="profile.html">view profile</a><br>
+    <!-- add more links as needed -->
+  </nav>
+
+    <div class="main-content">
+
+     <h1>Profile</h1>
         <h2 id="welcome"></h2>
+             <button id="logout">logout</button>
+        <p id="message"></p>
+
+        <div class="stats-container">
 
         <div id="streak">
-            <h2> STREAK 🔥</h2>
+            <h3><strong>STREAK 🔥</strong></h3> 
             <h2> ### </h2>
         </div>
+
 
         <div id="quiztracker">
-            <h2> quiz tracker !!!!</h2>
+            <h3><strong>quiz tracker !!!!</strong></h3>
             <h2> ### </h2>
         </div>
 
-        <button id="logout">logout</button>
-        <p id="message"></p>
+        <div id="currentLevel">
+            <h3><strong> Current Level!</strong></h2>
+            <h2> Policy Enthusiast </h2>
+        </div>
+
+        </div>
+
+   
+
+        </div>
 
         <script type="module">
             import { initializeApp} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -126,10 +163,10 @@
         })
 
 
-
         //later add Welcome _______ account name. ???? how to search for specific account name with logged in id??
 
         </script>
+
 
 
     </body>

@@ -1,0 +1,76 @@
+ body {
+    display: flex; /* Enable flexbox */
+    flex-direction: row; /* Default: horizontal layout */
+    font-family: Arial, sans-serif;
+  }
+
+
+             
+    nav{
+        width: 300px;
+      background-color: #ffffff;
+      color: white;
+      box-sizing: border-box;
+     
+      height: 100vh;
+
+      /* Make sidebar fixed height and full height */
+     
+    }
+
+
+    
+     .main-content {
+     flex-grow: 1; /* Take remaining space */
+      background-color: #f4f4f4;
+      box-sizing: border-box;
+      overflow-y: auto;
+      height: 100vh;    
+    }
+
+  #nameApp {
+    text-align: left;   
+    font-size: 50   px;
+    color: #db552c;
+  }
+
+  .sign-ins {
+    justify-content: center;
+    align-items: center;
+    padding-top: 200px; 
+   
+
+  }
+
+
+  h1 {
+    color: #db552c;
+  }
+
+   a {
+    color: #7a4a11;
+    font-family: sans-serif;
+  } 
+
+    form { max-width: 400px;   
+                display: flex; 
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+     button { 
+            display: block; 
+            margin-bottom: 10px; 
+            width: 50%; 
+            padding: 8px; 
+            background-color: #ff8c01;
+        }
+
+
+        input {
+            display: block; 
+            margin-bottom: 10px; 
+            width: 100%; 
+            padding: 15px; 
+        }

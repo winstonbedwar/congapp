@@ -4,28 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Orwell</title> 
+
+ <link rel="stylesheet" href="style.css">
+
   <style>    
 
   body {
-      margin: 0;
-    height: 100vh; /* Full viewport height */
+    
     display: flex; /* Enable flexbox */
     flex-direction: row; /* Default: horizontal layout */
     font-family: Arial, sans-serif;
   }
-  h1 {
-    text-align: center;
+
+  #nameApp {
+    text-align: left;   
+    font-size: 50   px;
     color: #db552c;
   }
 
    .sidebar {
-         width: 250px;
-      background-color: #333;
+         width: 300px;
+         padding: 30px;
+      background-color: #ffffff;
       color: white;
-      padding: 20px;
       box-sizing: border-box;
+
       /* Make sidebar fixed height and full height */
-      height: 100vh;
+     
     }
         
 
@@ -40,13 +45,13 @@
   a {
     color: #7a4a11;
     font-family: sans-serif;
-  }
+  } 
   body {
       font-family: Arial, sans-serif;
       padding: 20px;    
     }   
     .bill {
-      border: 1px solid #107ce8;
+      border: 1px solid #a97d06;
       padding: 10px    #f9a3d6;
       margin-bottom: 15px;
     }
@@ -57,16 +62,16 @@
 
 
       <nav class="sidebar">
-    <h2>Navigation</h2>
-    <a href="index.html">Home</a><br>
-    <a href="signIN.html">back to sign in</a><br>
-    <a href="logIn.html">back to log in</a><br>
-    <a href="profile.html">view profile</a>
+    <h1 id ="nameApp">Orwell</h1>
+    <a href="index.html">Home</a><br><br>
+    <a href="signIN.html">back to sign in</a><br><br>
+    <a href="logIn.html">back to log in</a><br><br>
+    <a href="profile.html">view profile</a><br>
     <!-- add more links as needed -->
   </nav>
 
   <div class="main-content">
-      <h1>Orwell</h1>
+      <h2>Latest Bills:</h2>
   <div id = "bills">Loading...</div>
 
   <script type ="module">
