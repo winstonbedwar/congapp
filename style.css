@@ -2,17 +2,23 @@
     display: flex; /* Enable flexbox */
     flex-direction: row; /* Default: horizontal layout */
     font-family: Arial, sans-serif;
+    scrollbar-width: none;
+    overflow: hidden;
   }
 
 
              
     nav{
-        width: 300px;
+        width: 250px;
       background-color: #ffffff;
       color: white;
       box-sizing: border-box;
-     
+        margin-left: 20px;
       height: 100vh;
+        position: relative;   /* Required for z-index to apply */
+        z-index: 1;         
+        
+
 
       /* Make sidebar fixed height and full height */
      
@@ -22,7 +28,7 @@
     
      .main-content {
      flex-grow: 1; /* Take remaining space */
-      background-color: #f4f4f4;
+      background-color: #ffffff;
       box-sizing: border-box;
       overflow-y: auto;
       height: 100vh;    
@@ -50,7 +56,16 @@
    a {
     color: #7a4a11;
     font-family: sans-serif;
+    text-decoration: none;
   } 
+
+  a:hover {
+     transform: translateY(-2px);         /* Slight lift */
+     font-size: 15px;
+     color: #f2c15e;
+}
+
+  
 
     form { max-width: 400px;   
                 display: flex; 
@@ -59,13 +74,29 @@
                 justify-content: center;
             }
 
-     button { 
-            display: block; 
-            margin-bottom: 10px; 
-            width: 50%; 
-            padding: 8px; 
-            background-color: #ff8c01;
-        }
+    h2 {
+        color:  #72b7dd;
+    }
+
+
+   button{  background-color: #a4d2e6;           /* Vibrant orange */
+  color: white;                        /* White text */
+  padding: 12px 24px;                  /* Comfortable padding */
+  font-size: 16px;
+  font-family: 'Segoe UI', sans-serif; /* Clean, modern font */
+  border: none;                        /* No border */
+  border-radius: 8px;                  /* Rounded corners */
+  cursor: pointer;                     /* Pointer cursor on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease;           /* Smooth transition */
+}
+
+button:hover {
+  background-color: #6c9aef;           /* Darker orange on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);         /* Slight lift */
+}
+
 
 
         input {
@@ -74,3 +105,34 @@
             width: 100%; 
             padding: 15px; 
         }
+
+
+        #streak, #quiztracker, #currentLevel  {         /* Orange border */
+  border: 2px solid #ff9808;
+  background-color: #fff;
+  width: 350px;                          /* Increased width */
+  height: 160px;                         /* Increased height */
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+
+  display: flex;
+  flex-direction: column;               /* Stack vertically */
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 10px;
+}
+
+                    
+
+        .stats-container {
+    display: flex;
+    justify-content: space-between; /* even spacing between boxes */
+    gap: 100px; /* optional: adds consistent space between boxes */
+    margin-top: 20px;
+}

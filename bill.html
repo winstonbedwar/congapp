@@ -6,16 +6,73 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
+
+     body {
+      display: flex;
+      flex-direction: column;
+        overflow-y: auto;  /* allow vertical scroll */
+  min-height: 100vh; /* let body grow */
+
+    
+    }
+
+    .row2 {
+      display: flex;
+      flex-direction: row;
+    }
+
     .bill-details { border: 1px solid #c27f14; padding: 20px; }
+   
+
+    .summary, .sentiment-analysis, .personal-impact, .gen-quiz {
+      padding: 15px;
+      margin-top: 20px;
+      border-left: 4px solid #c27f14;
+      margin-left: 30px;
+      background: #f7f3e9;
+      height: 200px;    
+      color: #91bdd7;
+      width: 100%;
+      max-width: 700px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 15px;  
+
+}
+
+  .sentiment-analysis {
+    width: 40%;
+    height: 450px;
+  }
+
+  .personal-impact {
+    margin-top: -190px;
+  }
+
+  .gen-quiz {
+    width: 500%;
+    background-color: rgb(173, 226, 249);
+    color:#f7f3e9;
+  }
   </style>
 </head>
 <body>
   <div id="bill-details">Loading...</div>
-  <p id ="summary">Summary HERE
-    ** 
-    **
-  </p>
+  <div class="row2">
+  <div class ="summary">
+  <h2>ML generated summary that Tanush is supposed to generate goes here</h2></div>
+
+  <div class ="sentiment-analysis">
+  <h2>sentiment analysis that Tanush is supposed to generate goes here</h2></div>
+
+  </div>
+
+  <div class ="personal-impact">
+  <h2>predictions about how bill impacts them live here</h2></div>
+
+
+  
+  <div class ="gen-quiz">
+  <h2>generated Quiz lives here</h2></div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";

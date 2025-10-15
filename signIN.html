@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+<!-- WAIT. Can it trumpet a cute little star spangled banner when you log in!????-->
     <head>
          <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,10 +10,26 @@
 <!-- adding a slideshow-like sign up process might be best???-->
      <style>
             body { font-family: Arial;
-              margin-top: 20px; 
+             
             justify-content: center;
                 align-items: center;
-              height: 100vh; }
+              height: 100vh; 
+            }
+
+              form { max-width: 1000px;   
+                display: flex; 
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sign-ins {
+        justify-content: center;
+         align-items: center;
+         padding-top: 0px;
+       
+  }
+
 
      </style>
     </head>
@@ -37,6 +55,10 @@
 
    <p id="message"></p>   
    </div>
+
+
+  <audio id="signup-audio" src="trumpet-fanfare.mp3" preload="auto"></audio>
+
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -87,9 +109,9 @@
 
          message.innerHTML = `<p style="color: green;">User registered successfully!</p>`;
         form.reset();
-      
+        document.getElementById("signup-audio").play();
         setTimeout(() => {
-          window.location.href = 'index.html'}, 1000);
+          window.location.href = 'index.html'}, 3100);
     
 
       } catch (err) {
