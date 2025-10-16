@@ -4,9 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Orwell</title> 
+  <link rel ="stylesheet" href ="style.css">    
+
 
   <style>
 
+    /* Hide scrollbar */
+.main-content::-webkit-scrollbar {
+  display: none;
+}
+.main-content {
+  
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+    transition: background-color 0.3s linear;
+
+}
+
+/* Each quote fills full viewport */
+.quote-section {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.5s ease;
+}
+
+.quote-box {
+  width: 70%;
+    border-radius: 12px;
+
+    transition: background-color 0.3s linear;
+
+  padding: 40px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.quote-box.show {
+  transform: translateY(0);
+  opacity: 1;
+}
 
   </style>
 
@@ -21,13 +67,95 @@
     <a href="about.html">about</a>
     <!-- add more links as needed -->
   </nav>
-    <h1> About Orwell</h1>
+  <div class = "main-content">
 
 
+        <div class = "quote-section" style>
+                <div class="quote-box" >
 
+    <h2> "engaging young civic minds, one click at a time" </h2><br><br>
+            <p>orwell creators '25</p>
+
+                </div></div>
+
+         <div class = "quote-section" >
+                            <div class="quote-box" >
+
+    <h2> "all animals are equal, but some are more equal than others" </h2>
+            <p> The creators of Orwell blah blah here here ....Orwell was inspired--and thus named after-- a specific scene from Orwell's book Animal Farm in which
+                none of the animals could read the rules anymore... </p>
+                </div></div>
+
+            
+            <div class = "quote-section" >
+                                <div class="quote-box" >
+
+    <h2> "47% of eligible youth cast a vote in 2024" </h2>
+            <p> We think that as citizens of a democratic nation, it is our duty to be civically informed + active </p>
+                </div></div>
+
+                <div class = "quote-section" >               
+                     <div class="quote-box" >
+
+    <h2> "surveys find that 70% of Americans fail basic civic literacy" </h2>
+            <p> Civics can be fun, accessible, and efficient! We want to increase the outreach of law to the people-- to "wordle-ify" their civic experience in a way! </p>
+                </div></div>
+
+            </div>
+     </div>
 
 
     <script>
+         document.addEventListener("DOMContentLoaded", () => {
+    const boxes = document.querySelectorAll(".quote-box");
+    const main = document.querySelector(".main-content");
+
+    // Background color steps (one per section)
+    const colors = [
+      [193, 241, 246],   // #c1f1f6
+      [99, 46, 42],      // #632e2a
+      [207, 80, 71],     // #cf5047
+      [230, 246, 126]    // #e6f67e
+    ];
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.6 });
+
+    boxes.forEach(box => observer.observe(box));
+
+    // Interpolate between two colors
+    function interpolateColor(color1, color2, factor) {
+      return color1.map((c, i) => Math.round(c + (color2[i] - c) * factor));
+    }
+
+    // Convert RGB array to CSS string
+    function rgbToString(rgbArray) {
+      return `rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]})`;
+    }
+
+    main.addEventListener("scroll", () => {
+      const sectionHeight = window.innerHeight;
+      const scrollTop = main.scrollTop;
+      const totalSections = colors.length;
+      const totalHeight = sectionHeight * (totalSections - 1);
+
+      const progress = Math.min(scrollTop / totalHeight, 1);
+      const index = Math.floor(progress * (totalSections - 1));
+      const blend = (progress * (totalSections - 1)) % 1;
+
+      const currentColor = colors[index];
+      const nextColor = colors[index + 1] || colors[index];
+      const blendedColor = interpolateColor(currentColor, nextColor, blend);
+
+      main.style.backgroundColor = rgbToString(blendedColor);
+    });
+  });
+
 
 
 

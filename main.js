@@ -1,3 +1,14 @@
+/**List of to do:
+ * better loading idea
+ * finish profile page? set up
+ * scroll set up for signing up (or whole page set up??????) 
+ * better index.html top set up 
+ * rethink bill side set up 
+ */
+
+
+
+
 import {database, app} from './firebase_config.js';
 import { getDatabase, ref, set } from "firebase/database";
 import {deleteApp} from "firebase/app";
