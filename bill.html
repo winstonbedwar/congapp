@@ -41,6 +41,8 @@
 
   .sentiment-analysis {
     width: 40%;
+
+
     height: 450px;
   }
 
@@ -53,26 +55,87 @@
     background-color: rgb(173, 226, 249);
     color:#f7f3e9;
   }
+
+
+  .sentiment-bar {
+  margin-top: 20px;
+}
+
+.sentiment-bar label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.bar {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 20px;
+}
+
+ .fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.5s ease-in-out;
+}
+
+
+#cnn-bar {
+  background-color: #91bdd7; /* soft blue */
+}
+
+#fox-bar {
+  background-color: #e57c7c; /* soft red */
+}
+
+#fox-value {
+  color: #e57c7c;
+}
   </style>
 </head>
 <body>
+  <body>
   <div id="bill-details">Loading...</div>
+
   <div class="row2">
-  <div class ="summary">
-  <h2>ML generated summary that Tanush is supposed to generate goes here</h2></div>
+    <div class="summary">
+      <h2>ML generated summary that Tanush is supposed to generate goes here</h2>
+    </div>
 
-  <div class ="sentiment-analysis">
-  <h2>sentiment analysis that Tanush is supposed to generate goes here</h2></div>
+    <div class="sentiment-analysis">
+  <h2>Sentiment Analysis</h2>
 
+  <div class="sentiment-bar">
+    <label for="cnn-bar">CNN Sentiment</label>
+    <div class="bar">
+      <div id="cnn-bar" class="fill" style="width: 0%"></div>
+    </div>
+    <span id="cnn-value">Loading...</span>
   </div>
 
-  <div class ="personal-impact">
-  <h2>predictions about how bill impacts them live here</h2></div>
+  <div class="sentiment-bar">
+    <label for="fox-bar">Fox Sentiment</label>
+    <div class="bar">
+      <div id="fox-bar" class="fill" style="width: 0%"></div>
+    </div>
+    <span id="fox-value">Loading...</span>
+  </div>
+</div>
+  </div>
 
+  <div class="personal-impact">
+    <h2>predictions about how bill impacts them live here</h2>
+  </div>
 
-  
-  <div class ="gen-quiz">
-  <h2>generated Quiz lives here</h2></div>
+  <div class="gen-quiz">
+    <h2>generated Quiz lives here</h2>
+  </div>
+
+  <!-- Your script follows below -->
+
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -101,30 +164,76 @@
     const billRef = ref(db, `congress/bills/${billId}`);
     const container = document.getElementById('bill-details');
 
-    if (!billId) {  
-      container.innerHTML = "<p>No bill ID provided.</p>";
-    } else {
-      get(billRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          const bill = snapshot.val();
-          container.innerHTML = `
-            <div class="bill-details"> 
-                <h1><strong>${bill.title}</strong></h1>
-              <p><strong>Number:</strong> ${bill.number}</p>
-              <p><strong>Type:</strong> ${bill.type}</p>
-              <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
-              <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
-              <a href="${bill.url}" target="_blank">View on Congress.gov</a>
-            </div>
-          `;
-        } else {
+
+async function loadBillAndSentiment() {
+      if (!billId) {
+        container.innerHTML = "<p>No bill ID provided.</p>";
+        return;
+      }
+
+      const billRef = ref(db, `congress/bills/${billId}`);
+
+      try {
+        const billSnap = await get(billRef);
+        if (!billSnap.exists()) {
           container.innerHTML = "<p>Bill not found.</p>";
+          return;
         }
-      }).catch((error) => {
-        console.error("Error fetching bill:", error);
-        container.innerHTML = "<p>Error loading bill details.</p>";
-      });
+
+        const bill = billSnap.val();
+
+        container.innerHTML = `
+          <div class="bill-details">
+            <h1><strong>${bill.title}</strong></h1>
+            <p><strong>Number:</strong> ${bill.number}</p>
+            <p><strong>Type:</strong> ${bill.type}</p>
+            <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
+            <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
+            <a href="${bill.url}" target="_blank">View on Congress.gov</a>
+          </div>
+        `;
+
+        // Now fetch sentiment
+        const sentimentSnap = await get(ref(db, 'sentiment'));
+        if (sentimentSnap.exists()) {
+          const sentiments = sentimentSnap.val();
+
+          for (const key in sentiments) {
+            const entry = sentiments[key];
+
+           if (entry.billText === bill.title) {
+  const cnnScore = entry.attitudeCNN ?? 0;
+  const foxScore = entry.attitudeFox ?? 0;
+
+  // Normalize scores (Sentiment comparative usually ranges -1 to +1)
+  const normalizedCNN = Math.round((cnnScore + 1) * 50); // => 0 to 100
+  const normalizedFox = Math.round((foxScore + 1) * 50); // => 0 to 100
+
+  document.getElementById('cnn-bar').style.width = `${normalizedCNN}%`;
+  document.getElementById('fox-bar').style.width = `${normalizedFox}%`;
+
+  document.getElementById('cnn-value').textContent = `${cnnScore.toFixed(3)} (CNN)`;
+  document.getElementById('fox-value').textContent = `${foxScore.toFixed(3)} (Fox)`;
+  return;
+}
+          }
+
+          // If not found
+          document.getElementById('CNN').textContent = "No sentiment data found.";
+          document.getElementById('Fox').textContent = "No sentiment data found.";
+        } else {
+          document.getElementById('CNN').textContent = "No sentiment data available.";
+          document.getElementById('Fox').textContent = "No sentiment data available.";
+        }
+
+      } catch (err) {
+        console.error("Error:", err);
+        document.getElementById('CNN').textContent = "Error loading sentiment.";
+        document.getElementById('Fox').textContent = "Error loading sentiment.";
+      }
     }
+
+    loadBillAndSentiment();
   </script>
 </body>
 </html>

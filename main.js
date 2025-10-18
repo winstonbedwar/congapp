@@ -1,4 +1,5 @@
 /**List of to do:
+ * sentiment analysis 
  * better loading idea
  * finish profile page? set up
  * scroll set up for signing up (or whole page set up??????) 
