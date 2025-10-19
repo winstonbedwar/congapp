@@ -5,7 +5,7 @@
     import { initializeApp } from 'firebase/app';
     import { getDatabase, ref, push } from 'firebase/database';
 
-
+////figure out better / more accurate way to do sentiment analysis?? ++ keywords that show up often???
     
 
       const firebaseConfig = {
