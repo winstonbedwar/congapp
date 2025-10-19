@@ -10,9 +10,9 @@
 
 
 
-import {database, app} from './firebase_config.js';
+import { database, app } from './firebase_config.js';
 import { getDatabase, ref, set } from "firebase/database";
-import {deleteApp} from "firebase/app";
+import { deleteApp } from "firebase/app";
 import { initializeApp } from "firebase/app";
 import fetch from 'node-fetch';
 
@@ -24,7 +24,7 @@ async function pushJsontoFirebase() {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
-      } 
+      }
     });
 
     if (!response.ok) {
@@ -38,20 +38,20 @@ async function pushJsontoFirebase() {
       console.log('JSON response:', data);
 
 
-        const bills = data.bills;
+      const bills = data.bills;
 
-     // Iterate through each bill and store it separately
+      // Iterate through each bill and store it separately
       for (const bill of bills) {
         const billTitle = bill.title || 'unknown';
         //dumb fixture for path name problem 
         let newBillTitle = ''
-        for(let i = 0; i < billTitle.length; i++){
-            if (!(billTitle[i] == '.' || billTitle[i] == '#' || billTitle[i] == '$' || billTitle[i] == '[' || billTitle[i]==']')){
-                newBillTitle += billTitle[i];
-            }
-            else {
-                continue;
-            }
+        for (let i = 0; i < billTitle.length; i++) {
+          if (!(billTitle[i] == '.' || billTitle[i] == '#' || billTitle[i] == '$' || billTitle[i] == '[' || billTitle[i] == ']')) {
+            newBillTitle += billTitle[i];
+          }
+          else {
+            continue;
+          }
         }
 
 
@@ -69,7 +69,7 @@ async function pushJsontoFirebase() {
           url: bill.url          // Add more fields here as needed
         });
 
-        
+
         console.log(`Stored bill ${newBillTitle} successfully.`);
       }
 

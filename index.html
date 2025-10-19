@@ -1,146 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orwell</title> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orwell</title>
 
- <link rel="stylesheet" href="style.css">
-
-  <style>    
-
-    body {
-        margin: 0;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-    }
-
-    .main-content {
-        scrollbar-width: none;
-    }
-
-    
-
-    .bill a.bill-link {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  height: 100%;
-  width: 100%;
-}
-
-
-.bill:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-    .bill {
-      border: 1px solid #a97d06; 
-      padding: 10px    #f9a3d6;
-      margin-bottom: 15px;
-      width: 80%;  
-        margin-left: 20px;    
-
-    }
-
-/*-- can generate keywords that I can use to load random pictures as part of html?*/
-    .featured-bill {
-  border: 2px solid #a3dcff;
-  background-color: #c9edfe;
-  padding: 20px;
-  height: 500px;
-  margin-left: 20px;    
-  margin-top: 20px; 
-  margin-bottom: 20px;
-  font-size: 1.1em;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-  position: relative;   /* Required for z-index to apply */
-    z-index: 10;          /* Higher than nav */
-
-}
-
-    .featured-bill:hover {
-  transform: scale(1.02);
-}
-  </style></style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 
-      <nav class="sidebar">
-    <h1 id ="nameApp">Orwell</h1>
+  <nav class="sidebar">
+    <h1 id="nameApp">Orwell</h1>
     <a href="index.html">Home</a><br><br>
-    <a href="logIn.html">back to log in</a><br><br>
-    <a href="profile.html">view profile</a><br><br>
-    <a href="about.html">about</a>
+    <a href="profile.html">Profile</a><br><br>
+    <a href="about.html">About</a><br><br>
+    <a href="logIn.html">Log Out</a>
     <!-- add more links as needed -->
   </nav>
 
   <div class="main-content">
-  <div id = "bills">Loading...</div>
 
-  <script type ="module">
+    <h1>Bills of Today</h1>
 
-
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
-      authDomain: "orwell-ea558.firebaseapp.com",
-      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
-      projectId: "orwell-ea558",
-      storageBucket: "orwell-ea558.firebasestorage.app",
-      messagingSenderId: "301391502605",
-      appId: "1:301391502605:web:67c58902e72044cd03a444"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const billsRef = ref(db, 'congress/bills');
-    const container = document.getElementById('bills');
-
-    onValue(billsRef, (snapshot) => {
-  console.log("received snapshot!");
-  const data = snapshot.val();
-  container.innerHTML = '';
-
-  if (data) {
-    // Convert object to array with keys
-    const billsArray = Object.entries(data)
-      .map(([key, bill]) => bill)
-      .filter((bill) => bill.actionDate) // Only include bills with actionDate
-      .sort((a, b) => new Date(b.actionDate) - new Date(a.actionDate)) // Sort by actionDate DESC
-      .slice(0, 10); // Get top 10
-
-    // Display each bill
-    billsArray.forEach((bill, index) => {
-      const div = document.createElement('div');
-
-        div.className = index === 0 ? 'bill featured-bill' : 'bill';
-
-      div.innerHTML = `
-      <a href ="bill.html?id=${bill.type}-${bill.number}" class="bill-link">
-        <h3>${bill.title}</h3>
-        <p><strong>Number:</strong> ${bill.number}</p>
-        <p><strong>Type:</strong> ${bill.type}</p>
-        <p><strong>Updated:</strong> ${bill.actionDate}</p>
-        </a>    
-      `;
-
-      container.appendChild(div);
-    });
-  } else {
-    container.innerHTML = '<p>No bills found.</p>';
-  }
-});
-
-  </script>
+    <div id="bills">Loading...</div>
 
   </div>
 </body>
-</html> 
+
+<script src="./main.js"></script>
+<script src="./sentimentAnalysis.js"></script>
+<script type="module" src="./module.js"></script>
+
+</html>
