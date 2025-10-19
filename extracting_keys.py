@@ -3,48 +3,67 @@ from sentence_transformers import SentenceTransformer, util
 import firebase_admin
 from firebase_admin import credentials, initialize_app, db
 
-
-cred = credentials.Certificate("C:/Users/vijet/Downloads/orwell-ea558-firebase-adminsdk-fbsvc-3589223810.json")
+cred = credentials.Certificate("./orwell-ea558-firebase-adminsdk-fbsvc-3589223810.json")
 
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://orwell-ea558-default-rtdb.firebaseio.com/'
 })
-# Load Spacy and BERT
+
+
+# Load spaCy and SentenceTransformer models
 nlp = spacy.load("en_core_web_trf")
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-text = ("Power Plant Reliability Act of 2025")
+# Input text
+text = "Celebrating the 100th anniversary of the founding of the Schomburg Center for Research in Black Culture."
 text = text.replace('"', "'")
 
+# Process text with spaCy
 doc = nlp(text)
-entities_filtered = [ent for ent in doc.ents if ent.label_ != "DATE"]
-entities = set(ent.text for ent in entities_filtered)
 
-# 2. Extract filtered noun chunks
+# 1. Extract named entities (exclude DATE)
+entities_filtered = [ent for ent in doc.ents if ent.label_ != "DATE"]
+entities = set(ent.text.strip() for ent in entities_filtered)
+
+# 2. Extract noun chunks (keep spaCy Span objects)
 filtered_chunks = []
 for chunk in doc.noun_chunks:
     if chunk.root.text.lower() in nlp.Defaults.stop_words:
         continue
     if chunk[0].pos_ == "DET":
         continue
-    filtered_chunks.append(chunk.text)
+    filtered_chunks.append(chunk)
 
-# Combine unique candidates (NER + noun chunks)
-candidates = list(set(entities).union(set(filtered_chunks)))
+# 3. Extract subphrases from longer noun chunks
+subphrases = []
+for chunk in filtered_chunks:
+    words = chunk.text.split()
+    if len(words) > 2:
+        subphrases.append(" ".join(words[:2]))       # First two words
+        subphrases.append(chunk.root.text.strip())   # Head noun
 
-# 3. Embed full text and candidates
+# 4. Prepare filtered_chunks text list for candidates
+filtered_chunks_text = [chunk.text.strip() for chunk in filtered_chunks]
+
+# 5. Combine all unique candidates
+candidates = list(set(entities) | set(filtered_chunks_text) | set(subphrases))
+
+# 6. Embed original text and candidate phrases
 doc_emb = model.encode(text, convert_to_tensor=True)
 cand_embs = model.encode(candidates, convert_to_tensor=True)
 
+# 7. Compute cosine similarity scores
 cos_scores = util.cos_sim(cand_embs, doc_emb)
 if len(candidates) == 1:
     cos_scores = [cos_scores.item()]
 else:
     cos_scores = cos_scores.squeeze().cpu().tolist()
 
+# 8. Rank candidates by similarity descending
 ranked_phrases = sorted(zip(candidates, cos_scores), key=lambda x: x[1], reverse=True)
 
-# Show ranked phrases with similarity scores
+# 9. Print ranked key phrases
+print("Ranked Phrases:\n")
 for phrase, score in ranked_phrases:
     print(f"{phrase} ({score:.3f})")
 
@@ -63,3 +82,6 @@ new_entry = ref.push({
     'original_text': text,
     'keywords': ranked_data
 })
+
+
+
