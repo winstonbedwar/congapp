@@ -1,132 +1,45 @@
-        <!DOCTYPE html>
- <!-- we can do trumpets or we can also start with a scene from orwell?-->
-  <!---WAIT we can have terms for currrent level like pig, sheep, horse etc from animal farm and you can click on them 
-  to see a pop up box about what it means???//can also be from greek philosophy?//go with some caricature-->
-        <!-- radical idea but can we have a flag be unfolded and come down with the trumpet or some other animation????-->
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Orwell</title>
-        <link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html>
 
-        <style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orwell</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
+</head>
 
-            body { font-family: Arial; padding: 20px; 
-                justify-content: center;
-                align-items: center;
-            }
-
-            a {
-                text-align: center;
-                margin-left: 15px;
-                text-decoration: none;
-            }
-
-            h1 {
-                font-size: 50px;
-                padding: 15px;
-            }
-
-        
-          
-        </style>
-        </head>
-        <body>  
-
-
-          <div class ="sign-ins">
-            <h1 id ="signup-title">orwell</h1>
-            <form id="signup-form">
-                <input type="text" id="username" placeholder="username">
-                <input type="text" id ="password" placeholder="password...choose carefully!">
-
-                <button type="submit">Log in</button>
-            </form>
-            <p id="message"></p>
-            <a href="signIN.html"><strong>New to Orwell? Sign up!</strong></a>
+<body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin">
+        <form action="" id="sign-in-form" class="sign-in-form">
+          <h2 class="title">Sign in</h2>
+          <div class="input-field">
+            <i class="username"></i>
+            <input type="text" name="username" id="username" placeholder="Username">
+          </div>
+          <div class="input-field">
+            <i class="password"></i>
+            <input type="password" name="password" id="password" placeholder="Password">
+          </div>
+          <input type="submit" value="login" class="btn solid">
+          <div id="message" aria-live="polite" style="margin-top:8px"></div>
+        </form>
+      </div>
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New to Orwell?</h3>
+            <p>Orwell is a student-developed app that aims to increase legislation literacy of the American people
+              through an unbiased, bipartisan perspective. We utilize state-of-the-art machine learning and artifical
+              intelligence tools to help further our mission.</p>
+            <a href="signup.html"><button class="btn transparent" id="sign-up-btn" >Sign up</button></a>
+          </div>
         </div>
+      </div>
+    </div>
+</body>
+<script type="module" src="login.js"></script>
 
-          <audio id="signup-audio" src="trumpet-fanfare.mp3" preload="auto"></audio>
-
-  
-
-            <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-            import {getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-            import { get, child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-
-
-                const firebaseConfig = {
-            apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
-            authDomain: "orwell-ea558.firebaseapp.com",
-            databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
-            projectId: "orwell-ea558",
-            storageBucket: "orwell-ea558.firebasestorage.app",
-            messagingSenderId: "301391502605",  
-            appId: "1:301391502605:web:67c58902e72044cd03a444"
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const db = getDatabase(app);   
-            const form = document.getElementById('signup-form');
-            const message = document.getElementById('message');
-
-            form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            let loggedIn = false;
-                try {
-                const snapshot = await get(child(ref(db), 'users'));
-
-                if (snapshot.exists()) {
-                const users = snapshot.val();
-                loggedIn = false;
-
-                for (const key in users) {
-                    if (
-                    users[key].name === username &&
-                    users[key].password === password
-                    ) {
-                    loggedIn = true;
-                    await update(ref(db, `users/${key}`), { active: true });
-
-                    break;
-                    }   else { await update(ref(db, `users/${key}`), { active: false });}
-                }
-
-                if (loggedIn) {
-                    document.getElementById("signup-audio").play();
-/*design a character???*/ 
-                    message.textContent = "Login successful!";
-                    message.style.color = "green";
-                    setTimeout(() => {
-                window.location.href = 'index.html'}, 3100);
-
-                    // Redirect or continue
-                } else {
-                    message.textContent = "Invalid username or password.";
-                    message.style.color = "red";
-                }
-
-                } else {
-                message.textContent = "No users found in database.";
-                message.style.color = "red";
-                }
-
-            } catch (error) {
-                console.error(error);
-                message.textContent = "Error connecting to database.";
-                message.style.color = "orange";
-            }
-            });
-
-            </script>   
-
-
-
-        </body>
+</html>

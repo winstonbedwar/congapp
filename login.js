@@ -1,0 +1,71 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+import { get, child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+    authDomain: "orwell-ea558.firebaseapp.com",
+    databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+    projectId: "orwell-ea558",
+    storageBucket: "orwell-ea558.firebasestorage.app",
+    messagingSenderId: "301391502605",
+    appId: "1:301391502605:web:67c58902e72044cd03a444"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const form = document.getElementById('sign-in-form');
+const message = document.getElementById('message');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    let loggedIn = false;
+    try {
+        const snapshot = await get(child(ref(db), 'users'));
+
+        if (snapshot.exists()) {
+            const users = snapshot.val();
+            loggedIn = false;
+
+            for (const key in users) {
+                if (
+                    users[key].name === username &&
+                    users[key].password === password
+                ) {
+                    loggedIn = true;
+                    await update(ref(db, `users/${key}`), { active: true });
+
+                    break;
+                } else { await update(ref(db, `users/${key}`), { active: false }); }
+            }
+
+            if (loggedIn) {
+                message.textContent = "Login successful! Redirecting...";
+                message.style.color = "green";
+                setTimeout(() => {
+                    window.location.href = 'index.html'
+                }, 3100);
+
+                // Redirect or continue
+            } else {
+                message.textContent = "Invalid username or password.";
+                message.style.color = "red";
+            }
+
+        } else {
+            message.textContent = "No users found in database.";
+            message.style.color = "red";
+        }
+
+    } catch (error) {
+        console.error(error);
+        message.textContent = "Error connecting to database.";
+        message.style.color = "orange";
+    }
+});
