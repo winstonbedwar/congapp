@@ -16,15 +16,21 @@
     
     }
 
-    .row2 {
+    .row2, .row-3 {
       display: flex;
       flex-direction: row;
     }
 
+    .row-3 {
+      margin-right: 30px;
+      margin-bottom: 30px;
+    }
+
     .bill-details { border: 1px solid #c27f14; padding: 20px; }
+
    
 
-    .summary, .sentiment-analysis, .personal-impact, .gen-quiz {
+    .summary, .sentiment-analysis, .personal-impact, .gen-quiz, .poll-container {
       padding: 15px;
       margin-top: 20px;
       border-left: 4px solid #c27f14;
@@ -37,7 +43,14 @@
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 15px;  
 
-}
+    }
+
+     .poll-container {
+      width: 600px;
+      
+    }
+   
+
 
   .sentiment-analysis {
     width: 40%;
@@ -52,8 +65,11 @@
 
   .gen-quiz {
     width: 500%;
-    background-color: rgb(173, 226, 249);
     color:#f7f3e9;
+  }
+
+  .approve-btn:hover {
+    background-color: #045c97;;
   }
 
 .source-title {
@@ -97,6 +113,10 @@
   color: #de7070; /* green confidence */
 }
 
+.poll-title {
+  color: #de7070;
+}
+
 
   </style>
 </head>
@@ -138,13 +158,39 @@
     <h2>predictions about how bill impacts them live here</h2>
   </div>
 
+
+<div class ="row-3">
   <div class="gen-quiz">
     <h2>generated Quiz lives here</h2>
   </div>
 
+  <div class="poll-container" data-bill-id="bill1">
+  <h2 class="poll-title">Do you approve of this bill?</h2>
+  <div class="poll-buttons">
+    <button class="poll-btn approve-btn"> Approve</button>
+    <button class="poll-btn disapprove-btn"> Disapprove</button>
+  </div>
+  <div class="poll-bar-container">
+    <div class="poll-bar approve-bar" style="width: 0%;"></div>
+    <div class="poll-bar disapprove-bar" style="width: 0%;"></div>
+  </div>
+  <p class="poll-result">0% Approve, 0% Disapprove</p>
+</div>
+  </div>
+
+
 
 
   <script type="module">
+
+    function normalizeText(str) {
+  return str
+    .replace(/['"]/g, '')      // Remove all quotes (single and double)
+    .replace(/\s+/g, ' ')      // Collapse multiple spaces
+    .trim()                    // Trim ends
+    .toLowerCase();            // Make lowercase for case-insensitive match
+}
+
     let billTitle = ""
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
@@ -208,7 +254,7 @@ async function loadBillAndSentiment() {
       for (const query_text in sentiments) {
         const entry = sentiments[query_text];
 
-        if (entry.query_text === bill.title) {
+        if (normalizeText(entry.query_text) === normalizeText(bill.title)) {
           const bbcScore = entry.bbc_com?.average_sentiment ?? 0;
           const reutersScore = entry.reuters_com?.average_sentiment ?? 0;
           const bbcConfidence = entry.bbc_com?.average_confidence ?? 0;
@@ -235,7 +281,7 @@ async function loadBillAndSentiment() {
       
     for (const key in allThemes) {
       const entry = allThemes[key];
-      if (entry.bill === billTitle) {
+      if (normalizeText(entry.bill) === normalizeText(billTitle)) {
     matchedThemeEntry = entry;
     break;
   }
