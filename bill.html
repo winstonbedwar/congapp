@@ -16,15 +16,21 @@
     
     }
 
-    .row2 {
+    .row2, .row-3 {
       display: flex;
       flex-direction: row;
     }
 
+    .row-3 {
+      margin-right: 30px;
+      margin-bottom: 30px;
+    }
+
     .bill-details { border: 1px solid #c27f14; padding: 20px; }
+
    
 
-    .summary, .sentiment-analysis, .personal-impact, .gen-quiz {
+    .summary, .sentiment-analysis, .personal-impact, .gen-quiz, .poll-container {
       padding: 15px;
       margin-top: 20px;
       border-left: 4px solid #c27f14;
@@ -37,7 +43,14 @@
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 15px;  
 
-}
+    }
+
+     .poll-container {
+      width: 600px;
+      
+    }
+   
+
 
   .sentiment-analysis {
     width: 40%;
@@ -52,47 +65,59 @@
 
   .gen-quiz {
     width: 500%;
-    background-color: rgb(173, 226, 249);
     color:#f7f3e9;
   }
 
+  .approve-btn:hover {
+    background-color: #045c97;;
+  }
 
-  .sentiment-bar {
-  margin-top: 20px;
+.source-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #b8756d;
 }
 
-.sentiment-bar label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-  color: #444;
+.sentiment-bar {
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .bar {
   width: 100%;
-  background-color: #ddd;
+  background-color: #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
-  height: 20px;
+  height: 22px;
+  margin-bottom: 8px;
 }
 
- .fill {
+.fill {
   height: 100%;
   width: 0%;
   transition: width 0.5s ease-in-out;
 }
 
-
-#cnn-bar {
-  background-color: #91bdd7; /* soft blue */
-}
-#fox-bar {
-  background-color: #e57c7c; /* soft red */
+.bbc-color {
+  background-color: #90b9e1; /* blue */
 }
 
-#fox-value {
-  color: #e57c7c;
+.reuter-color {
+  background-color: #ebc383; /* orange */
 }
+
+.confidence-text {
+  font-weight: bold;
+  font-size: 14px;
+  color: #de7070; /* green confidence */
+}
+
+.poll-title {
+  color: #de7070;
+}
+
+
   </style>
 </head>
 <body>
@@ -107,21 +132,25 @@
     <div class="sentiment-analysis">
   <h2>Sentiment Analysis</h2>
 
-  <div class="sentiment-bar">
-    <label for="cnn-bar">CNN Sentiment</label>
-    <div class="bar">
-      <div id="cnn-bar" class="fill" style="width: 0%"></div>
-    </div>
-    <span id="cnn-value">Loading...</span>
+<div class="sentiment-bar" id="bbc-section">
+  <div class="source-title">BBC News</div>
+  <div class="bar">
+    <div id="bbc-bar" class="fill bbc-color" style="width: 0%"></div>
   </div>
+  <div class="confidence-text" id="bbc-confidence">Confidence: Loading...</div>
+  <div class ="themes" id = "bbc-themes">focus topics: Loading...</div>
+</div>
 
-  <div class="sentiment-bar">
-    <label for="fox-bar">Fox Sentiment</label>
-    <div class="bar">
-      <div id="fox-bar" class="fill" style="width: 0%"></div>
-    </div>
-    <span id="fox-value">Loading...</span>
+<div class="sentiment-bar" id="reuters-section">
+  <div class="source-title">Reuters</div>
+  <div class="bar">
+    <div id="reuter-bar" class="fill reuter-color" style="width: 0%"></div>
   </div>
+  <div class="confidence-text" id="reuter-confidence">Confidence: Loading...</div>
+    <div class ="themes" id = "reuter-themes">focus topics: Loading...</div>
+
+</div>
+
 </div>
   </div>
 
@@ -129,14 +158,40 @@
     <h2>predictions about how bill impacts them live here</h2>
   </div>
 
+
+<div class ="row-3">
   <div class="gen-quiz">
     <h2>generated Quiz lives here</h2>
   </div>
 
-  <!-- Your script follows below -->
+  <div class="poll-container" data-bill-id="bill1">
+  <h2 class="poll-title">Do you approve of this bill?</h2>
+  <div class="poll-buttons">
+    <button class="poll-btn approve-btn"> Approve</button>
+    <button class="poll-btn disapprove-btn"> Disapprove</button>
+  </div>
+  <div class="poll-bar-container">
+    <div class="poll-bar approve-bar" style="width: 0%;"></div>
+    <div class="poll-bar disapprove-bar" style="width: 0%;"></div>
+  </div>
+  <p class="poll-result">0% Approve, 0% Disapprove</p>
+</div>
+  </div>
+
+
 
 
   <script type="module">
+
+    function normalizeText(str) {
+  return str
+    .replace(/['"]/g, '')      // Remove all quotes (single and double)
+    .replace(/\s+/g, ' ')      // Collapse multiple spaces
+    .trim()                    // Trim ends
+    .toLowerCase();            // Make lowercase for case-insensitive match
+}
+
+    let billTitle = ""
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
@@ -153,7 +208,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Helper: Get query param from URL
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
@@ -165,74 +219,104 @@
 
 
 async function loadBillAndSentiment() {
-      if (!billId) {
-        container.innerHTML = "<p>No bill ID provided.</p>";
-        return;
-      }
+  if (!billId) {
+    container.innerHTML = "<p>No bill ID provided.</p>";
+    return;
+  }
 
-      const billRef = ref(db, `congress/bills/${billId}`);
+  const billRef = ref(db, `congress/bills/${billId}`);
 
-      try {
-        const billSnap = await get(billRef);
-        if (!billSnap.exists()) {
-          container.innerHTML = "<p>Bill not found.</p>";
-          return;
+  try {
+    const billSnap = await get(billRef);
+    if (!billSnap.exists()) {
+      container.innerHTML = "<p>Bill not found.</p>";
+      return;
+    }
+
+    const bill = billSnap.val();
+    billTitle = bill.title;
+
+    container.innerHTML = `
+      <div class="bill-details">
+        <h1><strong>${bill.title}</strong></h1>
+        <p><strong>Number:</strong> ${bill.number}</p>
+        <p><strong>Type:</strong> ${bill.type}</p>
+        <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
+        <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
+        <a href="${bill.url}" target="_blank">View on Congress.gov</a>
+      </div>
+    `;
+
+    const sentimentSnap = await get(ref(db, 'sentiment'));
+    if (sentimentSnap.exists()) {
+      const sentiments = sentimentSnap.val();
+
+      for (const query_text in sentiments) {
+        const entry = sentiments[query_text];
+
+        if (normalizeText(entry.query_text) === normalizeText(bill.title)) {
+          const bbcScore = entry.bbc_com?.average_sentiment ?? 0;
+          const reutersScore = entry.reuters_com?.average_sentiment ?? 0;
+          const bbcConfidence = entry.bbc_com?.average_confidence ?? 0;
+          const reutersConfidence = entry.reuters_com?.average_confidence ?? 0;
+
+          document.getElementById('bbc-bar').style.width = `${bbcScore * 50}%`;
+          document.getElementById('reuter-bar').style.width = `${reutersScore * 50}%`;
+
+          document.getElementById('bbc-confidence').textContent = `Confidence: ${(bbcConfidence * 100).toFixed(1)}%`;
+          document.getElementById('reuter-confidence').textContent = `Confidence: ${(reutersConfidence * 100).toFixed(1)}%`;
+
+          break; 
         }
-
-        const bill = billSnap.val();
-
-        container.innerHTML = `
-          <div class="bill-details">
-            <h1><strong>${bill.title}</strong></h1>
-            <p><strong>Number:</strong> ${bill.number}</p>
-            <p><strong>Type:</strong> ${bill.type}</p>
-            <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
-            <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
-            <a href="${bill.url}" target="_blank">View on Congress.gov</a>
-          </div>
-        `;
-
-        // Now fetch sentiment
-        const sentimentSnap = await get(ref(db, 'sentiment'));
-        if (sentimentSnap.exists()) {
-          const sentiments = sentimentSnap.val();
-
-          for (const key in sentiments) {
-            const entry = sentiments[key];
-
-           if (entry.billText === bill.title) {
-  const cnnScore = entry.attitudeCNN ?? 0;
-  const foxScore = entry.attitudeFox ?? 0;
-
-  // Normalize scores (Sentiment comparative usually ranges -1 to +1)
-  const normalizedCNN = Math.round((cnnScore + 1) * 50); // => 0 to 100
-  const normalizedFox = Math.round((foxScore + 1) * 50); // => 0 to 100
-
-  document.getElementById('cnn-bar').style.width = `${normalizedCNN}%`;
-  document.getElementById('fox-bar').style.width = `${normalizedFox}%`;
-
-  document.getElementById('cnn-value').textContent = `${cnnScore.toFixed(3)} (CNN)`;
-  document.getElementById('fox-value').textContent = `${foxScore.toFixed(3)} (Fox)`;
-  return;
-}
-          }
-
-          // If not found
-          document.getElementById('CNN').textContent = "No sentiment data found.";
-          document.getElementById('Fox').textContent = "No sentiment data found.";
-        } else {
-          document.getElementById('CNN').textContent = "No sentiment data available.";
-          document.getElementById('Fox').textContent = "No sentiment data available.";
-        }
-
-      } catch (err) {
-        console.error("Error:", err);
-        document.getElementById('CNN').textContent = "Error loading sentiment.";
-        document.getElementById('Fox').textContent = "Error loading sentiment.";
       }
     }
 
+    const themesSnap = await get(ref(db, 'themes'));
+
+    let matchedThemeEntry = null;
+
+    if (themesSnap.exists()) {
+      const allThemes = themesSnap.val();
+
+      
+    for (const key in allThemes) {
+      const entry = allThemes[key];
+      if (normalizeText(entry.bill) === normalizeText(billTitle)) {
+    matchedThemeEntry = entry;
+    break;
+  }
+}
+
+        if (matchedThemeEntry) {
+        const bbcThemes = (matchedThemeEntry.theme_bbc || []).map(t => t.theme);
+        const reutersThemes = (matchedThemeEntry.theme_reuter || []).map(t => t.theme);
+
+  document.getElementById('bbc-themes').textContent = 
+    `Focus Topics: ${bbcThemes.join(", ") || "None"}`;
+  document.getElementById('reuter-themes').textContent = 
+    `Focus Topics: ${reutersThemes.join(", ") || "None"}`;
+} else {
+  document.getElementById('bbc-themes').textContent = 
+    "Focus Topics: Not available.";
+  document.getElementById('reuter-themes').textContent = 
+    "Focus Topics: Not available.";
+}
+    } 
+
+  } catch (err) {
+    console.error("Error:", err);
+    document.getElementById('bbc-confidence').textContent = "Error loading sentiment.";
+    document.getElementById('reuter-confidence').textContent = "Error loading sentiment.";
+  }
+}
+
+
+
     loadBillAndSentiment();
+
+
+
+    
   </script>
 </body>
 </html>

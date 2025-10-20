@@ -7,6 +7,21 @@
   <title>Orwell</title>
 
   <link rel="stylesheet" href="style.css">
+  <style>
+    .bill-entry {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9; /* subtle background */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: sans-serif;
+  transition: box-shadow 0.2s;
+}
+
+.bill-entry:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+  </style>
 </head>
 
 <body>
@@ -30,7 +45,7 @@
   </div>
 </body>
 
-<script src="./main.js"></script>
+<script src="./congressBillStorage.js"></script>
 <script src="./sentimentAnalysis.js"></script>
 <script type="module" src="./module.js"></script>
 

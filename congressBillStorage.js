@@ -40,38 +40,37 @@ async function pushJsontoFirebase() {
 
       const bills = data.bills;
 
-      // Iterate through each bill and store it separately
       for (const bill of bills) {
-        const billTitle = bill.title || 'unknown';
-        //dumb fixture for path name problem 
-        let newBillTitle = ''
-        for (let i = 0; i < billTitle.length; i++) {
-          if (!(billTitle[i] == '.' || billTitle[i] == '#' || billTitle[i] == '$' || billTitle[i] == '[' || billTitle[i] == ']')) {
-            newBillTitle += billTitle[i];
-          }
-          else {
-            continue;
-          }
-        }
+  const billTitle = bill.title || 'unknown';
 
+  //  Skip Palestine bill
+  if (billTitle.trim().toLowerCase() === "affirming the state of palestine's right to exist.") {
+    console.log("Skipping Palestine bill:", billTitle);
+    continue;
+  }
 
-        // Define a unique path for each bill
-        const billKey = `${bill.type}-${bill.number}`;  // e.g., hr-123
-        const billRef = ref(database, `congress/bills/${billKey}`);
+  // Cleanup path for Firebase keys
+  let newBillTitle = '';
+  for (let i = 0; i < billTitle.length; i++) {
+    if (!['.', '#', '$', '[', ']'].includes(billTitle[i])) {
+      newBillTitle += billTitle[i];
+    }
+  }
 
+  const billKey = `${bill.type}-${bill.number}`;
+  const billRef = ref(database, `congress/bills/${billKey}`);
 
-        // Store just the bill info
-        await set(billRef, {
-          number: bill.number,
-          title: bill.title,
-          type: bill.type,
-          actionDate: bill.latestAction.actionDate,
-          url: bill.url          // Add more fields here as needed
-        });
+  await set(billRef, {
+    number: bill.number,
+    title: bill.title,
+    type: bill.type,
+    actionDate: bill.latestAction.actionDate,
+    url: bill.url
+  });
 
+  console.log(`Stored bill: ${billTitle}`);
+}
 
-        console.log(`Stored bill ${newBillTitle} successfully.`);
-      }
 
     } else {
       const text = await response.text();

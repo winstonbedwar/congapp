@@ -28,18 +28,20 @@ body {
 }
 
 .bill {
-  border: 1px solid #a97d06;
-  padding: 10px #f9a3d6;
-  width: 70%;
+  border: 1px solid #a97d06;  
+  padding: 30px #f9a3d6;
+  height: 250px;  
   margin: 20px;
+  border: 2px solid #a3dcff;
+  background-color: #c9edfe;
 }
 
 /*-- can generate keywords that I can use to load random pictures as part of html?*/
 .featured-bill {
   border: 2px solid #a3dcff;
   background-color: #c9edfe;
-  padding: 20px;
-  height: 250px;
+  padding: 30px;
+  height: 300px;
   margin: 20px;
   font-size: 1.1em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -48,7 +50,7 @@ body {
   z-index: 10; /* Higher than nav */
 }
 
-.featured-bill:hover {
+.featured-bill:hover, .bill:hover {
   background-color: #b3b3b3;
   transition: 0.3s ease;
 }
@@ -128,7 +130,7 @@ button {
 }
 
 button:hover {
-  background-color: #6c9aef; /* Darker orange on hover */
+  background-color: #ef8b6c; /* Darker orange on hover */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px); /* Slight lift */
 }
