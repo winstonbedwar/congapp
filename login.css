@@ -56,15 +56,15 @@ form {
 }
 
 .input-field {
-  max-width: 380px;
   width: 100%;
-  background-color: #fff;
-  height: 55px;
-  margin: 10px 0;
-  border-radius: 55px;
-  display: grid;
-  grid-template-columns: 15% 85%;
-  padding: 0 0.4rem;
+  padding: 5px 5px;
+  border: 2px solid #efefef;
+  border-radius: 7px;
+  font-size: 15px;
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #fafafa;
+  color: #1a1a1a;
 }
 
 .input-field > i {
@@ -87,6 +87,15 @@ form {
 .input-field > input::placeholder {
   color: #acacac;
   font-weight: 500;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #5995fd;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.08),
+    0 4px 12px rgba(255, 107, 107, 0.12);
+  transform: translateY(-1px);
 }
 
 .btn {
@@ -159,12 +168,13 @@ form {
 }
 
 .left-panel {
-
   pointer-events: none;
   padding: 3rem 17% 2rem 12%;
 }
 
-.signin, .sign-in-form, .input-field > input {
+.signin,
+.sign-in-form,
+.input-field > input {
   pointer-events: auto;
 }
 

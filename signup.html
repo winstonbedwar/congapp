@@ -1,129 +1,159 @@
 <!DOCTYPE html>
 <html>
 
-<!-- WAIT. Can it trumpet a cute little star spangled banner when you log in!????-->
-    <head>
-         <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>Orwell</title>
-     <link rel="stylesheet" href="style.css">
-<!-- adding a slideshow-like sign up process might be best???-->
-     <style>
-            body { font-family: Arial;
-             
-            justify-content: center;
-                align-items: center;
-              height: 100vh; 
-            }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orwell</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="signup.css">
+<body>
+</head>
 
-              form { max-width: 1000px;   
-                display: flex; 
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
+<body>
 
-            .sign-ins {
-        justify-content: center;
-         align-items: center;
-         padding-top: 0px;
-       
-  }
+  <div class="container">
+    <div class="progress-container">
+      <div class="progress-steps">
+        <div class="progress-line" id="progressLine"></div>
+        <div class="step active" data-step="1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Personal</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Details</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Demographics</div>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-circle">4</div>
+          <div class="step-label">Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-content">
+      <div class="form-step active" data-step="1">
+        <h2>Welcome to Orwell!</h2>
+        <p class="step-description">Tell us a bit about yourself so we can personalize your experience at Orwell. Already have an account? <a href="login.html">Log in here.</a></p>
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="username" placeholder="John_Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Password...chose carefully!">
+        </div>
+
+        <div class="button-group">
+          <button class="btn-next">Continue →</button>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="2">
+        <h2>Personal Details</h2>
+        <p class="step-description">Your details help us explain the impact of current legislation.</p>
+
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" id="age" placeholder="18">
+        </div>
+
+        <div class="form-group">
+          <label>Occupation</label>
+          <input type="text" id="occupation" placeholder="Social Worker">
+        </div>
+
+        <div class="form-group">
+          <label>Income</label>
+          <select id="income">
+            <option value="">Select your income range</option>
+            <option value="$0-$30,000">$0-$30,000</option>
+            <option value="$31,000-$60,000">$31,000-$60,000</option>
+            <option value="$61,000-$90,000">$61,000-$90,000</option>
+            <option value="$91,000-$120,000">$91,000-$120,000</option>
+            <option value="$120,000+">$120,000+</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button class="btn-prev">← Back</button>
+          <button class="btn-next">Continue →</button>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="3">
+        <h2>Demographics</h2>
+        <p class="step-description">Your demographics help us better communicate the impact of current legislation.</p>
+
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="gender">
+            <option value="">Select your gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+            <option value="Rather Not Say">Rather not say</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Ethnicity</label>
+          <select id="ethnicity">
+            <option value="">Select your ethnicity</option>
+            <option value="American Indian or Alaskan Native">American Indian or Alaska Native</option>
+            <option value="Asian">Asian</option>
+            <option value="Black or African American">Black or African American</option>
+            <option value="Hispanic or Latino">Hispanic or Latino</option>
+            <option value="Middle Eastern or North African">Middle Eastern or North African</option>
+            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+            <option value="White">White</option>
+            <option value="Other">Some other race</option>
+            <option value="Rather Not Say">Rather not say</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button class="btn-prev">← Back</button>
+          <button class="btn-next">Continue →</button>
+        </div>
+      </div>
 
 
-     </style>
-    </head>
-    <body>  
+      <div class="form-step" data-step="4">
+        <h2>Review & submit</h2>
+        <p class="step-description">Please review your information before submitting.</p>
 
-        <div class ="sign-ins">
-        <h1 id ="signup-title">Sign Up</h1>
+        <div id="reviewContent"></div>
 
-        <!-- make this sign up form more interesting later on!-->
-  <form id="signup-form">
-    <input type="text" id="username" placeholder="username">
-    <input type="text" id ="password" placeholder="password...choose carefully!">
-    <input type="text" id="location" placeholder="location" >
-    <input type="number" id="age" placeholder="age" >
-     <input type="text" id="occupation" placeholder="occupation">
-    <input type="number" id="income" placeholder="income" >
-    <input type="text" id="gender" placeholder="gender">
-    <input type="text" id="ethnicity"  placeholder="ethnicity">
-    <button type="submit">Sign Up</button>
-    
-    <a href="logIn.html">OR Log In</a>
-  </form>
+        <div class="button-group">
+          <button class="btn-prev">← Back</button>
+          <button class="btn-submit btn-next">Submit ✓</button>
+        </div>
+      </div>
 
-   <p id="message"></p>   
-   </div>
+      <div class="form-step" data-step="5">
+        <div class="success-message">
+          <div class="success-icon">✓</div>
+          <h2 class="success-title">All done!</h2>
+          <p class="success-text">Your account has been created! Redirecting...</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
+</body>
 
-  <audio id="signup-audio" src="trumpet-fanfare.mp3" preload="auto"></audio>
+  <script type="module" src="signup.js"></script>
 
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import {getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-
-
-     const firebaseConfig = {
-      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
-      authDomain: "orwell-ea558.firebaseapp.com",
-      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
-      projectId: "orwell-ea558",
-      storageBucket: "orwell-ea558.firebasestorage.app",
-      messagingSenderId: "301391502605",
-      appId: "1:301391502605:web:67c58902e72044cd03a444"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    
-    const form = document.getElementById('signup-form');
-    const message = document.getElementById('message');
-
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-
-      const name = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const age = document.getElementById('age').value.trim();
-      const occupation = document.getElementById('occupation').value.trim();
-      const income = document.getElementById('income').value.trim();
-      const gender = document.getElementById('gender').value.trim();
-      const ethnicity = document.getElementById('ethnicity').value.trim(); 
-      const active = true; 
-
-      try {
-        await push(ref(db, 'users'), {
-          name,
-          password,
-          age,
-          occupation,
-          income,
-          gender,
-          ethnicity,
-          active 
-        });
-
-         message.innerHTML = `<p style="color: green;">User registered successfully!</p>`;
-        form.reset();
-        document.getElementById("signup-audio").play();
-        setTimeout(() => {
-          window.location.href = 'index.html'}, 3100);
-    
-
-      } catch (err) {
-        console.error('Error writing to database:', err);
-        message.innerHTML = `<p style="color: red;">Failed to register user.</p>`;
-      }
-    });
-
-
-
-  </script>
-
-
-    </body>
 </html>
