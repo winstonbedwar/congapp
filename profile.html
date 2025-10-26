@@ -1,159 +1,715 @@
-    <!DOCTYPE html><html>
-    <head>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Orwell - Profile</title>
+  <link rel="stylesheet" href="style.css">
 
-        <meta charset="UTF-8">
-        <title>Orwell</title>
-        <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        <style>
-           
-            h1 {
-            justify-content: center;
-            align-items: center;
-            color: #db552c;
-        font-family:Verdana, Geneva, Tahoma, sans-serif}
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f8f6f3;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a1a;
+    }
 
-            
-            button {
-                margin-top: 30px;
-            }
-        
+    /* Navigation Sidebar */
+    nav {
+      width: 240px;
+      background: #ffffff;
+      border-right: 1px solid #e8e5e1;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      overflow-y: auto;
+    }
 
-        </style>
-    </head>
-    <body>
-     
-          
-      <nav>
-    <h1 id ="nameApp">Orwell</h1>
-    <a href="index.html">Home</a><br><br>
-    <a href="logIn.html">back to log in</a><br><br>
-    <a href="profile.html">view profile</a><br><br>
-    <a href="about.html">about</a>
-    <!-- add more links as needed -->
+    #nameApp {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #d17a5c;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    nav a {
+      color: #4a4a4a;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      font-size: 0.925rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+      display: block;
+    }
+
+    nav a:hover {
+      background: #f8f6f3;
+      color: #1a1a1a;
+      border-left-color: #d17a5c;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      margin-left: 240px;
+      flex: 1;
+      padding: 3rem;
+      max-width: 1400px;
+    }
+
+    /* Welcome Section with Bill Character */
+    .welcome-section {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .bill-mascot {
+      width: 70px;
+      height: 90px;
+      position: relative;
+      animation: billFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes billFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(2deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(-2deg);
+      }
+    }
+
+    .bill-mascot .bill-body {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 45px;
+      height: 55px;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      border: 2.5px solid #2d2d2d;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .bill-mascot .bill-lines {
+      position: absolute;
+      top: 10px;
+      left: 8px;
+      right: 8px;
+    }
+
+    .bill-mascot .bill-line {
+      height: 2px;
+      background: #b8b8b8;
+      margin-bottom: 4px;
+    }
+
+    .bill-mascot .bill-line:nth-child(2) { width: 70%; }
+    .bill-mascot .bill-line:nth-child(3) { width: 85%; }
+    .bill-mascot .bill-line:nth-child(4) { width: 60%; }
+
+    .bill-mascot .bill-helmet {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 22px;
+      background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+      border: 2.5px solid #2d2d2d;
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .bill-mascot .helmet-rim {
+      position: absolute;
+      bottom: -5px;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 7px;
+      background: #2d2d2d;
+      border-radius: 2px;
+    }
+
+    .bill-mascot .helmet-star {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+      color: #c4a07a;
+    }
+
+    .bill-mascot .bill-face {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+    }
+
+    .bill-mascot .bill-eye {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #2d2d2d;
+      border-radius: 50%;
+      top: 0;
+    }
+
+    .bill-mascot .eye-left { left: 12px; }
+    .bill-mascot .eye-right { right: 12px; }
+
+    .bill-mascot .bill-smile {
+      position: absolute;
+      width: 14px;
+      height: 7px;
+      border: 2.5px solid #2d2d2d;
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .welcome-text h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    #message {
+      font-size: 0.925rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* Stats Container */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      padding: 1.75rem;
+      border: 1px solid #e8e5e1;
+      transition: all 0.2s ease;
+    }
+
+    .stat-card:hover {
+      border-color: #d4cfc7;
+      transform: translateY(-2px);
+    }
+
+    .stat-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #6a6a6a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-card h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+    }
+
+    /* Two Column Layout for Leaderboard and Top Bills */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .dashboard-section {
+      background: #ffffff;
+      border: 1px solid #e8e5e1;
+      padding: 2rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .dashboard-section:hover {
+      border-color: #d4cfc7;
+    }
+
+    .dashboard-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Leaderboard Styles */
+    .leaderboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .leaderboard-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #fafaf9;
+      border: 1px solid #f3f1ee;
+      transition: all 0.2s ease;
+    }
+
+    .leaderboard-item:hover {
+      background: #f8f6f3;
+      border-color: #e8e5e1;
+    }
+
+    .rank {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #d17a5c;
+      min-width: 30px;
+    }
+
+    .rank.top-three {
+      color: #c4a07a;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      margin-bottom: 0.25rem;
+    }
+
+    .user-stats {
+      font-size: 0.8rem;
+      color: #6a6a6a;
+    }
+
+    .score {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #4a4a4a;
+    }
+
+    /* Top Bills Styles */
+    .bills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .bill-item {
+      padding: 1.25rem;
+      background: #fafaf9;
+      border: 1px solid #f3f1ee;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .bill-item:hover {
+      background: #f8f6f3;
+      border-color: #e8e5e1;
+      transform: translateX(4px);
+    }
+
+    .bill-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .bill-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: #6a6a6a;
+      margin-bottom: 0.5rem;
+    }
+
+    .bill-engagement {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: #6a6a6a;
+    }
+
+    .engagement-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Logout Button */
+    #logout {
+      padding: 0.875rem 1.75rem;
+      background: #1a1a1a;
+      color: #ffffff;
+      border: 1px solid #1a1a1a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.925rem;
+      margin-top: 2rem;
+      width: fit-content;
+    }
+
+    #logout:hover {
+      background: #2d2d2d;
+      transform: translateY(-1px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #e8e5e1;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 2rem 1.5rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .welcome-text h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <h1 id="nameApp">Orwell</h1>
+    <a href="index.html">Home</a>
+    <a href="logIn.html">Back to Log In</a>
+    <a href="profile.html">View Profile</a>
+    <a href="about.html">About</a>
   </nav>
 
-    <div class="main-content">
-
-    
-        <h1 id="welcome"></h1>
-          
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Welcome Section with Bill Mascot -->
+    <div class="welcome-section">
+      <div class="bill-mascot">
+        <div class="bill-body">
+          <div class="bill-lines">
+            <div class="bill-line"></div>
+            <div class="bill-line"></div>
+            <div class="bill-line"></div>
+            <div class="bill-line"></div>
+          </div>
+          <div class="bill-face">
+            <div class="bill-eye eye-left"></div>
+            <div class="bill-eye eye-right"></div>
+            <div class="bill-smile"></div>
+          </div>
+        </div>
+        <div class="bill-helmet">
+          <div class="helmet-star">⭐</div>
+          <div class="helmet-rim"></div>
+        </div>
+      </div>
+      
+      <div class="welcome-text">
+        <h1 id="welcome">Welcome!</h1>
         <p id="message"></p>
+      </div>
+    </div>
 
-        <div class="stats-container">
+    <!-- Stats Container -->
+    <div class="stats-container">
+      <div class="stat-card" id="streak">
+        <h3>🔥 Streak</h3>
+        <h2 id="streak-value">0</h2>
+      </div>
 
-        <div id="streak">
-            <h3><strong>STREAK 🔥</strong></h3> 
-            <h2> ### </h2>
+      <div class="stat-card" id="quiztracker">
+        <h3>📝 Quiz Tracker</h3>
+        <h2 id="quiz-value">0</h2>
+      </div>
+
+      <div class="stat-card" id="currentLevel">
+        <h3>⭐ Current Level</h3>
+        <h2 id="level-value">Policy Enthusiast</h2>
+      </div>
+
+      <div class="stat-card" id="totalVotes">
+        <h3>🗳️ Total Votes</h3>
+        <h2 id="votes-value">0</h2>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid: Leaderboard and Top Bills -->
+    <div class="dashboard-grid">
+      <!-- Leaderboard Section -->
+      <div class="dashboard-section">
+        <h2>🏆 Leaderboard</h2>
+        <div class="leaderboard-list">
+          <div class="leaderboard-item">
+            <div class="rank top-three">1</div>
+            <div class="user-info">
+              <div class="user-name">Alex Chen</div>
+              <div class="user-stats">Policy Expert • 45 day streak</div>
+            </div>
+            <div class="score">2,847</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank top-three">2</div>
+            <div class="user-info">
+              <div class="user-name">Jordan Smith</div>
+              <div class="user-stats">Political Analyst • 38 day streak</div>
+            </div>
+            <div class="score">2,635</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank top-three">3</div>
+            <div class="user-info">
+              <div class="user-name">Sam Patel</div>
+              <div class="user-stats">Civic Leader • 32 day streak</div>
+            </div>
+            <div class="score">2,401</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank">4</div>
+            <div class="user-info">
+              <div class="user-name">Taylor Kim</div>
+              <div class="user-stats">Policy Enthusiast • 28 day streak</div>
+            </div>
+            <div class="score">2,198</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank">5</div>
+            <div class="user-info">
+              <div class="user-name">Morgan Lee</div>
+              <div class="user-stats">Active Citizen • 25 day streak</div>
+            </div>
+            <div class="score">2,053</div>
+          </div>
         </div>
+      </div>
 
+      <!-- Top Bills Section -->
+      <div class="dashboard-section">
+        <h2>📊 Trending Bills</h2>
+        <div class="bills-list">
+          <div class="bill-item">
+            <div class="bill-title">Infrastructure Investment and Jobs Act</div>
+            <div class="bill-meta">
+              <span>H.R. 3684</span>
+              <span>•</span>
+              <span>Transportation</span>
+            </div>
+            <div class="bill-engagement">
+              <span class="engagement-stat">👍 2,847 approvals</span>
+              <span class="engagement-stat">💬 1,234 comments</span>
+            </div>
+          </div>
 
-        <div id="quiztracker">
-            <h3><strong>quiz tracker !!!!</strong></h3>
-            <h2> ### </h2>
+          <div class="bill-item">
+            <div class="bill-title">Clean Energy Innovation Act</div>
+            <div class="bill-meta">
+              <span>S. 2155</span>
+              <span>•</span>
+              <span>Environment</span>
+            </div>
+            <div class="bill-engagement">
+              <span class="engagement-stat">👍 2,635 approvals</span>
+              <span class="engagement-stat">💬 987 comments</span>
+            </div>
+          </div>
+
+          <div class="bill-item">
+            <div class="bill-title">Affordable Housing Development Act</div>
+            <div class="bill-meta">
+              <span>H.R. 4521</span>
+              <span>•</span>
+              <span>Housing</span>
+            </div>
+            <div class="bill-engagement">
+              <span class="engagement-stat">👍 2,401 approvals</span>
+              <span class="engagement-stat">💬 856 comments</span>
+            </div>
+          </div>
+
+          <div class="bill-item">
+            <div class="bill-title">Student Loan Relief Expansion</div>
+            <div class="bill-meta">
+              <span>S. 3892</span>
+              <span>•</span>
+              <span>Education</span>
+            </div>
+            <div class="bill-engagement">
+              <span class="engagement-stat">👍 2,198 approvals</span>
+              <span class="engagement-stat">💬 743 comments</span>
+            </div>
+          </div>
+
+          <div class="bill-item">
+            <div class="bill-title">Healthcare Access Improvement Act</div>
+            <div class="bill-meta">
+              <span>H.R. 5673</span>
+              <span>•</span>
+              <span>Healthcare</span>
+            </div>
+            <div class="bill-engagement">
+              <span class="engagement-stat">👍 2,053 approvals</span>
+              <span class="engagement-stat">💬 692 comments</span>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div id="currentLevel">
-            <h3><strong> Current Level!</strong></h2>
-            <h2> Policy Enthusiast </h2>
-        </div>
+    <!-- Logout Button -->
+    <button id="logout">Log Out</button>
+  </div>
 
-        </div>
-        
-        
-        <button id="logout">logout</button>
-   
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    import { child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    
+    let currentUser = "";
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+      authDomain: "orwell-ea558.firebaseapp.com",
+      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+      projectId: "orwell-ea558",
+      storageBucket: "orwell-ea558.firebasestorage.app",
+      messagingSenderId: "301391502605",
+      appId: "1:301391502605:web:67c58902e72044cd03a444"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-        </div>
-
-        <script type="module">
-            import { initializeApp} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-            import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-            import {child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-            let currentUser = "";
-            
-        const firebaseConfig = {
-        apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
-        authDomain: "orwell-ea558.firebaseapp.com",
-        databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
-        projectId: "orwell-ea558",
-        storageBucket: "orwell-ea558.firebasestorage.app",
-        messagingSenderId: "301391502605",
-        appId: "1:301391502605:web:67c58902e72044cd03a444"
-        };
-            const app = initializeApp(firebaseConfig);
-            const db = getDatabase(app);
-
-            const logout = document.getElementById('logout');
-            const message = document.getElementById('message');
-            const welcome = document.getElementById('welcome');
+    const logout = document.getElementById('logout');
+    const message = document.getElementById('message');
+    const welcome = document.getElementById('welcome');
 
     async function loadActiveUser() {
-    try {
+      try {
         const snapshot = await get(child(ref(db), 'users'));
 
         if (snapshot.exists()) {
-        const users = snapshot.val();
+          const users = snapshot.val();
 
-        for(const key in users){
-            if (users[key].active === true){
-                currentUser = users[key].name; 
-                break;  // once found, no need to continue
+          for (const key in users) {
+            if (users[key].active === true) {
+              currentUser = users[key].name; 
+              break;
             } 
-        }
+          }
         }
 
-        welcome.textContent = currentUser ? `Hello ${currentUser}!` : "Welcome!";
+        welcome.textContent = currentUser ? `Hello, ${currentUser}!` : "Welcome!";
 
-    } catch (error) {
+        // Simulate loading some stats (replace with real data later)
+        document.getElementById('streak-value').textContent = '7';
+        document.getElementById('quiz-value').textContent = '23';
+        document.getElementById('votes-value').textContent = '142';
+
+      } catch (error) {
         console.error(error);
         welcome.textContent = "Welcome!";
-    }
+      }
     }
 
     loadActiveUser();
 
+    logout.addEventListener('click', async (e) => {
+      e.preventDefault();
 
+      try {
+        const snapshot = await get(child(ref(db), 'users'));
 
-            logout.addEventListener('click', async(e)=>{
-                e.preventDefault();
+        if (snapshot.exists()) {
+          const users = snapshot.val();
 
-                try {
-                const snapshot = await get(child(ref(db), 'users'));
+          for (const key in users) {
+            if (users[key].active === true) {
+              await update(ref(db, `users/${key}`), { active: false });
 
-                if (snapshot.exists()) {
-                const users = snapshot.val();
-
-                for (const key in users) {
-                    if (
-                    users[key].active === true
-                    ) {
-                    await update(ref(db, `users/${key}`), { active: false });
-
-
-                    message.textContent = "Logout successful!";
-                    message.style.color = "green";
-                    setTimeout(() => {
-                window.location.href = 'signIn.html'}, 1000);
-                    break;
-                    }  
-                }
-            }} catch (error) {
-                console.error(error);
-                message.textContent = "Error connecting to database.";
-                message.style.color = "orange";
-            }
-
-        })
-
-
-        //later add Welcome _______ account name. ???? how to search for specific account name with logged in id??
-
-        </script>
-
-
-
-    </body>
-
-    </html>
+              message.textContent = "Logout successful!";
+              message.style.color = "#8ba888";
+              setTimeout(() => {
+                window.location.href = 'signIn.html';
+              }, 1000);
+              break;
+            }  
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        message.textContent = "Error connecting to database.";
+        message.style.color = "#d17a5c";
+      }
+    });
+  </script>
+</body>
+</html>
