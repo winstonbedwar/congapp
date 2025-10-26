@@ -1,17 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  display: flex; /* Enable flexbox */
-  flex-direction: row; /* Default: horizontal layout */
+  display: flex;
+  flex-direction: row;
   font-family: Arial, sans-serif;
   scrollbar-width: none;
   overflow: hidden;
   margin: 0;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  min-height: 100vh;
+  background: #f8f6f3;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #1a1a1a;
 }
 
 .main-content {
   scrollbar-width: none;
-  align-items:  center;
+  align-items: center;
 }
 
 .bill a.bill-link {
@@ -30,7 +43,7 @@ body {
 .bill {
   border: 1px solid #a97d06;
   padding: 30px #f9a3d6;
-  height: 250px;  
+  height: 250px;
   margin: 20px;
 }
 
@@ -48,7 +61,8 @@ body {
   z-index: 10; /* Higher than nav */
 }
 
-.featured-bill:hover {
+.featured-bill:hover,
+.bill:hover {
   background-color: #b3b3b3;
   transition: 0.3s ease;
 }
@@ -77,7 +91,7 @@ nav {
 #nameApp {
   text-align: left;
   font-size: 50 px;
-  color: #db552c;
+  color: #2680ca;
 }
 
 .sign-ins {
@@ -87,11 +101,11 @@ nav {
 }
 
 h1 {
-  color: #db552c;
+  color: #2680ca;
 }
 
 a {
-  color: #7a4a11;
+  color: #7a1111;
   font-family: sans-serif;
   text-decoration: none;
 }
@@ -128,7 +142,7 @@ button {
 }
 
 button:hover {
-  background-color: #6c9aef; /* Darker orange on hover */
+  background-color: #ef6c6c; /* Darker orange on hover */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px); /* Slight lift */
 }
@@ -140,33 +154,419 @@ input {
   padding: 15px;
 }
 
-#streak,
-#quiztracker,
-#currentLevel {
-  /* Orange border */
-  border: 2px solid #ff9808;
-  background-color: #fff;
-  width: 350px; /* Increased width */
-  height: 160px; /* Increased height */
-  box-sizing: border-box;
-  text-align: center;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", sans-serif;
-
+/* Sidebar Navigation */
+.sidebar {
+  width: 15%;
+  background: #ffffff;
+  border-right: 1px solid #e8e5e1;
+  padding: 2rem 1.5rem;
   display: flex;
-  flex-direction: column; /* Stack vertically */
-  align-items: center;
-  justify-content: center;
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin: 10px;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
 }
 
-.stats-container {
+#nameApp {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #5c99d1;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.sidebar a {
+  color: #000000;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.925rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+  display: block;
+  border-radius: 20px;
+}
+
+.sidebar a:hover {
+  background: #851616;
+  color: #ffffff;
+}
+
+/* Main Content Area */
+.main-content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 0;
+}
+
+/* Hero Section with Orwell Branding */
+.hero-section {
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border-bottom: 1px solid #e8e5e1;
+  padding: 3rem 2.5rem;
   display: flex;
-  justify-content: space-between; /* even spacing between boxes */
-  gap: 100px; /* optional: adds consistent space between boxes */
-  margin-top: 20px;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-mascot {
+  width: 80px;
+  height: 100px;
+  position: relative;
+  flex-shrink: 0;
+  animation: heroFloat 4s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+}
+
+.hero-mascot .bill-body {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 60px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border: 3px solid #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero-mascot .bill-lines {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  right: 8px;
+}
+
+.hero-mascot .bill-line {
+  height: 2px;
+  background: #b8b8b8;
+  margin-bottom: 4px;
+}
+
+.hero-mascot .bill-line:nth-child(2) {
+  width: 70%;
+}
+.hero-mascot .bill-line:nth-child(3) {
+  width: 85%;
+}
+.hero-mascot .bill-line:nth-child(4) {
+  width: 60%;
+}
+
+.hero-mascot .bill-helmet {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 24px;
+  background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+  border: 3px solid #2d2d2d;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hero-mascot .helmet-rim {
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: 8px;
+  background: #2d2d2d;
+  border-radius: 2px;
+}
+
+.hero-mascot .helmet-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #c4a07a;
+}
+
+.hero-mascot .bill-face {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.hero-mascot .bill-eye {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #2d2d2d;
+  border-radius: 50%;
+  top: 0;
+}
+
+.hero-mascot .eye-left {
+  left: 14px;
+}
+.hero-mascot .eye-right {
+  right: 14px;
+}
+
+.hero-mascot .bill-smile {
+  position: absolute;
+  width: 14px;
+  height: 7px;
+  border: 2px solid #2d2d2d;
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero-content h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #5c99d1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.hero-content p {
+  font-size: 1rem;
+  color: #000000;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Bills Feed Header */
+.feed-header {
+  padding: 1.25rem 2.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e8e5e1;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.feed-header h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ad1a1a;
+  letter-spacing: -0.02em;
+}
+
+/* Bills Container */
+#bills {
+  background: #ffffff;
+}
+
+/* Individual Bill Entry (Tweet-style) */
+.bill-entry {
+  padding: 1.5rem 2.5rem;
+  border-bottom: 1px solid #e8e5e1;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.bill-entry:hover {
+  background-color: #fafaf9;
+}
+
+.bill-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Bill Header */
+.bill-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.bill-number {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #d15c5c;
+}
+
+.bill-type {
+  font-size: 0.8rem;
+  color: #000000;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  background: #f3f1ee;
+}
+
+.bill-date {
+  font-size: 0.8rem;
+  color: #6a6a6a;
+  margin-left: auto;
+}
+
+/* Bill Title */
+.bill-entry h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+/* Engagement Stats (Twitter-style) */
+.bill-engagement {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f3f1ee;
+}
+
+.engagement-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6a6a6a;
+  font-weight: 600;
+  transition: 0.3s ease;
+  border-radius: 7px;
+  padding: 0.25rem 0.75rem;
+}
+
+.approve-count:hover {
+  color: #ffffff;
+  background: #16740c;
+}
+.disapprove-count:hover {
+  color: #ffffff;
+  background: #791111;
+}
+.comments-count:hover {
+  color: #ffffff;
+  background: #245f86;
+}
+.votes-count:hover {
+  color: #ffffff;
+  background: #6a6a6a;
+}
+
+.engagement-icon {
+  font-size: 1.1rem;
+}
+
+.approve-count {
+  color: #16740c;
+}
+
+.disapprove-count {
+  color: #791111;
+}
+
+.comments-count {
+  color: #245f86;
+}
+
+/* Approval Bar */
+.approval-bar-container {
+  display: flex;
+  gap: 0.25rem;
+  height: 4px;
+  margin: 0.75rem 0;
+  background: #f3f1ee;
+}
+
+.approval-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.approve-segment {
+  background: #16740c;
+}
+
+.disapprove-segment {
+  background: #791111;
+}
+
+/* Loading State */
+.loading {
+  padding: 3rem 2.5rem;
+  text-align: center;
+  color: #6a6a6a;
+  font-size: 0.925rem;
+  background: #ffffff;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 4rem 2.5rem;
+  text-align: center;
+  color: #6a6a6a;
+  background: #ffffff;
+}
+
+.empty-state h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #e8e5e1;
+  }
+
+  .main-content {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .hero-section {
+    padding: 2rem 1.5rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .feed-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .bill-entry {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .bill-engagement {
+    gap: 1.25rem;
+  }
 }

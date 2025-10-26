@@ -1,0 +1,667 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
+  background: #f8f6f3;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #1a1a1a;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-family: "Space Grotesk", sans-serif;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.bill-details {
+  padding: 2.5rem;
+  background: #ffffff;
+  margin: 2rem;
+  border: 1px solid #e8e5e1;
+  transition: border-color 0.2s ease;
+}
+
+.bill-details:hover {
+  border-color: #d4cfc7;
+}
+
+.bill-details p {
+  margin: 0.85rem 0;
+  color: #4a4a4a;
+  font-size: 0.925rem;
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+.bill-details strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.bill-details a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #f3f1ee;
+  border: 1px solid #e8e5e1;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 2rem;
+}
+
+.bill-details a:hover {
+  background: #a10b0b;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.row2,
+.row-3 {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  flex-wrap: wrap;
+}
+
+.row-3 {
+  margin-bottom: 2rem;
+}
+
+.summary {
+  flex: 1;
+  min-width: 300px;
+  background: #ffffff;
+  padding: 2rem;
+  border: 1px solid #e8e5e1;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.summary:hover {
+  border-color: #d4cfc7;
+}
+
+#concise {
+  font-size: 0.925rem;
+  color: #1a1a1a;
+  line-height: 1.75;
+  font-weight: 500;
+}
+
+.sentiment-analysis,
+.personal-impact,
+.gen-quiz,
+.poll-container {
+  background: #ffffff;
+  padding: 2rem;
+  border: 1px solid #e8e5e1;
+  transition: border-color 0.2s ease;
+}
+
+.sentiment-analysis:hover,
+.personal-impact:hover,
+.gen-quiz:hover,
+.poll-container:hover {
+  border-color: #d4cfc7;
+}
+
+.sentiment-analysis {
+  flex: 1;
+  min-width: 350px;
+  max-width: 500px;
+  margin-bottom: 1.5rem;
+}
+
+.personal-impact {
+  margin: 0 2rem 1.5rem 2rem;
+  padding: 2rem;
+}
+
+.gen-quiz {
+  flex: 1;
+  min-width: 300px;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.poll-container {
+  flex: 0 0 auto;
+  min-width: 350px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.confidence-text {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #000000;
+  margin-top: 0.75rem;
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background: #f8f6f3;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.themes {
+  font-size: 0.8rem;
+  color: #000000;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  background: #f8f6f3;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.poll-title {
+  font-family: "Space Grotesk", sans-serif;
+  color: #1a1a1a;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.poll-content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.poll-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.poll-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.poll-btn {
+  flex: 1;
+  padding: 0.875rem 1.25rem;
+  background: #083a5c;
+  color: #ffffff;
+  border: 1px solid #1a1a1a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.poll-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.1));
+  transition: left 0.7s ease;
+}
+
+.poll-btn:hover::before {
+  left: 100%;
+}
+
+.approve-btn:hover {
+  background: #003b00;
+  transform: translateY(-1px);
+}
+
+.disapprove-btn:hover {
+  background: #310000;
+  transform: translateY(-1px);
+}
+
+.poll-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.poll-bar {
+  height: 6px;
+  background: transparent;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.approve-bar {
+  background: #27911c;
+}
+
+.disapprove-bar {
+  background: #bb2a2a;
+}
+
+.poll-result {
+  color: #000000;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.pie-chart-container {
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+}
+
+.source-title {
+  font-weight: 600;
+  font-size: 0.925rem;
+  margin-bottom: 0.75rem;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.sentiment-bar {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: #fafaf9;
+  border: 1px solid #f3f1ee;
+}
+
+.bar {
+  width: 100%;
+  background: #f3f1ee;
+  overflow: hidden;
+  height: 8px;
+  margin: 0.85rem 0;
+}
+
+.fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bbc-color {
+  background: #750909;
+}
+
+.reuter-color {
+  background: #aa8a68;
+}
+
+.highlight {
+  background: rgba(196, 160, 122, 0.15);
+  color: #1a1a1a;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-bottom: 2px solid #c4a07a;
+}
+
+/* Bill Character Animation */
+#billAnimation {
+  position: fixed;
+  bottom: 60px;
+  left: -150px;
+  width: 60px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 99999;
+  display: block;
+}
+
+#billAnimation.marching {
+  animation: billMarch 6s linear forwards;
+}
+
+@keyframes billMarch {
+  0% {
+    left: -150px;
+  }
+  100% {
+    left: calc(100vw + 150px);
+  }
+}
+
+.bill-character {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  animation: billWalk 0.4s infinite;
+}
+
+@keyframes billWalk {
+  0%,
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-2deg);
+  }
+}
+
+/* Bill Paper Body */
+.bill-body {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 50px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border: 2px solid #2d2d2d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+/* Paper lines to look like a document */
+.bill-lines {
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  right: 6px;
+}
+
+.bill-line {
+  height: 2px;
+  background: #b8b8b8;
+  margin-bottom: 3px;
+}
+
+.bill-line:nth-child(2) {
+  width: 70%;
+}
+
+.bill-line:nth-child(3) {
+  width: 85%;
+}
+
+.bill-line:nth-child(4) {
+  width: 60%;
+}
+
+/* Helmet on the bill */
+.bill-helmet {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 20px;
+  background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+  border: 2px solid #2d2d2d;
+  border-radius: 50% 50% 0 0;
+  z-index: 4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.helmet-rim {
+  position: absolute;
+  bottom: -4px;
+  left: -3px;
+  width: calc(100% + 6px);
+  height: 6px;
+  background: #2d2d2d;
+  border-radius: 2px;
+}
+
+.helmet-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: #c4a07a;
+}
+
+/* Simple face on the bill */
+.bill-face {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 3;
+}
+
+.bill-eye {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #2d2d2d;
+  border-radius: 50%;
+  top: 0;
+}
+
+.eye-left {
+  left: 10px;
+}
+.eye-right {
+  right: 10px;
+}
+
+.bill-smile {
+  position: absolute;
+  width: 12px;
+  height: 6px;
+  border: 2px solid #2d2d2d;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Legs */
+.bill-leg {
+  position: absolute;
+  width: 6px;
+  height: 14px;
+  background: #2d2d2d;
+  bottom: -14px;
+  z-index: 1;
+}
+
+.leg-left {
+  left: 12px;
+  animation: legMarchL 0.4s infinite;
+  transform-origin: top center;
+}
+
+.leg-right {
+  right: 12px;
+  animation: legMarchR 0.4s infinite;
+  transform-origin: top center;
+}
+
+@keyframes legMarchL {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes legMarchR {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+}
+
+/* Arms */
+.bill-arm {
+  position: absolute;
+  width: 5px;
+  height: 16px;
+  background: #e8e8e8;
+  border: 2px solid #2d2d2d;
+  top: 18px;
+  z-index: 1;
+}
+
+.arm-left {
+  left: -3px;
+  animation: armMarchL 0.4s infinite;
+  transform-origin: top center;
+}
+
+.arm-right {
+  right: -3px;
+  animation: armMarchR 0.4s infinite;
+  transform-origin: top center;
+}
+
+@keyframes armMarchL {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes armMarchR {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .row2 {
+    flex-direction: column;
+  }
+
+  .sentiment-analysis {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .bill-details {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .row2,
+  .row-3 {
+    padding: 0 1rem;
+    flex-direction: column;
+  }
+
+  .personal-impact {
+    margin: 0 1rem 1.5rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .poll-buttons {
+    flex-direction: column;
+  }
+
+  .poll-content-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pie-chart-container {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+  }
+}
+
+/* Minimal scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f6f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4cfc7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8b3aa;
+}
