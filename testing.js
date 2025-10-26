@@ -18,7 +18,7 @@ const firebaseConfig = {
       messagingSenderId: "301391502605",
       appId: "1:301391502605:web:67c58902e72044cd03a444"
     };
-const TEXT = "Expressing support for the recognition of September 26, 2025, as 'World Contraception Day' and expressing the sense of the House of Representatives regarding global and domestic access to contraception.";
+const TEXT = "Celebrating the 100th anniversary of the founding of the Schomburg Center for Research in Black Culture.";
 const WORLD_NEWS_API_KEY = "8e507cda7bc2442e9e907d46849996e7";
 
 const app = initializeApp(firebaseConfig);
@@ -31,7 +31,7 @@ async function queryWorldNewsAPI(phrase) {
     "text": phrase,
     "news-sources": "https://www.bbc.com, https://www.reuters.com/",
     "language": "en",
-    "page-size": "20"
+    "page-size": "10"
   });
 
   const url = `${endpoint}?${params.toString()}`;
