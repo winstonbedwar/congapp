@@ -1,0 +1,471 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f6f3;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #1a1a1a;
+}
+
+/* Navigation Sidebar */
+nav {
+  width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #e8e5e1;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+#nameApp {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #d17a5c;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+nav a {
+  color: #4a4a4a;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.925rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+  display: block;
+}
+
+nav a:hover {
+  background: #f8f6f3;
+  color: #1a1a1a;
+  border-left-color: #d17a5c;
+}
+
+/* Main Content Area */
+.main-content {
+  margin-left: 240px;
+  flex: 1;
+  padding: 3rem;
+  max-width: 1400px;
+}
+
+/* Welcome Section with Bill Character */
+.welcome-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.bill-mascot {
+  width: 70px;
+  height: 90px;
+  position: relative;
+  animation: billFloat 3s ease-in-out infinite;
+}
+
+@keyframes billFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+}
+
+.bill-mascot .bill-body {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 55px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border: 2.5px solid #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.bill-mascot .bill-lines {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  right: 8px;
+}
+
+.bill-mascot .bill-line {
+  height: 2px;
+  background: #b8b8b8;
+  margin-bottom: 4px;
+}
+
+.bill-mascot .bill-line:nth-child(2) {
+  width: 70%;
+}
+.bill-mascot .bill-line:nth-child(3) {
+  width: 85%;
+}
+.bill-mascot .bill-line:nth-child(4) {
+  width: 60%;
+}
+
+.bill-mascot .bill-helmet {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 22px;
+  background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+  border: 2.5px solid #2d2d2d;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bill-mascot .helmet-rim {
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: 7px;
+  background: #2d2d2d;
+  border-radius: 2px;
+}
+
+.bill-mascot .helmet-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  color: #c4a07a;
+}
+
+.bill-mascot .bill-face {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.bill-mascot .bill-eye {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #2d2d2d;
+  border-radius: 50%;
+  top: 0;
+}
+
+.bill-mascot .eye-left {
+  left: 12px;
+}
+.bill-mascot .eye-right {
+  right: 12px;
+}
+
+.bill-mascot .bill-smile {
+  position: absolute;
+  width: 14px;
+  height: 7px;
+  border: 2.5px solid #2d2d2d;
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.welcome-text h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.03em;
+}
+
+#message {
+  font-size: 0.925rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+/* Stats Container */
+
+#streak,
+#quiztracker,
+#currentLevel {
+  /* Orange border */
+  border: 2px solid #08a4ff;
+  background-color: #fff;
+  width: 100%;
+  height: 160px; /* Increased height */
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 10px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between; /* even spacing between boxes */
+  gap: 100px; /* optional: adds consistent space between boxes */
+  margin-top: 20px;
+}
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  padding: 1.75rem;
+  border: 1px solid #e8e5e1;
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: #d4cfc7;
+  transform: translateY(-2px);
+}
+
+.stat-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6a6a6a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.stat-card h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+/* Two Column Layout for Leaderboard and Top Bills */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.dashboard-section {
+  background: #ffffff;
+  border: 1px solid #e8e5e1;
+  padding: 2rem;
+  transition: border-color 0.2s ease;
+}
+
+.dashboard-section:hover {
+  border-color: #d4cfc7;
+}
+
+.dashboard-section h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Leaderboard Styles */
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fafaf9;
+  border: 1px solid #f3f1ee;
+  transition: all 0.2s ease;
+}
+
+.leaderboard-item:hover {
+  background: #f8f6f3;
+  border-color: #e8e5e1;
+}
+
+.rank {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #d15c5c;
+  min-width: 30px;
+}
+
+.rank.top-three {
+  color: #c47a7a;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.user-stats {
+  font-size: 0.8rem;
+  color: #6a6a6a;
+}
+
+.score {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #4a4a4a;
+}
+
+/* Top Bills Styles */
+.bills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bill-item {
+  padding: 1.25rem;
+  background: #fafaf9;
+  border: 1px solid #f3f1ee;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.bill-item:hover {
+  background: #f8f6f3;
+  border-color: #e8e5e1;
+  transform: translateX(4px);
+}
+
+.bill-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.bill-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #6a6a6a;
+  margin-bottom: 0.5rem;
+}
+
+.bill-engagement {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #6a6a6a;
+}
+
+.engagement-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Logout Button */
+#logout {
+  padding: 0.875rem 1.75rem;
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #1a1a1a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.925rem;
+  margin-top: 2rem;
+  width: fit-content;
+}
+
+#logout:hover {
+  background: #2d2d2d;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #e8e5e1;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 2rem 1.5rem;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .welcome-text h1 {
+    font-size: 2rem;
+  }
+}
