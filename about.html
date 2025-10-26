@@ -1,62 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orwell</title> 
-  <link rel ="stylesheet" href ="style.css">    
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orwell - About</title> 
+  <link rel="stylesheet" href="style.css">    
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a1a;
+    }
+
+    /* Sidebar Navigation - CONSISTENT STYLING */
+    .sidebar {
+      width: 260px;
+      background: #ffffff;
+      border-right: 1px solid #e8e5e1;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    #nameApp {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #d17a5c;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .sidebar a {
+      color: #4a4a4a;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      font-size: 0.925rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background: #f8f6f3;
+      color: #1a1a1a;
+      border-left-color: #d17a5c;
+    }
 
     /* Hide scrollbar */
-.main-content::-webkit-scrollbar {
-  display: none;
-}
-.main-content {
-  
-  flex-grow: 1;
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scrollbar-width: none;
-    transition: background-color 0.3s linear;
+    .main-content::-webkit-scrollbar {
+      display: none;
+    }
 
-}
+    .main-content {
+      margin-left: 260px;
+      flex-grow: 1;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      transition: background-color 0.3s linear;
+    }
 
-/* Each quote fills full viewport */
-.quote-section {
-  height: 100vh;
-  width: 100%;
-  scroll-snap-align: start;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.5s ease;
-}
+    /* Each quote fills full viewport */
+    .quote-section {
+      height: 100vh;
+      width: 100%;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
+    }
 
-.quote-box {
-  width: 70%;
-    border-radius: 12px;
+    .quote-box {
+      width: 70%;
+      border-radius: 12px;
+      transition: background-color 0.3s linear;
+      padding: 40px;
+      text-align: center;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
 
-    transition: background-color 0.3s linear;
+    .quote-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
 
-  padding: 40px;
-  text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-  transform: translateY(100px);
-  opacity: 0;
-  transition: all 0.6s ease;
-}
+    .quote-box h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
 .quote-box.show {
   transform: translateY(0);
   opacity: 1;
 }
+    .quote-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
 
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #e8e5e1;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .quote-box {
+        width: 85%;
+        padding: 30px;
+      }
+
+      .quote-box h2 {
+        font-size: 1.5rem;
+      }
+
+      .quote-box p {
+        font-size: 1rem;
+      }
+    }
   </style>
-
 </head>
+
 <body>
     
       <nav>
@@ -66,102 +166,96 @@
     <a href="profile.html">view profile</a><br><br>
     <a href="about.html">about</a>
     <!-- add more links as needed -->
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <h1 id="nameApp">Orwell</h1>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="about.html">About</a>
+    <a href="logIn.html">Log Out</a>
   </nav>
-  <div class = "main-content">
 
+  <!-- Main Content with Quote Sections -->
+  <div class="main-content">
+    <div class="quote-section">
+      <div class="quote-box">
+        <h2>"engaging young civic minds, one click at a time"</h2>
+        <p>orwell creators '25</p>
+      </div>
+    </div>
 
-        <div class = "quote-section" style>
-                <div class="quote-box" >
+    <div class="quote-section">
+      <div class="quote-box">
+        <h2>"all animals are equal, but some are more equal than others"</h2>
+        <p>The creators of Orwell blah blah here here ....Orwell was inspired--and thus named after-- a specific scene from Orwell's book Animal Farm in which none of the animals could read the rules anymore...</p>
+      </div>
+    </div>
 
-    <h2> "engaging young civic minds, one click at a time" </h2><br><br>
-            <p>orwell creators '25</p>
+    <div class="quote-section">
+      <div class="quote-box">
+        <h2>"47% of eligible youth cast a vote in 2024"</h2>
+        <p>We think that as citizens of a democratic nation, it is our duty to be civically informed + active</p>
+      </div>
+    </div>
 
-                </div></div>
+    <div class="quote-section">               
+      <div class="quote-box">
+        <h2>"surveys find that 70% of Americans fail basic civic literacy"</h2>
+        <p>Civics can be fun, accessible, and efficient! We want to increase the outreach of law to the people-- to "wordle-ify" their civic experience in a way!</p>
+      </div>
+    </div>
+  </div>
 
-         <div class = "quote-section" >
-                            <div class="quote-box" >
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const boxes = document.querySelectorAll(".quote-box");
+      const main = document.querySelector(".main-content");
 
-    <h2> "all animals are equal, but some are more equal than others" </h2>
-            <p> The creators of Orwell blah blah here here ....Orwell was inspired--and thus named after-- a specific scene from Orwell's book Animal Farm in which
-                none of the animals could read the rules anymore... </p>
-                </div></div>
+      // Background color steps (one per section)
+      const colors = [
+        [193, 241, 246],   // #c1f1f6
+        [99, 46, 42],      // #632e2a
+        [207, 80, 71],     // #cf5047
+        [230, 246, 126]    // #e6f67e
+      ];
 
-            
-            <div class = "quote-section" >
-                                <div class="quote-box" >
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      }, { threshold: 0.6 });
 
-    <h2> "47% of eligible youth cast a vote in 2024" </h2>
-            <p> We think that as citizens of a democratic nation, it is our duty to be civically informed + active </p>
-                </div></div>
+      boxes.forEach(box => observer.observe(box));
 
-                <div class = "quote-section" >               
-                     <div class="quote-box" >
+      // Interpolate between two colors
+      function interpolateColor(color1, color2, factor) {
+        return color1.map((c, i) => Math.round(c + (color2[i] - c) * factor));
+      }
 
-    <h2> "surveys find that 70% of Americans fail basic civic literacy" </h2>
-            <p> Civics can be fun, accessible, and efficient! We want to increase the outreach of law to the people-- to "wordle-ify" their civic experience in a way! </p>
-                </div></div>
+      // Convert RGB array to CSS string
+      function rgbToString(rgbArray) {
+        return `rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]})`;
+      }
 
-            </div>
-     </div>
+      main.addEventListener("scroll", () => {
+        const sectionHeight = window.innerHeight;
+        const scrollTop = main.scrollTop;
+        const totalSections = colors.length;
+        const totalHeight = sectionHeight * (totalSections - 1);
 
+        const progress = Math.min(scrollTop / totalHeight, 1);
+        const index = Math.floor(progress * (totalSections - 1));
+        const blend = (progress * (totalSections - 1)) % 1;
 
-    <script>
-         document.addEventListener("DOMContentLoaded", () => {
-    const boxes = document.querySelectorAll(".quote-box");
-    const main = document.querySelector(".main-content");
+        const currentColor = colors[index];
+        const nextColor = colors[index + 1] || colors[index];
+        const blendedColor = interpolateColor(currentColor, nextColor, blend);
 
-    // Background color steps (one per section)
-    const colors = [
-      [193, 241, 246],   // #c1f1f6
-      [99, 46, 42],      // #632e2a
-      [207, 80, 71],     // #cf5047
-      [230, 246, 126]    // #e6f67e
-    ];
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        }
+        main.style.backgroundColor = rgbToString(blendedColor);
       });
-    }, { threshold: 0.6 });
-
-    boxes.forEach(box => observer.observe(box));
-
-    // Interpolate between two colors
-    function interpolateColor(color1, color2, factor) {
-      return color1.map((c, i) => Math.round(c + (color2[i] - c) * factor));
-    }
-
-    // Convert RGB array to CSS string
-    function rgbToString(rgbArray) {
-      return `rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]})`;
-    }
-
-    main.addEventListener("scroll", () => {
-      const sectionHeight = window.innerHeight;
-      const scrollTop = main.scrollTop;
-      const totalSections = colors.length;
-      const totalHeight = sectionHeight * (totalSections - 1);
-
-      const progress = Math.min(scrollTop / totalHeight, 1);
-      const index = Math.floor(progress * (totalSections - 1));
-      const blend = (progress * (totalSections - 1)) % 1;
-
-      const currentColor = colors[index];
-      const nextColor = colors[index + 1] || colors[index];
-      const blendedColor = interpolateColor(currentColor, nextColor, blend);
-
-      main.style.backgroundColor = rgbToString(blendedColor);
     });
-  });
-
-
-
-
-    </script>
-
-
+  </script>
 </body>
-
 </html>

@@ -1,52 +1,577 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Orwell</title>
 
   <link rel="stylesheet" href="style.css">
+  
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f8f6f3;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a1a;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 260px;
+      background: #ffffff;
+      border-right: 1px solid #e8e5e1;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      overflow-y: auto;
+    }
+
+    #nameApp {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #d17a5c;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .sidebar a {
+      color: #4a4a4a;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      font-size: 0.925rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background: #f8f6f3;
+      color: #1a1a1a;
+      border-left-color: #d17a5c;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      margin-left: 260px;
+      flex: 1;
+      padding: 0;
+    }
+
+    /* Hero Section with Orwell Branding */
+    .hero-section {
+      background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+      border-bottom: 1px solid #e8e5e1;
+      padding: 3rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .hero-mascot {
+      width: 80px;
+      height: 100px;
+      position: relative;
+      flex-shrink: 0;
+      animation: heroFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(2deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(-2deg);
+      }
+    }
+
+    .hero-mascot .bill-body {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 60px;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      border: 3px solid #2d2d2d;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-mascot .bill-lines {
+      position: absolute;
+      top: 10px;
+      left: 8px;
+      right: 8px;
+    }
+
+    .hero-mascot .bill-line {
+      height: 2px;
+      background: #b8b8b8;
+      margin-bottom: 4px;
+    }
+
+    .hero-mascot .bill-line:nth-child(2) { width: 70%; }
+    .hero-mascot .bill-line:nth-child(3) { width: 85%; }
+    .hero-mascot .bill-line:nth-child(4) { width: 60%; }
+
+    .hero-mascot .bill-helmet {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 42px;
+      height: 24px;
+      background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+      border: 3px solid #2d2d2d;
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-mascot .helmet-rim {
+      position: absolute;
+      bottom: -5px;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 8px;
+      background: #2d2d2d;
+      border-radius: 2px;
+    }
+
+    .hero-mascot .helmet-star {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      color: #c4a07a;
+    }
+
+    .hero-mascot .bill-face {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+    }
+
+    .hero-mascot .bill-eye {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #2d2d2d;
+      border-radius: 50%;
+      top: 0;
+    }
+
+    .hero-mascot .eye-left { left: 14px; }
+    .hero-mascot .eye-right { right: 14px; }
+
+    .hero-mascot .bill-smile {
+      position: absolute;
+      width: 14px;
+      height: 7px;
+      border: 2px solid #2d2d2d;
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hero-content h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: #d17a5c;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      color: #4a4a4a;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    /* Bills Feed Header */
+    .feed-header {
+      padding: 1.25rem 2.5rem;
+      background: #ffffff;
+      border-bottom: 1px solid #e8e5e1;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .feed-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+    }
+
+    /* Bills Container */
+    #bills {
+      background: #ffffff;
+    }
+
+    /* Individual Bill Entry (Tweet-style) */
     .bill-entry {
-      padding: 20px;
-      margin-bottom: 20px;
-      background-color: #f9f9f9;
-      /* subtle background */
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-family: sans-serif;
-      transition: box-shadow 0.2s;
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid #e8e5e1;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
     }
 
     .bill-entry:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background-color: #fafaf9;
+    }
+
+    .bill-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    /* Bill Header */
+    .bill-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bill-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #d17a5c;
+    }
+
+    .bill-type {
+      font-size: 0.8rem;
+      color: #6a6a6a;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      background: #f3f1ee;
+    }
+
+    .bill-date {
+      font-size: 0.8rem;
+      color: #6a6a6a;
+      margin-left: auto;
+    }
+
+    /* Bill Title */
+    .bill-entry h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    /* Engagement Stats (Twitter-style) */
+    .bill-engagement {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #f3f1ee;
+    }
+
+    .engagement-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: #6a6a6a;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .engagement-item:hover {
+      color: #1a1a1a;
+    }
+
+    .engagement-icon {
+      font-size: 1.1rem;
+    }
+
+    .approve-count {
+      color: #8ba888;
+    }
+
+    .disapprove-count {
+      color: #c4a07a;
+    }
+
+    .comments-count {
+      color: #8ba6b8;
+    }
+
+    /* Approval Bar */
+    .approval-bar-container {
+      display: flex;
+      gap: 0.25rem;
+      height: 4px;
+      margin: 0.75rem 0;
+      background: #f3f1ee;
+    }
+
+    .approval-segment {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .approve-segment {
+      background: #8ba888;
+    }
+
+    .disapprove-segment {
+      background: #c4a07a;
+    }
+
+    /* Loading State */
+    .loading {
+      padding: 3rem 2.5rem;
+      text-align: center;
+      color: #6a6a6a;
+      font-size: 0.925rem;
+      background: #ffffff;
+    }
+
+    /* Empty State */
+    .empty-state {
+      padding: 4rem 2.5rem;
+      text-align: center;
+      color: #6a6a6a;
+      background: #ffffff;
+    }
+
+    .empty-state h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #e8e5e1;
+      }
+
+      .main-content {
+        margin-left: 0;
+        max-width: 100%;
+      }
+
+      .hero-section {
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .feed-header {
+        padding: 1rem 1.5rem;
+      }
+
+      .bill-entry {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .bill-engagement {
+        gap: 1.25rem;
+      }
     }
   </style>
 </head>
 
 <body>
-
-
+  <!-- Sidebar Navigation -->
   <nav class="sidebar">
     <h1 id="nameApp">Orwell</h1>
-    <a href="index.html">Home</a><br><br>
-    <a href="profile.html">Profile</a><br><br>
-    <a href="about.html">About</a><br><br>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="about.html">About</a>
     <a href="logIn.html">Log Out</a>
-    <!-- add more links as needed -->
   </nav>
 
+  <!-- Main Content -->
   <div class="main-content">
+    <!-- Hero Section with Orwell Branding -->
+    <div class="hero-section">
+      <div class="hero-mascot">
+        <div class="bill-body">
+          <div class="bill-lines">
+            <div class="bill-line"></div>
+            <div class="bill-line"></div>
+            <div class="bill-line"></div>
+            <div class="bill-line"></div>
+          </div>
+          <div class="bill-face">
+            <div class="bill-eye eye-left"></div>
+            <div class="bill-eye eye-right"></div>
+            <div class="bill-smile"></div>
+          </div>
+        </div>
+        <div class="bill-helmet">
+          <div class="helmet-star">⭐</div>
+          <div class="helmet-rim"></div>
+        </div>
+      </div>
 
-    <h1>Bills of Today</h1>
+      <div class="hero-content">
+        <h1>Orwell</h1>
+        <p>Track legislation, analyze sentiment, and understand the policies shaping our future. Stay informed with real-time bill updates and community insights.</p>
+      </div>
+    </div>
 
-    <div id="bills">Loading...</div>
+    <!-- Feed Header -->
+    <div class="feed-header">
+      <h1>Bills of Today</h1>
+    </div>
 
+    <!-- Bills Feed -->
+    <div id="bills" class="loading">Loading bills...</div>
   </div>
-</body>
-<script src="./congressBillStorage.js"></script>
-<script src="./sentimentAnalysis.js"></script>
-<script type="module" src="./module.js"></script>
 
+  <script src="./congressBillStorage.js"></script>
+  <script src="./sentimentAnalysis.js"></script>
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getDatabase, ref, onValue, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+    async function makeBillsAppear() {
+      const firebaseConfig = {
+        apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+        authDomain: "orwell-ea558.firebaseapp.com",
+        databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+        projectId: "orwell-ea558",
+        storageBucket: "orwell-ea558.firebasestorage.app",
+        messagingSenderId: "301391502605",
+        appId: "1:301391502605:web:67c58902e72044cd03a444"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      const billsRef = ref(db, 'congress/bills');
+      const container = document.getElementById('bills');
+
+      onValue(billsRef, async (snapshot) => {
+        console.log("received snapshot!");
+        const data = snapshot.val();
+        container.innerHTML = '';
+
+        if (data) {
+          // Convert object to array with keys
+          const billsArray = Object.entries(data)
+            .map(([key, bill]) => ({...bill, id: `${bill.type}-${bill.number}`}))
+            .filter((bill) => bill.actionDate)
+            .sort((a, b) => new Date(b.actionDate) - new Date(a.actionDate))
+            .slice(0, 10);
+
+          // Fetch vote data for all bills
+          const votesSnapshot = await get(ref(db, 'votes'));
+          const votesData = votesSnapshot.exists() ? votesSnapshot.val() : {};
+
+          // Display each bill
+          billsArray.forEach((bill) => {
+            const billVotes = votesData[bill.id] || { approve: 0, disapprove: 0 };
+            const totalVotes = billVotes.approve + billVotes.disapprove;
+            const approvePercent = totalVotes > 0 ? (billVotes.approve / totalVotes) * 100 : 50;
+            const disapprovePercent = totalVotes > 0 ? (billVotes.disapprove / totalVotes) * 100 : 50;
+
+            // Simulate comments count (you can replace with real data later)
+            const commentsCount = Math.floor(totalVotes * 0.3);
+
+            const div = document.createElement('div');
+            div.className = 'bill-entry';
+
+            div.innerHTML = `
+              <a href="bill.html?id=${bill.id}" class="bill-link">
+                <div class="bill-header">
+                  <span class="bill-number">${bill.number}</span>
+                  <span class="bill-type">${bill.type}</span>
+                  <span class="bill-date">${bill.actionDate}</span>
+                </div>
+                
+                <h3>${bill.title}</h3>
+                
+                ${totalVotes > 0 ? `
+                  <div class="approval-bar-container">
+                    <div class="approval-segment approve-segment" style="width: ${approvePercent}%"></div>
+                    <div class="approval-segment disapprove-segment" style="width: ${disapprovePercent}%"></div>
+                  </div>
+                ` : ''}
+                
+                <div class="bill-engagement">
+                  <div class="engagement-item approve-count">
+                    <span class="engagement-icon">👍</span>
+                    <span>${billVotes.approve}</span>
+                  </div>
+                  <div class="engagement-item disapprove-count">
+                    <span class="engagement-icon">👎</span>
+                    <span>${billVotes.disapprove}</span>
+                  </div>
+                  <div class="engagement-item comments-count">
+                    <span class="engagement-icon">💬</span>
+                    <span>${commentsCount}</span>
+                  </div>
+                  <div class="engagement-item">
+                    <span class="engagement-icon">📊</span>
+                    <span>${totalVotes} votes</span>
+                  </div>
+                </div>
+              </a>    
+            `;
+
+            container.appendChild(div);
+          });
+        } else {
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3>No bills found</h3>
+              <p>Check back later for updates</p>
+            </div>
+          `;
+        }
+      });
+    }
+
+    makeBillsAppear();
+  </script>
+</body>
 </html>

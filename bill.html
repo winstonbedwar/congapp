@@ -2,152 +2,749 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Bill Details</title>
+  <title>Orwell</title>
   <link rel="stylesheet" href="style.css">
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-     body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
-        overflow-y: auto;  /* allow vertical scroll */
-  min-height: 100vh; /* let body grow */
-
-    
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
+      background: #f8f6f3;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a1a;
+      padding: 0;
+      margin: 0;
+      position: relative;
     }
 
-    .row2 {
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 2rem;
+      color: #1a1a1a;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #1a1a1a;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .bill-details {
+      padding: 2.5rem;
+      background: #ffffff;
+      margin: 2rem;
+      border: 1px solid #e8e5e1;
+      transition: border-color 0.2s ease;
+    }
+
+    .bill-details:hover {
+      border-color: #d4cfc7;
+    }
+
+    .bill-details p {
+      margin: 0.85rem 0;
+      color: #4a4a4a;
+      font-size: 0.925rem;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .bill-details strong {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    .bill-details a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #f3f1ee;
+      border: 1px solid #e8e5e1;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .bill-details a:hover {
+      background: #e8e5e1;
+      transform: translateY(-1px);
+    }
+
+    .row2, .row-3 {
       display: flex;
       flex-direction: row;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      flex-wrap: wrap;
     }
 
-    .bill-details { border: 1px solid #c27f14; padding: 20px; }
-   
+    .row-3 {
+      margin-bottom: 2rem;
+    }
 
-    .summary, .sentiment-analysis, .personal-impact, .gen-quiz {
-      padding: 15px;
-      margin-top: 20px;
-      border-left: 4px solid #c27f14;
-      margin-left: 30px;
-      background: #f7f3e9;
-      height: 200px;    
-      color: #91bdd7;
+    .summary {
+      flex: 1;
+      min-width: 300px;
+      background: #ffffff;
+      padding: 2rem;
+      border: 1px solid #e8e5e1;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .summary:hover {
+      border-color: #d4cfc7;
+    }
+
+    #concise {
+      font-size: 0.925rem;
+      color: #1a1a1a;
+      line-height: 1.75;
+      font-weight: 500;
+    }
+
+    .sentiment-analysis, .personal-impact, .gen-quiz, .poll-container {
+      background: #ffffff;
+      padding: 2rem;
+      border: 1px solid #e8e5e1;
+      transition: border-color 0.2s ease;
+    }
+
+    .sentiment-analysis:hover,
+    .personal-impact:hover,
+    .gen-quiz:hover,
+    .poll-container:hover {
+      border-color: #d4cfc7;
+    }
+
+    .sentiment-analysis {
+      flex: 1;
+      min-width: 350px;
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+    }
+
+    .personal-impact {
+      margin: 0 2rem 1.5rem 2rem;
+      padding: 2rem;
+    }
+
+    .gen-quiz {
+      flex: 1;
+      min-width: 300px;
+      color: #1a1a1a;
+      margin-bottom: 1.5rem;
+    }
+
+    .poll-container {
+      flex: 0 0 auto;
+      min-width: 350px;
+      max-width: 450px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .confidence-text {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #6a6a6a;
+      margin-top: 0.75rem;
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      background: #f8f6f3;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .themes {
+      font-size: 0.8rem;
+      color: #6a6a6a;
+      margin-top: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      background: #f8f6f3;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .poll-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #1a1a1a;
+      text-align: left;
       width: 100%;
-      max-width: 700px;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      font-size: 15px;  
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
 
-}
+    .poll-content-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
 
-  .sentiment-analysis {
-    width: 40%;
+    .poll-details {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 200px;
+    }
 
+    .poll-buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
 
-    height: 450px;
-  }
+    .poll-btn {
+      flex: 1;
+      padding: 0.875rem 1.25rem;
+      background: #1a1a1a;
+      color: #ffffff;
+      border: 1px solid #1a1a1a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: -0.01em;
+      position: relative;
+      overflow: hidden;
+    }
 
-  .personal-impact {
-    margin-top: -190px;
-  }
+    .poll-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: left 0.3s ease;
+    }
 
-  .gen-quiz {
-    width: 500%;
-    background-color: rgb(173, 226, 249);
-    color:#f7f3e9;
-  }
+    .poll-btn:hover::before {
+      left: 100%;
+    }
 
-.source-title {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 6px;
-  color: #b8756d;
-}
+    .approve-btn:hover {
+      background: #2d2d2d;
+      transform: translateY(-1px);
+    }
 
-.sentiment-bar {
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
+    .disapprove-btn:hover {
+      background: #2d2d2d;
+      transform: translateY(-1px);
+    }
 
-.bar {
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  height: 22px;
-  margin-bottom: 8px;
-}
+    .poll-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
 
-.fill {
-  height: 100%;
-  width: 0%;
-  transition: width 0.5s ease-in-out;
-}
+    .poll-bar {
+      height: 6px;
+      background: transparent;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
 
-.bbc-color {
-  background-color: #90b9e1; /* blue */
-}
+    .approve-bar {
+      background: #8ba888;
+    }
 
-.reuter-color {
-  background-color: #ebc383; /* orange */
-}
+    .disapprove-bar {
+      background: #c4a07a;
+    }
 
-.confidence-text {
-  font-weight: bold;
-  font-size: 14px;
-  color: #de7070; /* green confidence */
-}
+    .poll-result {
+      color: #4a4a4a;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
 
+    .pie-chart-container {
+      width: 130px;
+      height: 130px;
+      flex-shrink: 0;
+    }
 
+    .source-title {
+      font-weight: 600;
+      font-size: 0.925rem;
+      margin-bottom: 0.75rem;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .sentiment-bar {
+      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      background: #fafaf9;
+      border: 1px solid #f3f1ee;
+    }
+
+    .bar {
+      width: 100%;
+      background: #f3f1ee;
+      overflow: hidden;
+      height: 8px;
+      margin: 0.85rem 0;
+    }
+
+    .fill {
+      height: 100%;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .bbc-color {
+      background: #8ba6b8;
+    }
+
+    .reuter-color {
+      background: #c4a07a;
+    }
+
+    .highlight {
+      background: rgba(196, 160, 122, 0.15);
+      color: #1a1a1a;
+      font-weight: 600;
+      padding: 2px 4px;
+      border-bottom: 2px solid #c4a07a;
+    }
+
+    /* Bill Character Animation */
+    #billAnimation {
+      position: fixed;
+      bottom: 60px;
+      left: -150px;
+      width: 60px;
+      height: 80px;
+      pointer-events: none;
+      z-index: 99999;
+      display: block;
+    }
+
+    #billAnimation.marching {
+      animation: billMarch 6s linear forwards;
+    }
+
+    @keyframes billMarch {
+      0% {
+        left: -150px;
+      }
+      100% {
+        left: calc(100vw + 150px);
+      }
+    }
+
+    .bill-character {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      animation: billWalk 0.4s infinite;
+    }
+
+    @keyframes billWalk {
+      0%, 100% {
+        transform: translateY(0) rotate(2deg);
+      }
+      50% {
+        transform: translateY(-4px) rotate(-2deg);
+      }
+    }
+
+    /* Bill Paper Body */
+    .bill-body {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 50px;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      border: 2px solid #2d2d2d;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+    }
+
+    /* Paper lines to look like a document */
+    .bill-lines {
+      position: absolute;
+      top: 8px;
+      left: 6px;
+      right: 6px;
+    }
+
+    .bill-line {
+      height: 2px;
+      background: #b8b8b8;
+      margin-bottom: 3px;
+    }
+
+    .bill-line:nth-child(2) {
+      width: 70%;
+    }
+
+    .bill-line:nth-child(3) {
+      width: 85%;
+    }
+
+    .bill-line:nth-child(4) {
+      width: 60%;
+    }
+
+    /* Helmet on the bill */
+    .bill-helmet {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 20px;
+      background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+      border: 2px solid #2d2d2d;
+      border-radius: 50% 50% 0 0;
+      z-index: 4;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .helmet-rim {
+      position: absolute;
+      bottom: -4px;
+      left: -3px;
+      width: calc(100% + 6px);
+      height: 6px;
+      background: #2d2d2d;
+      border-radius: 2px;
+    }
+
+    .helmet-star {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+      color: #c4a07a;
+    }
+
+    /* Simple face on the bill */
+    .bill-face {
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 3;
+    }
+
+    .bill-eye {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #2d2d2d;
+      border-radius: 50%;
+      top: 0;
+    }
+
+    .eye-left { left: 10px; }
+    .eye-right { right: 10px; }
+
+    .bill-smile {
+      position: absolute;
+      width: 12px;
+      height: 6px;
+      border: 2px solid #2d2d2d;
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Legs */
+    .bill-leg {
+      position: absolute;
+      width: 6px;
+      height: 14px;
+      background: #2d2d2d;
+      bottom: -14px;
+      z-index: 1;
+    }
+
+    .leg-left {
+      left: 12px;
+      animation: legMarchL 0.4s infinite;
+      transform-origin: top center;
+    }
+
+    .leg-right {
+      right: 12px;
+      animation: legMarchR 0.4s infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes legMarchL {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-15deg); }
+      75% { transform: rotate(10deg); }
+    }
+
+    @keyframes legMarchR {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(10deg); }
+      75% { transform: rotate(-15deg); }
+    }
+
+    /* Arms */
+    .bill-arm {
+      position: absolute;
+      width: 5px;
+      height: 16px;
+      background: #e8e8e8;
+      border: 2px solid #2d2d2d;
+      top: 18px;
+      z-index: 1;
+    }
+
+    .arm-left {
+      left: -3px;
+      animation: armMarchL 0.4s infinite;
+      transform-origin: top center;
+    }
+
+    .arm-right {
+      right: -3px;
+      animation: armMarchR 0.4s infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes armMarchL {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-20deg); }
+    }
+
+    @keyframes armMarchR {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(20deg); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 1024px) {
+      .row2 {
+        flex-direction: column;
+      }
+      
+      .sentiment-analysis {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0;
+      }
+
+      .bill-details {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .row2, .row-3 {
+        padding: 0 1rem;
+        flex-direction: column;
+      }
+
+      .personal-impact {
+        margin: 0 1rem 1.5rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      .poll-buttons {
+        flex-direction: column;
+      }
+
+      .poll-content-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .pie-chart-container {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+      }
+    }
+
+    /* Minimal scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f8f6f3;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #d4cfc7;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b8b3aa;
+    }
   </style>
 </head>
 <body>
-  <body>
+  <!-- Bill Character with Helmet -->
+  <div id="billAnimation">
+    <div class="bill-character">
+      <div class="bill-body">
+        <div class="bill-lines">
+          <div class="bill-line"></div>
+          <div class="bill-line"></div>
+          <div class="bill-line"></div>
+          <div class="bill-line"></div>
+        </div>
+        <div class="bill-arm arm-left"></div>
+        <div class="bill-arm arm-right"></div>
+        <div class="bill-leg leg-left"></div>
+        <div class="bill-leg leg-right"></div>
+        <div class="bill-face">
+          <div class="bill-eye eye-left"></div>
+          <div class="bill-eye eye-right"></div>
+          <div class="bill-smile"></div>
+        </div>
+      </div>
+      <div class="bill-helmet">
+        <div class="helmet-star">⭐</div>
+        <div class="helmet-rim"></div>
+      </div>
+    </div>
+  </div>
+
   <div id="bill-details">Loading...</div>
 
   <div class="row2">
     <div class="summary">
-      <h2>ML generated summary that Tanush is supposed to generate goes here</h2>
+      <h2>📄 Summary</h2>
+      <div id="concise">ML generated summary that Tanush is supposed to generate goes here</div>
     </div>
 
     <div class="sentiment-analysis">
-  <h2>Sentiment Analysis</h2>
+      <h2>📊 Sentiment</h2>
 
-<div class="sentiment-bar" id="bbc-section">
-  <div class="source-title">BBC News</div>
-  <div class="bar">
-    <div id="bbc-bar" class="fill bbc-color" style="width: 0%"></div>
-  </div>
-  <div class="confidence-text" id="bbc-confidence">Confidence: Loading...</div>
-  <div class ="themes" id = "bbc-themes">focus topics: Loading...</div>
-</div>
+      <div class="sentiment-bar" id="bbc-section">
+        <div class="source-title">📰 BBC News</div>
+        <div class="bar">
+          <div id="bbc-bar" class="fill bbc-color" style="width: 0%"></div>
+        </div>
+        <div class="confidence-text" id="bbc-confidence">Confidence: Loading...</div>
+        <div class="themes" id="bbc-themes">focus topics: Loading...</div>
+      </div>
 
-<div class="sentiment-bar" id="reuters-section">
-  <div class="source-title">Reuters</div>
-  <div class="bar">
-    <div id="reuter-bar" class="fill reuter-color" style="width: 0%"></div>
-  </div>
-  <div class="confidence-text" id="reuter-confidence">Confidence: Loading...</div>
-    <div class ="themes" id = "reuter-themes">focus topics: Loading...</div>
-
-</div>
-
-</div>
+      <div class="sentiment-bar" id="reuters-section">
+        <div class="source-title">📰 AP News</div>
+        <div class="bar">
+          <div id="reuter-bar" class="fill reuter-color" style="width: 0%"></div>
+        </div>
+        <div class="confidence-text" id="reuter-confidence">Confidence: Loading...</div>
+        <div class="themes" id="reuter-themes">focus topics: Loading...</div>
+      </div>
+    </div>
   </div>
 
   <div class="personal-impact">
-    <h2>predictions about how bill impacts them live here</h2>
+    <h2>💭 Personal Impact</h2>
+    <p>predictions about how bill impacts them live here</p>
   </div>
 
-  <div class="gen-quiz">
-    <h2>generated Quiz lives here</h2>
+  <div class="row-3">
+    <div class="gen-quiz">
+      <h2>🎯 Quiz</h2>
+      <p>generated Quiz lives here</p>
+    </div>
+
+    <div class="poll-container">
+      <h2 class="poll-title">🗳️ Your Vote</h2>
+      <div class="poll-content-row">
+        <div class="poll-details">
+          <div class="poll-buttons">
+            <button class="poll-btn approve-btn" id="approveButton">Approve</button>
+            <button class="poll-btn disapprove-btn" id="disapproveButton">Disapprove</button>
+          </div>
+          <div class="poll-bar-container">
+            <div class="poll-bar approve-bar" style="width: 0%;"></div>
+            <div class="poll-bar disapprove-bar" style="width: 0%;"></div>
+          </div>
+          <p class="poll-result">0% Approve, 0% Disapprove</p>
+        </div>
+
+        <div class="pie-chart-container">
+          <canvas id="votePieChart"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script type="module">
+
+    function normalizeText(str) {
+      return str
+        .replace(/['"]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+    }
+
     let billTitle = ""
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
@@ -167,110 +764,322 @@
       return urlParams.get(param);
     }
 
-    const billId = getQueryParam("id");
-    const billRef = ref(db, `congress/bills/${billId}`);
     const container = document.getElementById('bill-details');
+    const billId = getQueryParam("id") || "unknownBill";
+    const billRef = ref(db, "votes/" + billId);
 
+    const pollContainer = document.querySelector(".poll-container");
+    const approveBtn = document.getElementById('approveButton');
+    const disapproveBtn = document.getElementById('disapproveButton');
+    const pollResult = pollContainer.querySelector(".poll-result");
+    const approveBar = pollContainer.querySelector(".approve-bar");
+    const disapproveBar = pollContainer.querySelector(".disapprove-bar");
 
-async function loadBillAndSentiment() {
-  if (!billId) {
-    container.innerHTML = "<p>No bill ID provided.</p>";
-    return;
-  }
-
-  const billRef = ref(db, `congress/bills/${billId}`);
-
-  try {
-    const billSnap = await get(billRef);
-    if (!billSnap.exists()) {
-      container.innerHTML = "<p>Bill not found.</p>";
-      return;
+    // Bill animation function
+    function triggerBillAnimation() {
+      console.log('📄 Bill character is marching!');
+      
+      const bill = document.getElementById('billAnimation');
+      
+      if (!bill) {
+        console.error('❌ Bill element not found!');
+        return;
+      }
+      
+      // Remove class
+      bill.classList.remove('marching');
+      
+      // Force reflow
+      void bill.offsetWidth;
+      
+      // Add class back
+      bill.classList.add('marching');
+      
+      console.log('✅ Bill animation triggered');
+      
+      // Remove after animation
+      setTimeout(() => {
+        bill.classList.remove('marching');
+      }, 6000);
     }
 
-    const bill = billSnap.val();
-    billTitle = bill.title;
+    let voteChart = null;
 
-    container.innerHTML = `
-      <div class="bill-details">
-        <h1><strong>${bill.title}</strong></h1>
-        <p><strong>Number:</strong> ${bill.number}</p>
-        <p><strong>Type:</strong> ${bill.type}</p>
-        <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
-        <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
-        <a href="${bill.url}" target="_blank">View on Congress.gov</a>
-      </div>
-    `;
+    async function updatePollDisplay() {
+      try {
+        const snapshot = await get(billRef);
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const approve = data.approve || 0;
+          const disapprove = data.disapprove || 0;
+          const total = approve + disapprove;
 
-    const sentimentSnap = await get(ref(db, 'sentiment'));
-    if (sentimentSnap.exists()) {
-      const sentiments = sentimentSnap.val();
+          if (total > 0) {
+            const approvePercent = ((approve / total) * 100).toFixed(1);
+            const disapprovePercent = ((disapprove / total) * 100).toFixed(1);
 
-      for (const query_text in sentiments) {
-        const entry = sentiments[query_text];
+            approveBar.style.width = `${approvePercent}%`;
+            disapproveBar.style.width = `${disapprovePercent}%`;
+            pollResult.textContent = `${approvePercent}% Approve, ${disapprovePercent}% Disapprove`;
 
-        if (entry.query_text === bill.title) {
-          const bbcScore = entry.bbc_com?.average_sentiment ?? 0;
-          const reutersScore = entry.reuters_com?.average_sentiment ?? 0;
-          const bbcConfidence = entry.bbc_com?.average_confidence ?? 0;
-          const reutersConfidence = entry.reuters_com?.average_confidence ?? 0;
+            const ctx = document.getElementById('votePieChart');
+            if (ctx) {
+              if (voteChart) {
+                voteChart.destroy();
+              }
 
-          document.getElementById('bbc-bar').style.width = `${bbcScore * 50}%`;
-          document.getElementById('reuter-bar').style.width = `${reutersScore * 50}%`;
-
-          document.getElementById('bbc-confidence').textContent = `Confidence: ${(bbcConfidence * 100).toFixed(1)}%`;
-          document.getElementById('reuter-confidence').textContent = `Confidence: ${(reutersConfidence * 100).toFixed(1)}%`;
-
-          break; 
+              voteChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                  labels: ['Approve', 'Disapprove'],
+                  datasets: [{
+                    data: [approve, disapprove],
+                    backgroundColor: ['#8ba888', '#c4a07a'],
+                    borderColor: ['#ffffff', '#ffffff'],
+                    borderWidth: 2
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: true,
+                  plugins: {
+                    legend: {
+                      display: false
+                    },
+                    tooltip: {
+                      backgroundColor: '#1a1a1a',
+                      titleFont: {
+                        size: 13,
+                        weight: '600',
+                        family: 'Inter'
+                      },
+                      bodyFont: {
+                        size: 12,
+                        family: 'Inter'
+                      },
+                      padding: 10,
+                      callbacks: {
+                        label: function(context) {
+                          let label = context.label || '';
+                          if (label) {
+                            label += ': ';
+                          }
+                          if (context.parsed !== null) {
+                            label += context.parsed.toFixed(1) + '%';
+                          }
+                          return label;
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+            }
+          }
         }
+      } catch (err) {
+        console.error("Error with updating poll display:", err);
       }
     }
 
-    const themesSnap = await get(ref(db, 'themes'));
-
-    let matchedThemeEntry = null;
-
-    if (themesSnap.exists()) {
-      const allThemes = themesSnap.val();
-
+    async function vote(type) {
+      console.log('🗳️ Vote:', type);
       
-    for (const key in allThemes) {
-      const entry = allThemes[key];
-      if (entry.bill === billTitle) {
-    matchedThemeEntry = entry;
-    break;
-  }
-}
+      try {
+        const snapshot = await get(billRef);
+        const current = snapshot.exists() ? snapshot.val() : { approve: 0, disapprove: 0 };
 
-        if (matchedThemeEntry) {
-        const bbcThemes = (matchedThemeEntry.theme_bbc || []).map(t => t.theme);
-        const reutersThemes = (matchedThemeEntry.theme_reuter || []).map(t => t.theme);
+        const updates = {
+          approve: current.approve || 0,
+          disapprove: current.disapprove || 0,
+        };
 
-  document.getElementById('bbc-themes').textContent = 
-    `Focus Topics: ${bbcThemes.join(", ") || "None"}`;
-  document.getElementById('reuter-themes').textContent = 
-    `Focus Topics: ${reutersThemes.join(", ") || "None"}`;
-} else {
-  document.getElementById('bbc-themes').textContent = 
-    "Focus Topics: Not available.";
-  document.getElementById('reuter-themes').textContent = 
-    "Focus Topics: Not available.";
-}
-    } 
+        updates[type] += 1;
 
-  } catch (err) {
-    console.error("Error:", err);
-    document.getElementById('bbc-confidence').textContent = "Error loading sentiment.";
-    document.getElementById('reuter-confidence').textContent = "Error loading sentiment.";
-  }
-}
+        await set(billRef, updates);
+        
+        triggerBillAnimation();
+        
+        updatePollDisplay();
+      } catch (err) {
+        console.error("Error submitting vote:", err);
+      }
+    }
 
+    if (approveBtn) {
+      approveBtn.addEventListener("click", () => {
+        vote("approve");
+      });
+    }
 
+    if (disapproveBtn) {
+      disapproveBtn.addEventListener("click", () => {
+        vote("disapprove");
+      });
+    }
+
+    updatePollDisplay();
+
+    async function highlightEntities(text, billTitle) {
+      const properNounsRef = ref(db, "proper_nouns");
+
+      try {
+        const snapshot = await get(properNounsRef);
+        if (!snapshot.exists()) return text;
+
+        const data = snapshot.val();
+        let billEntities = null;
+
+        for (const key in data) {
+          if (data[key].bill_title === billTitle) {
+            billEntities = data[key].entities;
+            break;
+          }
+        }
+
+        if (!billEntities || !Array.isArray(billEntities) || billEntities.length === 0) {
+          console.log("No entities found for this bill");
+          return text;
+        }
+
+        const sortedEntities = [...billEntities].sort((a, b) => b.word.length - a.word.length);
+
+        let highlightedText = text;
+
+        sortedEntities.forEach(entity => {
+          if (!entity.word) return;
+
+          const escapedWord = escapeRegExp(entity.word);
+          const regex = new RegExp(`\\b${escapedWord}\\b`, "gi");
+
+          highlightedText = highlightedText.replace(regex, match => `<span class="highlight">${match}</span>`);
+        });
+
+        return highlightedText;
+
+      } catch (err) {
+        console.error("Error fetching entities:", err);
+        return text;
+      }
+    }
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    async function updateSummary(bill) {
+      const summaryDiv = document.getElementById("concise");
+      if (!summaryDiv) return;
+
+      let summaryText = bill.summary || "";
+
+      summaryText = await highlightEntities(summaryText, bill.title);
+      summaryDiv.innerHTML = summaryText;
+    }
+
+    async function loadBillAndSentiment() {
+      if (!billId) {
+        container.innerHTML = "<p>No bill ID provided.</p>";
+        return;
+      }
+
+      fetch('words.json')
+        .then(response => response.json())
+        .then(words => {
+          console.log(words);
+        });
+
+      const billRef = ref(db, `congress/bills/${billId}`);
+
+      try {
+        const billSnap = await get(billRef);
+        if (!billSnap.exists()) {
+          container.innerHTML = "<p>Bill not found.</p>";
+          return;
+        }
+
+        const bill = billSnap.val();
+        billTitle = bill.title;
+
+        container.innerHTML = `
+          <div class="bill-details">
+            <h1>${bill.title}</h1>
+            <p><strong>Number:</strong> ${bill.number}</p>
+            <p><strong>Type:</strong> ${bill.type}</p>
+            <p><strong>Action Date:</strong> ${bill.actionDate || 'N/A'}</p>
+            <p><strong>Update Date:</strong> ${bill.updateDate || 'N/A'}</p>
+            <a href="${bill.url}" target="_blank">Read more on Congress.gov →</a>
+          </div>
+        `;
+
+        const billSummary = document.getElementById("concise")
+
+        updateSummary(bill);
+
+        const sentimentSnap = await get(ref(db, 'sentiment'));
+        if (sentimentSnap.exists()) {
+          const sentiments = sentimentSnap.val();
+
+          for (const query_text in sentiments) {
+            const entry = sentiments[query_text];
+
+            if (normalizeText(entry.query_text) === normalizeText(bill.title)) {
+              const bbcScore = entry.bbc_com?.average_sentiment ?? 0;
+              const reutersScore = entry.reuters_com?.average_sentiment ?? 0;
+              const bbcConfidence = entry.bbc_com?.average_confidence ?? 0;
+              const reutersConfidence = entry.reuters_com?.average_confidence ?? 0;
+
+              document.getElementById('bbc-bar').style.width = `${bbcScore * 50}%`;
+              document.getElementById('reuter-bar').style.width = `${reutersScore * 50}%`;
+
+              document.getElementById('bbc-confidence').textContent = `Confidence: ${(bbcConfidence * 100).toFixed(1)}%`;
+              document.getElementById('reuter-confidence').textContent = `Confidence: ${(reutersConfidence * 100).toFixed(1)}%`;
+
+              break;
+            }
+          }
+        }
+
+        const themesSnap = await get(ref(db, 'themes'));
+
+        let matchedThemeEntry = null;
+
+        if (themesSnap.exists()) {
+          const allThemes = themesSnap.val();
+
+          for (const key in allThemes) {
+            const entry = allThemes[key];
+            if (normalizeText(entry.bill) === normalizeText(billTitle)) {
+              matchedThemeEntry = entry;
+              break;
+            }
+          }
+
+          if (matchedThemeEntry) {
+            const bbcThemes = (matchedThemeEntry.theme_bbc || []).map(t => t.theme);
+            const reutersThemes = (matchedThemeEntry.theme_reuter || []).map(t => t.theme);
+
+            document.getElementById('bbc-themes').textContent = 
+              `Focus Topics: ${bbcThemes.join(", ") || "None"}`;
+            document.getElementById('reuter-themes').textContent = 
+              `Focus Topics: ${reutersThemes.join(", ") || "None"}`;
+          } else {
+            document.getElementById('bbc-themes').textContent = 
+              "Focus Topics: Not available.";
+            document.getElementById('reuter-themes').textContent = 
+              "Focus Topics: Not available.";
+          }
+        }
+
+      } catch (err) {
+        console.error("Error:", err);
+        document.getElementById('bbc-confidence').textContent = "Error loading sentiment.";
+        document.getElementById('reuter-confidence').textContent = "Error loading sentiment.";
+      }
+    }
 
     loadBillAndSentiment();
 
-
-
-    
   </script>
 </body>
 </html>
