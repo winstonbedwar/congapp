@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-  <!-- Navigation -->
   <nav>
     <h1 id="nameApp">Orwell</h1>
     <a href="index.html">Home</a>
@@ -16,9 +15,7 @@
     <a href="about.html">About</a>
   </nav>
 
-  <!-- Main Content -->
   <div class="main-content">
-    <!-- Welcome Section with Bill Mascot -->
     <div class="welcome-section">
       <div class="bill-mascot">
         <div class="bill-body">
@@ -46,7 +43,6 @@
       </div>
     </div>
 
-    <!-- Stats Container -->
     <div class="stats-container">
       <div class="stat-card" id="streak">
         <h3>🔥 Streak</h3>
@@ -69,14 +65,12 @@
       </div>
     </div>
 
-    <!-- Dashboard Grid: Leaderboard and Top Bills -->
     <div class="dashboard-grid">
-      <!-- Leaderboard Section -->
       <div class="dashboard-section">
-        <h2>🏆 Leaderboard</h2>
+        <h2>Leaderboard</h2>
         <div class="leaderboard-list">
           <div class="leaderboard-item">
-            <div class="rank top-three">1</div>
+            <div class="rank top-three">1<span class="crown-emoji">👑</span></div>
             <div class="user-info">
               <div class="user-name">Alex Chen</div>
               <div class="user-stats">Policy Expert • 45 day streak</div>
@@ -122,79 +116,78 @@
         </div>
       </div>
 
-      <!-- Top Bills Section -->
       <div class="dashboard-section">
-        <h2>📊 Trending Bills</h2>
+        <h2>Trending Bills</h2>
         <div class="bills-list">
-          <div class="bill-item">
-            <div class="bill-title">Infrastructure Investment and Jobs Act</div>
+          
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HJRES-117'">
+            <div class="bill-title">Relating to a National Emergency by the President on July 30, 2025</div>
             <div class="bill-meta">
-              <span>H.R. 3684</span>
+              <span>HJRES-117</span>
               <span>•</span>
-              <span>Transportation</span>
+              <span>Foreign Affairs</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,847 approvals</span>
-              <span class="engagement-stat">💬 1,234 comments</span>
+              <span class="engagement-stat approve-stat">✓ 18 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 12 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Clean Energy Innovation Act</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HR-1073'">
+            <div class="bill-title">Great Lakes Gateways Network Act of 2025</div>
             <div class="bill-meta">
-              <span>S. 2155</span>
+              <span>HR-1073</span>
               <span>•</span>
-              <span>Environment</span>
+              <span>Natural Resources</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,635 approvals</span>
-              <span class="engagement-stat">💬 987 comments</span>
+              <span class="engagement-stat approve-stat">✓ 15 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 15 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Affordable Housing Development Act</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HR-1118'">
+            <div class="bill-title">Value Over Cost Act of 2025</div>
             <div class="bill-meta">
-              <span>H.R. 4521</span>
+              <span>HR-1118</span>
               <span>•</span>
               <span>Housing</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,401 approvals</span>
-              <span class="engagement-stat">💬 856 comments</span>
+              <span class="engagement-stat approve-stat">✓ 12 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 18 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Student Loan Relief Expansion</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HJRES-50'">
+            <div class="bill-title">Providing for Congressional Disapproval under Chapter 8 of Title 5, United States Code</div>
             <div class="bill-meta">
-              <span>S. 3892</span>
+              <span>HJRES-50</span>
               <span>•</span>
               <span>Education</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,198 approvals</span>
-              <span class="engagement-stat">💬 743 comments</span>
+              <span class="engagement-stat approve-stat">✓ 19 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 11 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Healthcare Access Improvement Act</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HCONRES-53'">
+            <div class="bill-title">Expressing Support for World Contraception Day and Global Access</div>
             <div class="bill-meta">
-              <span>H.R. 5673</span>
+              <span>HCONRES-53</span>
               <span>•</span>
-              <span>Healthcare</span>
+              <span>Health</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,053 approvals</span>
-              <span class="engagement-stat">💬 692 comments</span>
+              <span class="engagement-stat approve-stat">✓ 14 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 16 disapprovals</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Logout Button -->
     <button id="logout">Log Out</button>
   </div>
 
