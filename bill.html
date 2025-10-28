@@ -174,7 +174,9 @@
   <div class="row-3">
     <div class="gen-quiz">
       <h2>Quiz</h2>
-      <p>generated Quiz lives here</p>
+      <p id ="questionONE">generated Quiz lives here</p>
+      <p id ="questionTWO">generated </p>
+      <p id ="questionTHREE">generated</p>
     </div>
 
     <div class="poll-container">
@@ -355,10 +357,26 @@
       }
     }
 
+    function triggerBillMarch() {
+      const billAnim = document.getElementById('billAnimation');
+      if (billAnim) {
+        // Reset animation by removing and re-adding class
+        billAnim.classList.remove('marching');
+        void billAnim.offsetWidth; // Trigger reflow
+        billAnim.classList.add('marching');
+        
+        // Remove class after animation completes
+        setTimeout(() => {
+          billAnim.classList.remove('marching');
+        }, 6000);
+      }
+    }
+
     async function vote(choice) {
       const hasVoted = localStorage.getItem("voted_" + billId);
       if (hasVoted) {
-        alert("You've already voted on this bill!");
+        // Trigger bill animation instead of alert
+        triggerBillMarch();
         return;
       }
 
@@ -387,6 +405,9 @@
         localStorage.setItem("voted_" + billId, choice);
 
         updatePollDisplay();
+        
+        // Trigger bill animation after successful vote
+        triggerBillMarch();
       } catch (err) {
         console.error("Error submitting vote:", err);
       }

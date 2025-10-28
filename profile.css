@@ -9,7 +9,7 @@
 body {
   display: flex;
   min-height: 100vh;
-  background: #f8f6f3;
+  background: #083a5c;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   color: #1a1a1a;
@@ -215,7 +215,7 @@ nav a:hover {
 #currentLevel {
   /* Orange border */
   border: 2px solid #08a4ff;
-  background-color: #fff;
+  background-color: rgb(214, 245, 255);
   width: 100%;
   height: 160px; /* Increased height */
   box-sizing: border-box;
@@ -286,7 +286,7 @@ nav a:hover {
 }
 
 .dashboard-section {
-  background: #ffffff;
+  background: rgb(255, 230, 183);
   border: 1px solid #e8e5e1;
   padding: 2rem;
   transition: border-color 0.2s ease;
