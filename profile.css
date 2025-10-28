@@ -15,7 +15,6 @@ body {
   color: #1a1a1a;
 }
 
-/* Navigation Sidebar */
 nav {
   width: 240px;
   background: #ffffff;
@@ -57,7 +56,6 @@ nav a:hover {
   border-left-color: #d17a5c;
 }
 
-/* Main Content Area */
 .main-content {
   margin-left: 240px;
   flex: 1;
@@ -65,7 +63,6 @@ nav a:hover {
   max-width: 1400px;
 }
 
-/* Welcome Section with Bill Character */
 .welcome-section {
   display: flex;
   align-items: center;
@@ -208,16 +205,13 @@ nav a:hover {
   font-weight: 600;
 }
 
-/* Stats Container */
-
 #streak,
 #quiztracker,
-#currentLevel {
-  /* Orange border */
+#currentLevel,
+#totalVotes {
   border: 2px solid #08a4ff;
   background-color: #fff;
-  width: 100%;
-  height: 160px; /* Increased height */
+  height: 160px; 
   box-sizing: border-box;
   text-align: center;
   padding: 20px;
@@ -226,20 +220,14 @@ nav a:hover {
   font-family: "Segoe UI", sans-serif;
 
   display: flex;
-  flex-direction: column; /* Stack vertically */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin: 10px;
+  margin: 0;
 }
 
-.stats-container {
-  display: flex;
-  justify-content: space-between; /* even spacing between boxes */
-  gap: 100px; /* optional: adds consistent space between boxes */
-  margin-top: 20px;
-}
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -259,6 +247,15 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
+#streak:hover,
+#quiztracker:hover,
+#currentLevel:hover,
+#totalVotes:hover {
+  border-color: #007bbd;
+  transform: translateY(-2px);
+}
+
+
 .stat-card h3 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.8rem;
@@ -277,7 +274,12 @@ nav a:hover {
   letter-spacing: -0.02em;
 }
 
-/* Two Column Layout for Leaderboard and Top Bills */
+.crown-emoji {
+  margin-left: 5px;
+  font-size: 1.2rem;
+  color: gold;
+}
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -308,7 +310,6 @@ nav a:hover {
   gap: 0.5rem;
 }
 
-/* Leaderboard Styles */
 .leaderboard-list {
   display: flex;
   flex-direction: column;
@@ -336,6 +337,8 @@ nav a:hover {
   font-weight: 700;
   color: #d15c5c;
   min-width: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .rank.top-three {
@@ -365,7 +368,6 @@ nav a:hover {
   color: #4a4a4a;
 }
 
-/* Top Bills Styles */
 .bills-list {
   display: flex;
   flex-direction: column;
@@ -413,9 +415,18 @@ nav a:hover {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  font-weight: 600;
 }
 
-/* Logout Button */
+.approve-stat {
+  color: #558b2f;
+}
+
+.disapprove-stat {
+  color: #c62828;
+}
+
+
 #logout {
   padding: 0.875rem 1.75rem;
   background: #1a1a1a;
@@ -435,7 +446,6 @@ nav a:hover {
   transform: translateY(-1px);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
