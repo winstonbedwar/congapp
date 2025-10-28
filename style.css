@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -45,7 +46,6 @@ body {
   margin: 20px;
 }
 
-/*-- can generate keywords that I can use to load random pictures as part of html?*/
 .featured-bill {
   border: 2px solid #a3dcff;
   background-color: #c9edfe;
@@ -55,8 +55,8 @@ body {
   font-size: 1.1em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: 0.3s ease;
-  position: relative; /* Required for z-index to apply */
-  z-index: 10; /* Higher than nav */
+  position: relative; 
+  z-index: 10;
 }
 
 .featured-bill:hover,
@@ -72,14 +72,12 @@ nav {
   box-sizing: border-box;
   margin-left: 20px;
   height: 100vh;
-  position: relative; /* Required for z-index to apply */
+  position: relative;
   z-index: 1;
-
-  /* Make sidebar fixed height and full height */
 }
 
 .main-content {
-  /* flex-grow: 1; Take remaining space */
+  flex-grow: 1;
   background-color: #ffffff;
   box-sizing: border-box;
   overflow-y: auto;
@@ -104,13 +102,13 @@ h1 {
 }
 
 a {
-  color: #7a1111;
+  color: #ff8c42;
   font-family: 'Playfair Display', serif;
   text-decoration: none;
 }
 
 a:hover {
-  transform: translateY(-2px); /* Slight lift */
+  transform: translateY(-2px);
   font-size: 15px;
   color: #f2c15e;
 }
@@ -129,22 +127,22 @@ h2 {
 }
 
 button {
-  background-color: #a4d2e6; /* Vibrant orange */
-  color: white; /* White text */
-  padding: 12px 24px; /* Comfortable padding */
+  background-color: #a4d2e6;
+  color: white; 
+  padding: 12px 24px; 
   font-size: 16px;
-  font-family: 'Playfair Display', serif; /* Clean, modern font */
-  border: none; /* No border */
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: all 0.3s ease; /* Smooth transition */
+  font-family: 'Playfair Display', serif; 
+  border: none;
+  border-radius: 8px; 
+  cursor: pointer; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: #ef6c6c; /* Darker orange on hover */
+  background-color: #ef6c6c; 
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px); /* Slight lift */
+  transform: translateY(-2px); 
 }
 
 input {
@@ -155,7 +153,6 @@ input {
   font-family: 'Playfair Display', serif;
 }
 
-/* Sidebar Navigation */
 .sidebar {
   width: 15%;
   background: #ffffff;
@@ -194,18 +191,16 @@ input {
 }
 
 .sidebar a:hover {
-  background: #851616;
+  background: #ff8c42;
   color: #ffffff;
 }
 
-/* Main Content Area */
 .main-content {
   margin-left: 260px;
   flex: 1;
   padding: 0;
 }
 
-/* Hero Section with Orwell Branding */
 .hero-section {
   background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
   border-bottom: 1px solid #e8e5e1;
@@ -354,7 +349,6 @@ input {
   font-family: 'Playfair Display', serif;
 }
 
-/* Bills Feed Header */
 .feed-header {
   padding: 1.25rem 2.5rem;
   background: #ffffff;
@@ -368,16 +362,14 @@ input {
   font-family: 'Gelasio', serif;
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ad1a1a;
+  color: #5c99d1;
   letter-spacing: -0.02em;
 }
 
-/* Bills Container */
 #bills {
   background: #ffffff;
 }
 
-/* Individual Bill Entry (Tweet-style) */
 .bill-entry {
   padding: 1.5rem 2.5rem;
   border-bottom: 1px solid #e8e5e1;
@@ -395,7 +387,6 @@ input {
   display: block;
 }
 
-/* Bill Header */
 .bill-header {
   display: flex;
   align-items: center;
@@ -427,7 +418,6 @@ input {
   font-family: 'Playfair Display', serif;
 }
 
-/* Bill Title */
 .bill-entry h3 {
   font-family: 'Gelasio', serif;
   font-size: 1.05rem;
@@ -438,7 +428,6 @@ input {
   letter-spacing: -0.01em;
 }
 
-/* Engagement Stats (Twitter-style) */
 .bill-engagement {
   display: flex;
   align-items: center;
@@ -481,7 +470,6 @@ input {
   color: #5c99d1;
 }
 
-/* Approval Bar */
 .approval-bar-container {
   display: flex;
   gap: 0.25rem;
@@ -503,7 +491,6 @@ input {
   background: #5c99d1;
 }
 
-/* Loading State */
 .loading {
   padding: 3rem 2.5rem;
   text-align: center;
@@ -513,7 +500,6 @@ input {
   font-family: 'Playfair Display', serif;
 }
 
-/* Empty State */
 .empty-state {
   padding: 4rem 2.5rem;
   text-align: center;
@@ -532,7 +518,6 @@ input {
   font-family: 'Playfair Display', serif;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;

@@ -10,9 +10,9 @@
   <nav>
     <h1 id="nameApp">Orwell</h1>
     <a href="index.html">Home</a>
-    <a href="logIn.html">Back to Log In</a>
-    <a href="profile.html">View Profile</a>
+    <a href="profile.html">Profile</a>
     <a href="about.html">About</a>
+    <a id="logout" href="logIn.html">Log Out</a>
   </nav>
 
   <div class="main-content">
@@ -45,29 +45,29 @@
 
     <div class="stats-container">
       <div class="stat-card" id="streak">
-        <h3>🔥 Streak</h3>
+        <h3>Streak</h3>
         <h2 id="streak-value">0</h2>
       </div>
 
       <div class="stat-card" id="quiztracker">
-        <h3>📝 Quiz Tracker</h3>
+        <h3>Completed Quizzes</h3>
         <h2 id="quiz-value">0</h2>
       </div>
 
       <div class="stat-card" id="currentLevel">
-        <h3>⭐ Current Level</h3>
+        <h3>Current Level</h3>
         <h2 id="level-value">Policy Enthusiast</h2>
       </div>
 
       <div class="stat-card" id="totalVotes">
-        <h3>🗳️ Total Votes</h3>
+        <h3>Total Votes</h3>
         <h2 id="votes-value">0</h2>
       </div>
     </div>
 
     <div class="dashboard-grid">
       <div class="dashboard-section">
-        <h2>Leaderboard</h2>
+        <h2>🏆 Streak Leaderboard</h2>
         <div class="leaderboard-list">
           <div class="leaderboard-item">
             <div class="rank top-three">1<span class="crown-emoji">👑</span></div>
@@ -188,91 +188,8 @@
       </div>
     </div>
 
-    <button id="logout">Log Out</button>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-    import { child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-    
-    let currentUser = "";
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
-      authDomain: "orwell-ea558.firebaseapp.com",
-      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
-      projectId: "orwell-ea558",
-      storageBucket: "orwell-ea558.firebasestorage.app",
-      messagingSenderId: "301391502605",
-      appId: "1:301391502605:web:67c58902e72044cd03a444"
-    };
-    
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const logout = document.getElementById('logout');
-    const message = document.getElementById('message');
-    const welcome = document.getElementById('welcome');
-
-    async function loadActiveUser() {
-      try {
-        const snapshot = await get(child(ref(db), 'users'));
-
-        if (snapshot.exists()) {
-          const users = snapshot.val();
-
-          for (const key in users) {
-            if (users[key].active === true) {
-              currentUser = users[key].name; 
-              break;
-            } 
-          }
-        }
-
-        welcome.textContent = currentUser ? `Hello, ${currentUser}!` : "Welcome!";
-
-        // Simulate loading some stats (replace with real data later)
-        document.getElementById('streak-value').textContent = '7';
-        document.getElementById('quiz-value').textContent = '23';
-        document.getElementById('votes-value').textContent = '142';
-
-      } catch (error) {
-        console.error(error);
-        welcome.textContent = "Welcome!";
-      }
-    }
-
-    loadActiveUser();
-
-    logout.addEventListener('click', async (e) => {
-      e.preventDefault();
-
-      try {
-        const snapshot = await get(child(ref(db), 'users'));
-
-        if (snapshot.exists()) {
-          const users = snapshot.val();
-
-          for (const key in users) {
-            if (users[key].active === true) {
-              await update(ref(db, `users/${key}`), { active: false });
-
-              message.textContent = "Logout successful!";
-              message.style.color = "#8ba888";
-              setTimeout(() => {
-                window.location.href = 'signIn.html';
-              }, 1000);
-              break;
-            }  
-          }
-        }
-      } catch (error) {
-        console.error(error);
-        message.textContent = "Error connecting to database.";
-        message.style.color = "#d17a5c";
-      }
-    });
-  </script>
+ <script type="module" src="module.js"></script>
 </body>
 </html>

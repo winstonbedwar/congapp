@@ -343,8 +343,8 @@
         }
 
         .btn-next:hover {
-            background: #ff8c42;
-            border-color: #ff8c42;
+            background: #03367a;
+            border-color: #03367a;
             transform: translateY(-2px);
         }
 
@@ -456,7 +456,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Fix for step 4 review page button visibility */
         .form-step[data-step="4"] .button-group {
             margin-top: 40px;
             position: relative;

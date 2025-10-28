@@ -85,7 +85,7 @@ h2 {
 }
 
 .bill-details a:hover {
-  background: #a10b0b;
+  background: #5c99d1;
   color: #ffffff;
   transform: translateY(-1px);
 }
@@ -257,12 +257,12 @@ h2 {
 }
 
 .approve-btn:hover {
-  background: lightblue;
+  background: #5c99d1;
   transform: translateY(-1px);
 }
 
 .disapprove-btn:hover {
-  background: orange;
+  background: #d15c5c;
   transform: translateY(-1px);
 }
 
@@ -281,11 +281,11 @@ h2 {
 }
 
 .approve-bar {
-  background: lightblue;
+  background: #5c99d1;
 }
 
 .disapprove-bar {
-  background: #fa925e;
+  background: #d15c5c;
 }
 
 .poll-result {
@@ -349,7 +349,6 @@ h2 {
   border-bottom: 2px solid #c4a07a;
 }
 
-/* Bill Character Animation */
 #billAnimation {
   position: fixed;
   bottom: 60px;
@@ -391,7 +390,6 @@ h2 {
   }
 }
 
-/* Bill Paper Body */
 .bill-body {
   position: absolute;
   bottom: 12px;
@@ -405,7 +403,6 @@ h2 {
   z-index: 2;
 }
 
-/* Paper lines to look like a document */
 .bill-lines {
   position: absolute;
   top: 8px;
@@ -431,7 +428,6 @@ h2 {
   width: 60%;
 }
 
-/* Helmet on the bill */
 .bill-helmet {
   position: absolute;
   top: -15px;
@@ -465,7 +461,6 @@ h2 {
   color: #c4a07a;
 }
 
-/* Simple face on the bill */
 .bill-face {
   position: absolute;
   top: 25px;
@@ -503,7 +498,6 @@ h2 {
   transform: translateX(-50%);
 }
 
-/* Legs */
 .bill-leg {
   position: absolute;
   width: 6px;
@@ -551,7 +545,6 @@ h2 {
   }
 }
 
-/* Arms */
 .bill-arm {
   position: absolute;
   width: 5px;
@@ -594,7 +587,6 @@ h2 {
   }
 }
 
-/* Responsive design */
 @media (max-width: 1024px) {
   .row2 {
     flex-direction: column;
@@ -649,7 +641,6 @@ h2 {
   }
 }
 
-/* Minimal scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -664,4 +655,93 @@ h2 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b8b3aa;
+}
+
+.impact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.impact-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.impact-filter-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #d17a5c;
+  border: 2px solid #d17a5c;
+  border-radius: 20px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.impact-filter-btn:hover {
+  background: rgba(209, 122, 92, 0.1);
+  color: #d17a5c;
+  border-color: #d17a5c;
+  transform: translateY(-1px);
+}
+
+.impact-filter-btn.active {
+  background: #d17a5c;
+  color: #ffffff;
+  border-color: #d17a5c;
+}
+
+.impact-filter-btn.disabled {
+  background: #f3f1ee;
+  color: #b8b3aa;
+  border-color: #e8e5e1;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.impact-filter-btn.disabled:hover {
+  background: #f3f1ee;
+  color: #b8b3aa;
+  border-color: #e8e5e1;
+  transform: none;
+}
+
+.impact-content {
+  padding-top: 1rem;
+  border-top: 1px solid #e8e5e1;
+}
+
+.impact-message {
+  font-size: 1.1rem;
+  color: #666;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .impact-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .impact-filters {
+    width: 100%;
+  }
+
+  .impact-filter-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.6rem 0.75rem;
+  }
 }
