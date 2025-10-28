@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Gelasio:ital,wght@0,400..700;1,400..700&display=swap");
 
 * {
   margin: 0;
@@ -9,7 +9,7 @@
 body {
   display: flex;
   flex-direction: row;
-  font-family: Arial, sans-serif;
+  font-family: 'Playfair Display', serif;
   scrollbar-width: none;
   overflow: hidden;
   margin: 0;
@@ -17,8 +17,6 @@ body {
   scroll-behavior: smooth;
   min-height: 100vh;
   background: #f8f6f3;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
   color: #1a1a1a;
 }
 
@@ -102,11 +100,12 @@ nav {
 
 h1 {
   color: #2680ca;
+  font-family: 'Gelasio', serif;
 }
 
 a {
   color: #7a1111;
-  font-family: sans-serif;
+  font-family: 'Playfair Display', serif;
   text-decoration: none;
 }
 
@@ -126,6 +125,7 @@ form {
 
 h2 {
   color: #72b7dd;
+  font-family: 'Gelasio', serif;
 }
 
 button {
@@ -133,7 +133,7 @@ button {
   color: white; /* White text */
   padding: 12px 24px; /* Comfortable padding */
   font-size: 16px;
-  font-family: "Segoe UI", sans-serif; /* Clean, modern font */
+  font-family: 'Playfair Display', serif; /* Clean, modern font */
   border: none; /* No border */
   border-radius: 8px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
@@ -152,6 +152,7 @@ input {
   margin-bottom: 10px;
   width: 100%;
   padding: 15px;
+  font-family: 'Playfair Display', serif;
 }
 
 /* Sidebar Navigation */
@@ -171,7 +172,7 @@ input {
 }
 
 #nameApp {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Gelasio', serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #5c99d1;
@@ -189,6 +190,7 @@ input {
   border-left: 2px solid transparent;
   display: block;
   border-radius: 20px;
+  font-family: 'Playfair Display', serif;
 }
 
 .sidebar a:hover {
@@ -335,7 +337,7 @@ input {
 }
 
 .hero-content h1 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Gelasio', serif;
   font-size: 3rem;
   font-weight: 800;
   color: #5c99d1;
@@ -349,6 +351,7 @@ input {
   color: #000000;
   line-height: 1.6;
   font-weight: 500;
+  font-family: 'Playfair Display', serif;
 }
 
 /* Bills Feed Header */
@@ -362,7 +365,7 @@ input {
 }
 
 .feed-header h1 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Gelasio', serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: #ad1a1a;
@@ -401,7 +404,7 @@ input {
 }
 
 .bill-number {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
   font-size: 0.875rem;
   color: #d15c5c;
@@ -414,17 +417,19 @@ input {
   text-transform: uppercase;
   padding: 0.2rem 0.5rem;
   background: #f3f1ee;
+  font-family: 'Playfair Display', serif;
 }
 
 .bill-date {
   font-size: 0.8rem;
   color: #6a6a6a;
   margin-left: auto;
+  font-family: 'Playfair Display', serif;
 }
 
 /* Bill Title */
 .bill-entry h3 {
-  font-family: "Inter", sans-serif;
+  font-family: 'Gelasio', serif;
   font-size: 1.05rem;
   font-weight: 600;
   color: #1a1a1a;
@@ -452,23 +457,16 @@ input {
   transition: 0.3s ease;
   border-radius: 7px;
   padding: 0.25rem 0.75rem;
+  font-family: 'Playfair Display', serif;
 }
 
 .approve-count:hover {
   color: #ffffff;
-  background: #16740c;
+  background: #ff8c42;
 }
 .disapprove-count:hover {
   color: #ffffff;
-  background: #791111;
-}
-.comments-count:hover {
-  color: #ffffff;
-  background: #245f86;
-}
-.votes-count:hover {
-  color: #ffffff;
-  background: #6a6a6a;
+  background: #5c99d1;
 }
 
 .engagement-icon {
@@ -476,15 +474,11 @@ input {
 }
 
 .approve-count {
-  color: #16740c;
+  color: #ff8c42;
 }
 
 .disapprove-count {
-  color: #791111;
-}
-
-.comments-count {
-  color: #245f86;
+  color: #5c99d1;
 }
 
 /* Approval Bar */
@@ -502,11 +496,11 @@ input {
 }
 
 .approve-segment {
-  background: #16740c;
+  background: #ff8c42;
 }
 
 .disapprove-segment {
-  background: #791111;
+  background: #5c99d1;
 }
 
 /* Loading State */
@@ -516,6 +510,7 @@ input {
   color: #6a6a6a;
   font-size: 0.925rem;
   background: #ffffff;
+  font-family: 'Playfair Display', serif;
 }
 
 /* Empty State */
@@ -527,10 +522,14 @@ input {
 }
 
 .empty-state h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Gelasio', serif;
   font-size: 1.25rem;
   color: #1a1a1a;
   margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-family: 'Playfair Display', serif;
 }
 
 /* Responsive Design */

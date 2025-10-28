@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Inter&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     rel="stylesheet">
 
 
@@ -115,9 +115,6 @@
             const approvePercent = totalVotes > 0 ? (billVotes.approve / totalVotes) * 100 : 50;
             const disapprovePercent = totalVotes > 0 ? (billVotes.disapprove / totalVotes) * 100 : 50;
 
-            // Simulate comments count (you can replace with real data later)
-            const commentsCount = Math.floor(totalVotes * 0.3);
-
             const div = document.createElement('div');
             div.className = 'bill-entry';
 
@@ -146,14 +143,6 @@
                   <div class="engagement-item disapprove-count">
                     <span class="engagement-icon">👎</span>
                     <span>${billVotes.disapprove}</span>
-                  </div>
-                  <div class="engagement-item comments-count">
-                    <span class="engagement-icon">💬</span>
-                    <span>${commentsCount}</span>
-                  </div>
-                  <div class="engagement-item votes-count">
-                    <span class="engagement-icon">📊</span>
-                    <span>${totalVotes} votes</span>
                   </div>
                 </div>
               </a>    

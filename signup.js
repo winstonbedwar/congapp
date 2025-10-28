@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let currentStep = 1;
-const totalSteps = 4;
+const totalSteps = 3; // Changed from 4 to 3 - removed review step
 let uploadedFiles = [];
 
 const $ = (sel) => document.querySelector(sel);
@@ -90,35 +90,6 @@ function updateForm() {
         const progressPercent = ((currentStep - 1) / (totalSteps - 1)) * 100;
         progressLine.style.width = (progressPercent / 100) * totalWidth + 'px';
     }
-
-    if (currentStep === 4) updateReview();
-}
-
-function updateReview() {
-    const reviewContent = document.getElementById('reviewContent');
-    if (!reviewContent) return;
-    const data = {
-        'Username': document.getElementById('username')?.value,
-        'Email': document.getElementById('email')?.value,
-        'Age': document.getElementById('age')?.value,
-        'Occupation': document.getElementById('occupation')?.value,
-        'Income': document.getElementById('income')?.value,
-        'Gender': document.getElementById('gender')?.value,
-        'Ethnicity': document.getElementById('ethnicity')?.value,
-    };
-
-    let html = '';
-    for (let [key, value] of Object.entries(data)) {
-        if (value) {
-            html += `
-                <div class="review-card">
-                    <label>${key}</label>
-                    <div class="review-card-value">${value}</div>
-                </div>
-            `;
-        }
-    }
-    reviewContent.innerHTML = html;
 }
 
 function nextStep() {
@@ -136,7 +107,12 @@ function prevStep() {
 }
 
 async function submitForm() {
-    currentStep = 5;
+    // Play trumpet fanfare
+    const audio = new Audio('trumpet-fanfare.mp3');
+    audio.play().catch(err => console.log('Audio play failed:', err));
+
+    // Show success animation (step 4 in HTML is the success screen)
+    currentStep = 4;
     updateForm();
 
     const name = document.getElementById('username')?.value || '';
@@ -171,6 +147,7 @@ async function submitForm() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    // Handle next buttons (but skip submit button)
     $$('.btn-next').forEach(btn => {
         if (btn.classList.contains('btn-submit')) return;
         btn.addEventListener('click', (e) => {
@@ -179,6 +156,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Handle previous buttons
     $$('.btn-prev').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -186,8 +164,14 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Handle submit button on step 3
     const submitBtn = $('.btn-submit');
-    if (submitBtn) submitBtn.addEventListener('click', (e) => { e.preventDefault(); submitForm(); });
+    if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => { 
+            e.preventDefault(); 
+            submitForm(); 
+        });
+    }
 
     updateForm();
 });

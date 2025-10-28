@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Gelasio:ital,wght@0,400..700;1,400..700&display=swap");
+
 * {
             margin: 0;
             padding: 0;
@@ -5,7 +7,7 @@
         }
 
         body {
-            background: #faf8f5;
+            background: #f8f6f3;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -13,6 +15,7 @@
             padding: 20px;
             position: relative;
             overflow-x: hidden;
+            font-family: 'Playfair Display', serif;
         }
 
         body::before {
@@ -22,7 +25,7 @@
             right: -20%;
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(92, 153, 209, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             animation: float 20s ease-in-out infinite;
             pointer-events: none;
@@ -35,7 +38,7 @@
             left: -10%;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(255, 167, 81, 0.06) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 140, 66, 0.06) 0%, transparent 70%);
             border-radius: 50%;
             animation: float 15s ease-in-out infinite reverse;
             pointer-events: none;
@@ -50,11 +53,9 @@
             width: 100%;
             max-width: 720px;
             background: white;
-            border-radius: 32px;
-            box-shadow: 
-                0 0 0 1px rgba(0, 0, 0, 0.03),
-                0 30px 80px -10px rgba(0, 0, 0, 0.12),
-                0 10px 30px -10px rgba(255, 107, 107, 0.15);
+            border-radius: 0px;
+            box-shadow: none;
+            border: 1px solid #e8e5e1;
             overflow: hidden;
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
@@ -74,8 +75,9 @@
 
         .progress-container {
             padding: 48px 48px 32px;
-            background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+            background: #ffffff;
             position: relative;
+            border-bottom: 1px solid #e8e5e1;
         }
 
         .progress-container::after {
@@ -85,7 +87,7 @@
             left: 48px;
             right: 48px;
             height: 1px;
-            background: linear-gradient(90deg, transparent 0%, #e8e8e8 20%, #e8e8e8 80%, transparent 100%);
+            background: #e8e5e1;
         }
 
         .progress-steps {
@@ -102,7 +104,7 @@
             left: 36px;
             right: 36px;
             height: 2px;
-            background: #efefef;
+            background: #e8e5e1;
             z-index: 0;
         }
 
@@ -111,10 +113,9 @@
             top: 24px;
             left: 36px;
             height: 2px;
-            background: linear-gradient(90deg, #5995fd 0%, #fd5959 100%);
+            background: linear-gradient(90deg, #5c99d1 0%, #ff8c42 100%);
             transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 1;
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
         }
 
         .step {
@@ -130,7 +131,7 @@
             height: 48px;
             border-radius: 50%;
             background: white;
-            border: 2px solid #e8e8e8;
+            border: 2px solid #e8e5e1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,7 +139,7 @@
             font-size: 16px;
             color: #bbb;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            font-family: 'Clash Display', sans-serif;
+            font-family: 'Gelasio', serif;
             position: relative;
         }
 
@@ -147,20 +148,18 @@
             position: absolute;
             inset: -4px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #5995fd, #4e8cf8);
+            background: #5c99d1;
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: -1;
         }
 
         .step.active .step-circle {
-            background: linear-gradient(135deg, #fd5959 0%, #fd4949 100%);
+            background: #ff8c42;
             border-color: transparent;
             color: white;
             transform: scale(1.15);
-            box-shadow: 
-                0 8px 24px rgba(255, 107, 107, 0.35),
-                0 4px 12px rgba(255, 107, 107, 0.25);
+            box-shadow: 0 4px 12px rgba(255, 140, 66, 0.25);
         }
 
         .step.active .step-circle::before {
@@ -174,7 +173,7 @@
         }
 
         .step.completed .step-circle {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: #5c99d1;
             border-color: transparent;
             color: white;
             transform: scale(1);
@@ -193,10 +192,11 @@
             color: #bbb;
             transition: all 0.3s ease;
             letter-spacing: 0.3px;
+            font-family: 'Playfair Display', serif;
         }
 
         .step.active .step-label {
-            color: #ff6b6b;
+            color: #ff8c42;
         }
 
         .step.completed .step-label {
@@ -229,23 +229,30 @@
         }
 
         h2 {
-            font-family: 'Clash Display', sans-serif;
+            font-family: 'Gelasio', serif;
             font-size: 32px;
             font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 10px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -0.02em;
         }
 
         .step-description {
-            color: #737373;
+            color: #4a4a4a;
             margin-bottom: 36px;
             font-size: 15px;
             line-height: 1.7;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step-description a {
+            color: #5c99d1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .step-description a:hover {
+            color: #ff8c42;
         }
 
         .form-group {
@@ -257,9 +264,10 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: #333;
+            color: #1a1a1a;
             font-size: 14px;
             letter-spacing: 0.2px;
+            font-family: 'Playfair Display', serif;
         }
 
         .input-wrapper {
@@ -270,16 +278,17 @@
         input[type="email"],
         input[type="tel"],
         input[type="password"],
+        input[type="number"],
         textarea,
         select {
             width: 100%;
             padding: 16px 18px;
-            border: 2px solid #efefef;
-            border-radius: 14px;
+            border: 1px solid #e8e5e1;
+            border-radius: 0px;
             font-size: 15px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Playfair Display', serif;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            background: #fafafa;
+            background: #fafaf9;
             color: #1a1a1a;
         }
 
@@ -287,12 +296,9 @@
         textarea:focus,
         select:focus {
             outline: none;
-            border-color: #5995fd;
+            border-color: #5c99d1;
             background: white;
-            box-shadow: 
-                0 0 0 4px rgba(255, 107, 107, 0.08),
-                0 4px 12px rgba(255, 107, 107, 0.12);
-            transform: translateY(-1px);
+            box-shadow: 0 0 0 1px #5c99d1;
         }
 
         textarea {
@@ -310,21 +316,19 @@
             flex: 1;
             padding: 18px 28px;
             border: none;
-            border-radius: 14px;
+            border-radius: 0px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Playfair Display', serif;
             letter-spacing: 0.3px;
         }
 
         .btn-next {
-            background: linear-gradient(135deg, #5995fd 0%, #407fec 100%);
+            background: #5c99d1;
             color: white;
-            box-shadow: 
-                0 6px 20px rgba(255, 107, 107, 0.3),
-                0 2px 8px rgba(255, 107, 107, 0.2);
+            border: 1px solid #5c99d1;
             position: relative;
             overflow: hidden;
         }
@@ -339,10 +343,9 @@
         }
 
         .btn-next:hover {
-            transform: translateY(-3px);
-            box-shadow: 
-                0 10px 30px rgba(255, 107, 107, 0.4),
-                0 4px 12px rgba(255, 107, 107, 0.3);
+            background: #ff8c42;
+            border-color: #ff8c42;
+            transform: translateY(-2px);
         }
 
         .btn-next:hover::before {
@@ -356,14 +359,14 @@
         .btn-prev {
             background: white;
             color: #666;
-            border: 2px solid #efefef;
+            border: 1px solid #e8e5e1;
         }
 
         .btn-prev:hover {
-            border-color: #e0e0e0;
-            background: #fafafa;
+            border-color: #5c99d1;
+            color: #5c99d1;
+            background: #fafaf9;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .success-message {
@@ -375,16 +378,14 @@
             width: 96px;
             height: 96px;
             margin: 0 auto 28px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: #5c99d1;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 52px;
             animation: successPop 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 
-                0 12px 40px rgba(16, 185, 129, 0.3),
-                0 6px 16px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 8px 24px rgba(92, 153, 209, 0.3);
             position: relative;
         }
 
@@ -393,7 +394,7 @@
             position: absolute;
             inset: -8px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: #5c99d1;
             opacity: 0.2;
             animation: successPulse 2s ease-in-out infinite;
         }
@@ -420,19 +421,21 @@
         .success-title {
             font-size: 36px;
             margin-bottom: 14px;
-            font-family: 'Clash Display', sans-serif;
+            font-family: 'Gelasio', serif;
+            color: #1a1a1a;
         }
 
         .success-text {
-            color: #737373;
+            color: #4a4a4a;
             font-size: 16px;
             line-height: 1.6;
+            font-family: 'Playfair Display', serif;
         }
 
         .review-card {
-            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
-            border: 1px solid #f0f0f0;
-            border-radius: 16px;
+            background: #fafaf9;
+            border: 1px solid #e8e5e1;
+            border-radius: 0px;
             padding: 24px;
             margin-bottom: 16px;
         }
@@ -443,17 +446,33 @@
             letter-spacing: 1px;
             color: #999;
             margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
         }
 
         .review-card-value {
             font-size: 15px;
             color: #1a1a1a;
             font-weight: 500;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Fix for step 4 review page button visibility */
+        .form-step[data-step="4"] .button-group {
+            margin-top: 40px;
+            position: relative;
+            z-index: 10;
+            display: flex !important;
+        }
+
+        #reviewContent {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 24px;
         }
 
         @media (max-width: 640px) {
             .container {
-                border-radius: 24px;
+                border-radius: 0px;
             }
             
             .progress-container,
