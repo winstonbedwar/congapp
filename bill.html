@@ -5,6 +5,98 @@
   <title>Orwell</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="bill.css">
+  
+  <style>
+    /* Additional styles for impact filter buttons */
+    .impact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .impact-filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .impact-filter-btn {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      color: #d17a5c;
+      border: 2px solid #d17a5c;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .impact-filter-btn:hover {
+      background: rgba(209, 122, 92, 0.1);
+      color: #d17a5c;
+      border-color: #d17a5c;
+      transform: translateY(-1px);
+    }
+
+    .impact-filter-btn.active {
+      background: #d17a5c;
+      color: #ffffff;
+      border-color: #d17a5c;
+    }
+
+    .impact-filter-btn.disabled {
+      background: #f3f1ee;
+      color: #b8b3aa;
+      border-color: #e8e5e1;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .impact-filter-btn.disabled:hover {
+      background: #f3f1ee;
+      color: #b8b3aa;
+      border-color: #e8e5e1;
+      transform: none;
+    }
+
+    .impact-content {
+      padding-top: 1rem;
+      border-top: 1px solid #e8e5e1;
+    }
+
+    .impact-message {
+      font-size: 1.1rem;
+      color: #666;
+      padding: 2rem 1rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .impact-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .impact-filters {
+        width: 100%;
+      }
+
+      .impact-filter-btn {
+        flex: 1;
+        text-align: center;
+        font-size: 0.75rem;
+        padding: 0.6rem 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Bill Character with Helmet -->
@@ -38,12 +130,12 @@
 
   <div class="row2">
     <div class="summary">
-      <h2>📄 AI-Generated Summary</h2>
+      <h2>Here's a bite-sized review : ) </h2>
       <div id="concise">ML generated summary that Tanush is supposed to generate goes here</div>
     </div>
 
     <div class="sentiment-analysis">
-      <h2>📊 Sentiment</h2>
+      <h2> How does media feel?</h2>
 
       <div class="sentiment-bar" id="bbc-section">
         <div class="source-title">BBC News</div>
@@ -66,18 +158,27 @@
   </div>
 
   <div class="personal-impact">
-    <h2>💭 How this affects you</h2>
-    <p>predictions about how bill impacts them live here</p>
+    <div class="impact-header">
+      <h2> And what?</h2>
+      <div class="impact-filters">
+        <button class="impact-filter-btn" data-filter="direct">Directly Affects You</button>
+        <button class="impact-filter-btn" data-filter="indirect">Indirectly Affects You</button>
+        <button class="impact-filter-btn" data-filter="none">Affects Your Community</button>
+      </div>
+    </div>
+    <div class="impact-content" id="impact-content">
+      <p id="personal-impact">Loading impact data...</p>
+    </div>
   </div>
 
   <div class="row-3">
     <div class="gen-quiz">
-      <h2>🎯 Quiz</h2>
+      <h2>Quiz</h2>
       <p>generated Quiz lives here</p>
     </div>
 
     <div class="poll-container">
-      <h2 class="poll-title">🗳️ Orwell Community Vote</h2>
+      <h2 class="poll-title"> Orwell Community Vote</h2>
       <div class="poll-content-row">
         <div class="poll-details">
           <div class="poll-buttons">
@@ -111,6 +212,8 @@
     }
 
     let billTitle = ""
+    let currentImpactType = ""; // Store the impact type from Firebase
+    
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
     import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
@@ -143,127 +246,146 @@
     const approveBar = pollContainer.querySelector(".approve-bar");
     const disapproveBar = pollContainer.querySelector(".disapprove-bar");
 
-    // Bill animation function
-    function triggerBillAnimation() {
-      
-      const bill = document.getElementById('billAnimation');
-      
-      if (!bill) {
-        console.error('❌ Bill element not found!');
-        return;
+    // Impact filter functionality
+    const filterButtons = document.querySelectorAll('.impact-filter-btn');
+    const impactContent = document.getElementById('impact-content');
+    const personalImpactEl = document.getElementById('personal-impact');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Only allow clicking if it's not disabled
+        if (button.classList.contains('disabled')) {
+          return;
+        }
+        
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Get filter type
+        const filterType = button.dataset.filter;
+        
+        // Update content based on filter
+        updateImpactContent(filterType);
+      });
+    });
+
+    function updateImpactContent(filterType) {
+      if (filterType === 'direct') {
+        impactContent.innerHTML = '<div class="impact-message">Tanush is not directly impacted by this bill.</div>';
+      } else if (filterType === 'indirect') {
+        // Show the personal impact data
+        impactContent.innerHTML = '<p id="personal-impact">Loading personal impact data...</p>';
+        loadPersonal();
+      } else if (filterType === 'none') {
+        impactContent.innerHTML = '<div class="impact-message">This bill does have an indirect impact on Tanush!</div>';
       }
-      
-      // Remove class
-      bill.classList.remove('marching');
-      
-      // Force reflow
-      void bill.offsetWidth;
-      
-      // Add class back
-      bill.classList.add('marching');
-      
-      // Remove after animation
-      setTimeout(() => {
-        bill.classList.remove('marching');
-      }, 6000);
     }
 
-    let voteChart = null;
+    let chartInstance = null;
 
     async function updatePollDisplay() {
       try {
         const snapshot = await get(billRef);
+        let approveVotes = 0;
+        let disapproveVotes = 0;
+
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const approve = data.approve || 0;
-          const disapprove = data.disapprove || 0;
-          const total = approve + disapprove;
+          approveVotes = data.approve || 0;
+          disapproveVotes = data.disapprove || 0;
+        }
 
-          if (total > 0) {
-            const approvePercent = ((approve / total) * 100).toFixed(1);
-            const disapprovePercent = ((disapprove / total) * 100).toFixed(1);
+        const total = approveVotes + disapproveVotes;
+        const approvePercent = total === 0 ? 0 : Math.round((approveVotes / total) * 100);
+        const disapprovePercent = total === 0 ? 0 : Math.round((disapproveVotes / total) * 100);
 
-            approveBar.style.width = `${approvePercent}%`;
-            disapproveBar.style.width = `${disapprovePercent}%`;
-            pollResult.textContent = `${approvePercent}% Approve, ${disapprovePercent}% Disapprove`;
+        pollResult.textContent = `${approvePercent}% Approve, ${disapprovePercent}% Disapprove`;
 
-            const ctx = document.getElementById('votePieChart');
-            if (ctx) {
-              if (voteChart) {
-                voteChart.destroy();
-              }
+        approveBar.style.width = approvePercent + "%";
+        disapproveBar.style.width = disapprovePercent + "%";
 
-              voteChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                  labels: ['Approve', 'Disapprove'],
-                  datasets: [{
-                    data: [approve, disapprove],
-                    backgroundColor: ['#8ba888', '#c4a07a'],
-                    borderColor: ['#ffffff', '#ffffff'],
-                    borderWidth: 2
-                  }]
-                },
-                options: {
-                  responsive: true,
-                  maintainAspectRatio: true,
-                  plugins: {
-                    legend: {
-                      display: false
-                    },
-                    tooltip: {
-                      backgroundColor: '#1a1a1a',
-                      titleFont: {
-                        size: 13,
-                        weight: '600',
-                        family: 'Inter'
-                      },
-                      bodyFont: {
-                        size: 12,
-                        family: 'Inter'
-                      },
-                      padding: 10,
-                      callbacks: {
-                        label: function(context) {
-                          let label = context.label || '';
-                          if (label) {
-                            label += ': ';
-                          }
-                          if (context.parsed !== null) {
-                            label += context.parsed.toFixed(1) + '%';
-                          }
-                          return label;
-                        }
-                      }
-                    }
+        const ctx = document.getElementById("votePieChart").getContext("2d");
+
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+
+        chartInstance = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Approve", "Disapprove"],
+            datasets: [{
+              data: [approveVotes, disapproveVotes],
+              backgroundColor: ["#5c7cd1", "#d17a5c"],
+              borderWidth: 2,
+              borderColor: "#fff"
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                display: true,
+                position: "bottom",
+                labels: {
+                  color: "#6c757d",
+                  font: { size: 12, family: "'Inter', sans-serif" },
+                  padding: 15
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const label = context.label || '';
+                    const value = context.parsed || 0;
+                    const percent = total === 0 ? 0 : Math.round((value / total) * 100);
+                    return `${label}: ${value} (${percent}%)`;
                   }
                 }
-              });
+              }
             }
           }
-        }
+        });
       } catch (err) {
-        console.error("Error with updating poll display:", err);
+        console.error("Error loading poll data:", err);
       }
     }
 
-    async function vote(type) {
-      
+    async function vote(choice) {
+      const hasVoted = localStorage.getItem("voted_" + billId);
+      if (hasVoted) {
+        alert("You've already voted on this bill!");
+        return;
+      }
+
       try {
         const snapshot = await get(billRef);
-        const current = snapshot.exists() ? snapshot.val() : { approve: 0, disapprove: 0 };
+        let currentApprove = 0;
+        let currentDisapprove = 0;
 
-        const updates = {
-          approve: current.approve || 0,
-          disapprove: current.disapprove || 0,
-        };
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          currentApprove = data.approve || 0;
+          currentDisapprove = data.disapprove || 0;
+        }
 
-        updates[type] += 1;
+        if (choice === "approve") {
+          currentApprove++;
+        } else if (choice === "disapprove") {
+          currentDisapprove++;
+        }
 
-        await set(billRef, updates);
-        
-        triggerBillAnimation();
-        
+        await set(billRef, {
+          approve: currentApprove,
+          disapprove: currentDisapprove
+        });
+
+        localStorage.setItem("voted_" + billId, choice);
+
         updatePollDisplay();
       } catch (err) {
         console.error("Error submitting vote:", err);
@@ -444,6 +566,89 @@
     }
 
     loadBillAndSentiment();
+
+    async function loadPersonal() {
+      const personalImpactRef = ref(db, "personal-impact");
+      const personalImpactEl = document.getElementById("personal-impact");
+
+      if (!personalImpactEl) return;
+
+      try {
+        const snapshot = await get(personalImpactRef);
+        if (!snapshot.exists()) {
+          personalImpactEl.textContent = "No personal impact data found yet.";
+          return;
+        }
+
+        const allImpacts = snapshot.val();
+        let matchedImpact = null;
+
+        // Match by bill title (normalize for consistent comparison)
+        for (const key in allImpacts) {
+          const entry = allImpacts[key];
+          if (normalizeText(entry.billTitle) === normalizeText(billTitle)) {
+            matchedImpact = entry;
+            break;
+          }
+        }
+
+        if (matchedImpact) {
+          const impactType = (matchedImpact.impact || "indirect").toLowerCase();
+          const impactFactors = matchedImpact.factors || [];
+          const userName = matchedImpact.userName || "Unknown User";
+          
+          // Store the impact type globally
+          currentImpactType = impactType;
+
+          // Set button states based on impact type
+          filterButtons.forEach(btn => {
+            const btnFilter = btn.dataset.filter;
+            
+            if (btnFilter === impactType) {
+              // This button should be active
+              btn.classList.add('active');
+              btn.classList.remove('disabled');
+            } else {
+              // Other buttons should be disabled and grayed out
+              btn.classList.remove('active');
+              btn.classList.add('disabled');
+            }
+          });
+
+          let impactText = matchedImpact.res || "No explanation available.";
+
+          const startMatch = impactText.match(/how this bill affects/i);
+          if (startMatch) {
+            impactText = impactText.slice(startMatch.index).trim();
+          }
+
+          const endMatch = impactText.match(/\[factors affected:|\[impact type:/i);
+          if (endMatch) {
+            impactText = impactText.slice(0, endMatch.index).trim();
+          }
+          
+          personalImpactEl.innerHTML = `
+            <p><strong>User:</strong> ${userName}</p>
+            <p><strong>Impact Type:</strong> ${impactType}</p>
+            <p><strong>Factors:</strong> ${
+              Array.isArray(impactFactors)
+                ? impactFactors.join(", ")
+                : impactFactors
+            }</p>
+            <hr>
+            <p>${impactText}</p>
+          `;
+        } else {
+          personalImpactEl.textContent = "No personal impact data found for this bill.";
+        }
+      } catch (err) {
+        console.error("Error loading personal impact:", err);
+        personalImpactEl.textContent = "Error loading personal impact data.";
+      }
+    }
+
+    // Initialize by loading personal impact data
+    loadPersonal();
 
   </script>
 </body>

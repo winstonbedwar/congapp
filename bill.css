@@ -257,12 +257,12 @@ h2 {
 }
 
 .approve-btn:hover {
-  background: #003b00;
+  background: lightblue;
   transform: translateY(-1px);
 }
 
 .disapprove-btn:hover {
-  background: #310000;
+  background: orange;
   transform: translateY(-1px);
 }
 
@@ -281,11 +281,11 @@ h2 {
 }
 
 .approve-bar {
-  background: #27911c;
+  background: lightblue;
 }
 
 .disapprove-bar {
-  background: #bb2a2a;
+  background: #fa925e;
 }
 
 .poll-result {
@@ -334,15 +334,15 @@ h2 {
 }
 
 .bbc-color {
-  background: #750909;
+  background: #89caff;
 }
 
 .reuter-color {
-  background: #aa8a68;
+  background: #eb8f2e;
 }
 
 .highlight {
-  background: rgba(196, 160, 122, 0.15);
+  background: lightblue;
   color: #1a1a1a;
   font-weight: 600;
   padding: 2px 4px;

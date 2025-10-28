@@ -1,45 +1,523 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orwell</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orwell - Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f6f3;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #1a1a1a;
+        }
+
+        .login-container {
+            background: #ffffff;
+            border: 1px solid #e8e5e1;
+            padding: 3rem;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            transition: border-color 0.2s ease;
+        }
+
+        .login-container:hover {
+            border-color: #d4cfc7;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ffae58;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            color: #4a4a4a;
+            font-size: 0.925rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            line-height: 1.65;
+        }
+
+        /* Bill Character Styles */
+        .bill-character {
+            width: 60px;
+            height: 80px;
+            position: relative;
+            animation: billFloat 3s ease-in-out infinite;
+        }
+
+        .bill-character.celebrating {
+            animation: billCelebrate 1s ease-in-out;
+        }
+
+        @keyframes billFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(2deg); 
+            }
+            50% { 
+                transform: translateY(-8px) rotate(-2deg); 
+            }
+        }
+
+        @keyframes billCelebrate {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+            }
+            25% { 
+                transform: translateY(-25px) rotate(-10deg) scale(1.1); 
+            }
+            50% { 
+                transform: translateY(-35px) rotate(10deg) scale(1.15); 
+            }
+            75% { 
+                transform: translateY(-20px) rotate(-5deg) scale(1.1); 
+            }
+        }
+
+        .bill-body {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border: 2px solid #2d2d2d;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+        }
+
+        .bill-lines {
+            position: absolute;
+            top: 8px;
+            left: 6px;
+            right: 6px;
+        }
+
+        .bill-line {
+            height: 2px;
+            background: #b8b8b8;
+            margin-bottom: 3px;
+        }
+
+        .bill-line:nth-child(2) {
+            width: 70%;
+        }
+
+        .bill-line:nth-child(3) {
+            width: 85%;
+        }
+
+        .bill-line:nth-child(4) {
+            width: 60%;
+        }
+
+        .bill-helmet {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 20px;
+            background: linear-gradient(135deg, #6a6a6a 0%, #4a4a4a 100%);
+            border: 2px solid #2d2d2d;
+            border-radius: 50% 50% 0 0;
+            z-index: 4;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .helmet-rim {
+            position: absolute;
+            bottom: -4px;
+            left: -3px;
+            width: calc(100% + 6px);
+            height: 6px;
+            background: #2d2d2d;
+            border-radius: 2px;
+        }
+
+        .helmet-star {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            color: #c4a07a;
+        }
+
+        .bill-face {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: 3;
+        }
+
+        .bill-eye {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #2d2d2d;
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .eye-left {
+            left: 10px;
+        }
+        
+        .eye-right {
+            right: 10px;
+        }
+
+        .bill-smile {
+            position: absolute;
+            width: 12px;
+            height: 6px;
+            border: 2px solid #2d2d2d;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .bill-leg {
+            position: absolute;
+            width: 6px;
+            height: 14px;
+            background: #2d2d2d;
+            bottom: -14px;
+            z-index: 1;
+        }
+
+        .leg-left {
+            left: 12px;
+        }
+
+        .leg-right {
+            right: 12px;
+        }
+
+        .bill-arm {
+            position: absolute;
+            width: 5px;
+            height: 16px;
+            background: #e8e8e8;
+            border: 2px solid #2d2d2d;
+            top: 18px;
+            z-index: 1;
+        }
+
+        .arm-left {
+            left: -3px;
+        }
+
+        .arm-right {
+            right: -3px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #e8e5e1;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            background: #fafaf9;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d4cfc7;
+            background: white;
+        }
+
+        input::placeholder {
+            color: #b8b3aa;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            background: #083a5c;
+            color: #ffffff;
+            border: 1px solid #1a1a1a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: -0.01em;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #0a4a73;
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        #message {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: none;
+            letter-spacing: -0.01em;
+        }
+
+        #message.show {
+            display: block;
+        }
+
+        #message.success {
+            background: #fafaf9;
+            color: #1a1a1a;
+            border: 1px solid #e8e5e1;
+        }
+
+        #message.error {
+            background: #fafaf9;
+            color: #a10b0b;
+            border: 1px solid #e8e5e1;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 2rem;
+            color: #4a4a4a;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .bill-character {
+                width: 50px;
+                height: 70px;
+            }
+
+            .bill-body {
+                width: 35px;
+                height: 45px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="forms-container">
-      <div class="signin">
-        <form action="" id="sign-in-form" class="sign-in-form">
-          <h2 class="title">Sign in</h2>
-          <div class="input-field">
-            <i class="username"></i>
-            <input type="text" name="username" id="username" placeholder="Username">
-          </div>
-          <div class="input-field">
-            <i class="password"></i>
-            <input type="password" name="password" id="password" placeholder="Password">
-          </div>
-          <input type="submit" value="login" class="btn solid">
-          <div id="message" aria-live="polite" style="margin-top:8px"></div>
-        </form>
-      </div>
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>New to Orwell?</h3>
-            <p>Orwell is a student-developed app that aims to increase legislation literacy of the American people
-              through an unbiased, bipartisan perspective. We utilize state-of-the-art machine learning and artifical
-              intelligence tools to help further our mission.</p>
-            <a href="signup.html"><button class="btn transparent" id="sign-up-btn" >Sign up</button></a>
-          </div>
+    <div class="login-container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="bill-character" id="billCharacter">
+                    <div class="bill-body">
+                        <div class="bill-lines">
+                            <div class="bill-line"></div>
+                            <div class="bill-line"></div>
+                            <div class="bill-line"></div>
+                            <div class="bill-line"></div>
+                        </div>
+                        <div class="bill-arm arm-left"></div>
+                        <div class="bill-arm arm-right"></div>
+                        <div class="bill-leg leg-left"></div>
+                        <div class="bill-leg leg-right"></div>
+                        <div class="bill-face">
+                            <div class="bill-eye eye-left"></div>
+                            <div class="bill-eye eye-right"></div>
+                            <div class="bill-smile"></div>
+                        </div>
+                    </div>
+                    <div class="bill-helmet">
+                        <div class="helmet-star">⭐</div>
+                        <div class="helmet-rim"></div>
+                    </div>
+                </div>
+                <h1 class="title">Orwell</h1>
+            </div>
+            <p class="subtitle">Sign in to explore legislative insights</p>
         </div>
-      </div>
-    </div>
-</body>
-<script type="module" src="login.js"></script>
 
+        <form id="sign-in-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    placeholder="Enter your username"
+                    required
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter your password"
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+
+        <div id="message"></div>
+
+        <p class="footer-text">
+            Making legislation accessible, one bill at a time
+        </p>
+        <p class="footer-text" style="margin-top: 1rem;">
+            Don't have an account? <a href="signup.html" style="color: #083a5c; font-weight: 600; text-decoration: none; border-bottom: 1px solid #083a5c;">Sign up here</a>
+        </p>
+    </div>
+
+    <!-- Audio element for trumpet fanfare -->
+    <audio id="fanfare" preload="auto">
+        <source src="trumpet-fanfare.mp3" type="audio/mpeg">
+    </audio>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+        import { get, child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
+            authDomain: "orwell-ea558.firebaseapp.com",
+            databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
+            projectId: "orwell-ea558",
+            storageBucket: "orwell-ea558.firebasestorage.app",
+            messagingSenderId: "301391502605",
+            appId: "1:301391502605:web:67c58902e72044cd03a444"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const form = document.getElementById('sign-in-form');
+        const message = document.getElementById('message');
+        const billCharacter = document.getElementById('billCharacter');
+        const fanfare = document.getElementById('fanfare');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            let loggedIn = false;
+            try {
+                const snapshot = await get(child(ref(db), 'users'));
+
+                if (snapshot.exists()) {
+                    const users = snapshot.val();
+                    loggedIn = false;
+
+                    for (const key in users) {
+                        if (
+                            users[key].name === username &&
+                            users[key].password === password
+                        ) {
+                            loggedIn = true;
+                            await update(ref(db, `users/${key}`), { active: true });
+                            break;
+                        } else { 
+                            await update(ref(db, `users/${key}`), { active: false }); 
+                        }
+                    }
+
+                    if (loggedIn) {
+                        message.textContent = "Login successful! Redirecting...";
+                        message.className = 'show success';
+                        
+                        // Trigger celebration animation
+                        billCharacter.classList.add('celebrating');
+                        
+                        // Play trumpet fanfare
+                        try {
+                            fanfare.play().catch(err => {
+                                console.log('Audio playback failed:', err);
+                            });
+                        } catch (err) {
+                            console.log('Audio playback error:', err);
+                        }
+                        
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 3100);
+                    } else {
+                        message.textContent = "Invalid username or password.";
+                        message.className = 'show error';
+                    }
+
+                } else {
+                    message.textContent = "No users found in database.";
+                    message.className = 'show error';
+                }
+
+            } catch (error) {
+                console.error(error);
+                message.textContent = "Error connecting to database.";
+                message.className = 'show error';
+            }
+        });
+    </script>
+</body>
 </html>
