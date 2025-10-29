@@ -6,97 +6,6 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="bill.css">
   
-  <style>
-    /* Additional styles for impact filter buttons */
-    .impact-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .impact-filters {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .impact-filter-btn {
-      padding: 0.5rem 1rem;
-      background: transparent;
-      color: #d17a5c;
-      border: 2px solid #d17a5c;
-      border-radius: 20px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-    }
-
-    .impact-filter-btn:hover {
-      background: rgba(209, 122, 92, 0.1);
-      color: #d17a5c;
-      border-color: #d17a5c;
-      transform: translateY(-1px);
-    }
-
-    .impact-filter-btn.active {
-      background: #d17a5c;
-      color: #ffffff;
-      border-color: #d17a5c;
-    }
-
-    .impact-filter-btn.disabled {
-      background: #f3f1ee;
-      color: #b8b3aa;
-      border-color: #e8e5e1;
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    .impact-filter-btn.disabled:hover {
-      background: #f3f1ee;
-      color: #b8b3aa;
-      border-color: #e8e5e1;
-      transform: none;
-    }
-
-    .impact-content {
-      padding-top: 1rem;
-      border-top: 1px solid #e8e5e1;
-    }
-
-    .impact-message {
-      font-size: 1.1rem;
-      color: #666;
-      padding: 2rem 1rem;
-      text-align: center;
-      font-style: italic;
-    }
-
-    @media (max-width: 768px) {
-      .impact-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .impact-filters {
-        width: 100%;
-      }
-
-      .impact-filter-btn {
-        flex: 1;
-        text-align: center;
-        font-size: 0.75rem;
-        padding: 0.6rem 0.75rem;
-      }
-    }
-  </style>
 </head>
 <body>
   <!-- Bill Character with Helmet -->
@@ -130,12 +39,12 @@
 
   <div class="row2">
     <div class="summary">
-      <h2>Here's a bite-sized review : ) </h2>
+      <h2>Bill at a Glance </h2>
       <div id="concise">ML generated summary that Tanush is supposed to generate goes here</div>
     </div>
 
     <div class="sentiment-analysis">
-      <h2> How does media feel?</h2>
+      <h2>Orwell's Media Sentiment Analysis</h2>
 
       <div class="sentiment-bar" id="bbc-section">
         <div class="source-title">BBC News</div>
@@ -159,7 +68,7 @@
 
   <div class="personal-impact">
     <div class="impact-header">
-      <h2> And what?</h2>
+      <h2>Impact</h2>
       <div class="impact-filters">
         <button class="impact-filter-btn" data-filter="direct">Directly Affects You</button>
         <button class="impact-filter-btn" data-filter="indirect">Indirectly Affects You</button>
@@ -172,12 +81,29 @@
   </div>
 
   <div class="row-3">
+  <div class="gen-quiz">
+  <h2>Quiz</h2>
+  <div id="quiz-container">
+    <p id="quiz-question">Loading question...</p>
+    <button id="show-answer-btn">Show Answer</button>
+    <p id="quiz-answer" style="display:none; font-style:italic; color:#666;"></p>
+    <div id="quiz-controls" style="display:none;">
+      <button id="correct-btn">I was right </button>
+      <button id="wrong-btn">I was wrong </button>
+    </div>
+    <p id="quiz-progress" style="margin-top:10px;"></p>
+    <p id="quiz-points" style="margin-top:10px; font-weight:bold;"></p>
+  </div>
+</div>
+
+<!-- 
+  <div class="row-3">
     <div class="gen-quiz">
       <h2>Quiz</h2>
       <p id ="questionONE">generated Quiz lives here</p>
       <p id ="questionTWO">generated </p>
       <p id ="questionTHREE">generated</p>
-    </div>
+    </div> -->
 
     <div class="poll-container">
       <h2 class="poll-title"> Orwell Community Vote</h2>
@@ -274,15 +200,23 @@
       });
     });
 
+    function titleToQuizKey(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')   // remove punctuation
+    .replace(/\s+/g, '-');     // replace spaces with dashes
+}
+
+
     function updateImpactContent(filterType) {
       if (filterType === 'direct') {
-        impactContent.innerHTML = '<div class="impact-message">Tanush is not directly impacted by this bill.</div>';
+        impactContent.innerHTML = '<div class="impact-message">This bill has no direct impact on you.</div>';
       } else if (filterType === 'indirect') {
         // Show the personal impact data
         impactContent.innerHTML = '<p id="personal-impact">Loading personal impact data...</p>';
         loadPersonal();
       } else if (filterType === 'none') {
-        impactContent.innerHTML = '<div class="impact-message">This bill does have an indirect impact on Tanush!</div>';
+        impactContent.innerHTML = '<div class="impact-message">This bill has no impact on your community</div>';
       }
     }
 
@@ -523,6 +457,8 @@
         const billSummary = document.getElementById("concise")
 
         updateSummary(bill);
+        await loadInteractiveQuiz();
+
 
         const sentimentSnap = await get(ref(db, 'sentiment'));
         if (sentimentSnap.exists()) {
@@ -670,6 +606,183 @@
 
     // Initialize by loading personal impact data
     loadPersonal();
+
+
+    // --- QUIZ SYSTEM ---
+let currentQuestionIndex = 0;
+let quizQuestions = [];
+let billPoints = 0;
+const userId = "tanush"; // or dynamically from auth later
+
+// Elements
+const quizQuestionEl = document.getElementById("quiz-question");
+const quizAnswerEl = document.getElementById("quiz-answer");
+const showAnswerBtn = document.getElementById("show-answer-btn");
+const correctBtn = document.getElementById("correct-btn");
+const wrongBtn = document.getElementById("wrong-btn");
+const quizControlsEl = document.getElementById("quiz-controls");
+const quizProgressEl = document.getElementById("quiz-progress");
+const quizPointsEl = document.getElementById("quiz-points");
+
+// Firebase references
+const quizzesRef = ref(db, "quizzes");
+const userPointsRef = ref(db, `bill-points/users/${userId}`);
+
+// Load quiz for this bill
+async function loadInteractiveQuiz() {
+  try {
+    const snapshot = await get(quizzesRef);
+    if (!snapshot.exists()) {
+      quizQuestionEl.textContent = "No quiz data available.";
+      return;
+    }
+
+    const allQuizzes = snapshot.val();
+    const quizKey = titleToQuizKey(billTitle);
+    let matchedQuiz = allQuizzes[quizKey];
+
+    if (!matchedQuiz) {
+      for (const key in allQuizzes) {
+        if (normalizeText(key) === normalizeText(quizKey)) {
+          matchedQuiz = allQuizzes[key];
+          break;
+        }
+      }
+    }
+
+    if (!matchedQuiz || !matchedQuiz.questions) {
+      quizQuestionEl.textContent = "No quiz found for this bill.";
+      return;
+    }
+
+    quizQuestions = Object.values(matchedQuiz.questions);
+    currentQuestionIndex = 0;
+
+    await loadUserPoints();
+    showQuestion();
+  } catch (err) {
+    console.error("Error loading quiz:", err);
+    quizQuestionEl.textContent = "Error loading quiz data.";
+  }
+}
+
+// Show one question at a time
+function showQuestion() {
+  const q = quizQuestions[currentQuestionIndex];
+  if (!q) {
+    quizQuestionEl.textContent = " You’ve finished this quiz!";
+    showAnswerBtn.style.display = "none";
+    quizControlsEl.style.display = "none";
+    quizAnswerEl.style.display = "none";
+    return;
+  }
+
+  quizQuestionEl.textContent = q.question;
+  quizAnswerEl.textContent = "Answer: " + (q.correct_answer || "Not provided.");
+  quizAnswerEl.style.display = "none";
+  quizControlsEl.style.display = "none";
+  showAnswerBtn.style.display = "inline-block";
+  quizProgressEl.textContent = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
+  quizPointsEl.textContent = `Bill Points: ${billPoints}`;
+}
+
+// Show the answer when clicked
+showAnswerBtn.addEventListener("click", () => {
+  quizAnswerEl.style.display = "block";
+  quizControlsEl.style.display = "block";
+  showAnswerBtn.style.display = "none";
+});
+
+// Handle correct / wrong clicks
+correctBtn.addEventListener("click", async () => {
+  billPoints += 10;
+  await updateUserPoints();
+  nextQuestion();
+});
+
+wrongBtn.addEventListener("click", () => {
+  nextQuestion();
+});
+
+function nextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+// --- BILL POINTS SYSTEM ---
+async function loadUserPoints() {
+  const snap = await get(userPointsRef);
+  if (snap.exists()) {
+    const data = snap.val();
+    billPoints = data.totalPoints || 0;
+  } else {
+    billPoints = 0;
+  }
+  quizPointsEl.textContent = `Bill Points: ${billPoints}`;
+}
+
+async function updateUserPoints() {
+  try {
+    await set(userPointsRef, {
+      totalPoints: billPoints,
+      lastBill: billTitle,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (err) {
+    console.error("Error updating bill points:", err);
+  }
+}
+
+
+//     async function loadQuiz() {
+//   const quizzesRef = ref(db, "quizzes");
+//   const questionEls = [
+//     document.getElementById("questionONE"),
+//     document.getElementById("questionTWO"),
+//     document.getElementById("questionTHREE")
+//   ];
+
+//   try {
+//     const snapshot = await get(quizzesRef);
+//     if (!snapshot.exists()) {
+//       questionEls.forEach(el => el.textContent = "No quiz data available.");
+//       return;
+//     }
+
+//     const allQuizzes = snapshot.val();
+//     const quizKey = titleToQuizKey(billTitle); // e.g. "small-cemetery-conveyance"
+//     let matchedQuiz = allQuizzes[quizKey];
+
+//     // If no exact match, try a fuzzy one
+//     if (!matchedQuiz) {
+//       for (const key in allQuizzes) {
+//         if (normalizeText(key) === normalizeText(quizKey)) {
+//           matchedQuiz = allQuizzes[key];
+//           break;
+//         }
+//       }
+//     }
+
+//     if (matchedQuiz && matchedQuiz.questions) {
+//       const questionsArray = Object.values(matchedQuiz.questions); // Convert numbered keys to array
+
+//       questionsArray.forEach((q, i) => {
+//         if (questionEls[i] && q.question) {
+//           questionEls[i].textContent = q.question;
+//         }
+//       });
+//     } else {
+//       questionEls.forEach(el => el.textContent = "No quiz found for this bill.");
+//     }
+
+//   } catch (err) {
+//     console.error("Error loading quiz:", err);
+//     questionEls.forEach(el => el.textContent = "Error loading quiz data.");
+//   }
+// }
+
+//   await loadQuiz();
+
 
   </script>
 </body>

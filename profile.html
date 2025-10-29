@@ -7,18 +7,15 @@
   <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-  <!-- Navigation -->
   <nav>
     <h1 id="nameApp">Orwell</h1>
     <a href="index.html">Home</a>
-    <a href="logIn.html">Back to Log In</a>
-    <a href="profile.html">View Profile</a>
+    <a href="profile.html">Profile</a>
     <a href="about.html">About</a>
+    <a id="logout" href="logIn.html">Log Out</a>
   </nav>
 
-  <!-- Main Content -->
   <div class="main-content">
-    <!-- Welcome Section with Bill Mascot -->
     <div class="welcome-section">
       <div class="bill-mascot">
         <div class="bill-body">
@@ -46,10 +43,9 @@
       </div>
     </div>
 
-    <!-- Stats Container -->
     <div class="stats-container">
       <div class="stat-card" id="streak">
-        <h3>🔥 Streak</h3>
+        <h3>Streak</h3>
         <h2 id="streak-value">0</h2>
       </div>
 
@@ -69,17 +65,15 @@
       </div>
     </div>
 
-    <!-- Dashboard Grid: Leaderboard and Top Bills -->
     <div class="dashboard-grid">
-      <!-- Leaderboard Section -->
       <div class="dashboard-section">
         <h2> Leaderboard</h2>
         <div class="leaderboard-list">
           <div class="leaderboard-item">
-            <div class="rank top-three">1</div>
+            <div class="rank top-three">1<span class="crown-emoji">👑</span></div>
             <div class="user-info">
-              <div class="user-name">Alex Chen</div>
-              <div class="user-stats">Policy Expert • 45 day streak</div>
+              <div class="user-name">Tanush </div>
+              <div class="user-stats">Policy Enthusiast • 7 day streak</div>
             </div>
             <div class="score">2,847</div>
           </div>
@@ -87,8 +81,8 @@
           <div class="leaderboard-item">
             <div class="rank top-three">2</div>
             <div class="user-info">
-              <div class="user-name">Jordan Smith</div>
-              <div class="user-stats">Political Analyst • 38 day streak</div>
+              <div class="user-name">Vijeta </div>
+              <div class="user-stats">Political Analyst • 3 day streak</div>
             </div>
             <div class="score">2,635</div>
           </div>
@@ -96,8 +90,8 @@
           <div class="leaderboard-item">
             <div class="rank top-three">3</div>
             <div class="user-info">
-              <div class="user-name">Sam Patel</div>
-              <div class="user-stats">Civic Leader • 32 day streak</div>
+              <div class="user-name">Winston </div>
+              <div class="user-stats">Civic Leader • 3 day streak</div>
             </div>
             <div class="score">2,401</div>
           </div>
@@ -105,8 +99,8 @@
           <div class="leaderboard-item">
             <div class="rank">4</div>
             <div class="user-info">
-              <div class="user-name">Taylor Kim</div>
-              <div class="user-stats">Policy Enthusiast • 28 day streak</div>
+              <div class="user-name">Tanush 2 </div>
+              <div class="user-stats">Policy Enthusiast • 2 day streak</div>
             </div>
             <div class="score">2,198</div>
           </div>
@@ -114,172 +108,88 @@
           <div class="leaderboard-item">
             <div class="rank">5</div>
             <div class="user-info">
-              <div class="user-name">Morgan Lee</div>
-              <div class="user-stats">Active Citizen • 25 day streak</div>
+              <div class="user-name">Wingardium Leviosa </div>
+              <div class="user-stats">Active Citizen • 1 day streak</div>
             </div>
             <div class="score">2,053</div>
           </div>
         </div>
       </div>
 
-      <!-- Top Bills Section -->
       <div class="dashboard-section">
         <h2> Trending Bills</h2>
         <div class="bills-list">
-          <div class="bill-item">
-            <div class="bill-title">Infrastructure Investment and Jobs Act</div>
+          
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HJRES-117'">
+            <div class="bill-title">Relating to a National Emergency by the President on July 30, 2025</div>
             <div class="bill-meta">
-              <span>H.R. 3684</span>
+              <span>HJRES-117</span>
               <span>•</span>
-              <span>Transportation</span>
+              <span>Foreign Affairs</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,847 approvals</span>
-              <span class="engagement-stat">💬 1,234 comments</span>
+              <span class="engagement-stat approve-stat">✓ 18 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 12 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Clean Energy Innovation Act</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HR-1073'">
+            <div class="bill-title">Great Lakes Gateways Network Act of 2025</div>
             <div class="bill-meta">
-              <span>S. 2155</span>
+              <span>HR-1073</span>
               <span>•</span>
-              <span>Environment</span>
+              <span>Natural Resources</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,635 approvals</span>
-              <span class="engagement-stat">💬 987 comments</span>
+              <span class="engagement-stat approve-stat">✓ 15 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 15 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Affordable Housing Development Act</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HR-1118'">
+            <div class="bill-title">Value Over Cost Act of 2025</div>
             <div class="bill-meta">
-              <span>H.R. 4521</span>
+              <span>HR-1118</span>
               <span>•</span>
               <span>Housing</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,401 approvals</span>
-              <span class="engagement-stat">💬 856 comments</span>
+              <span class="engagement-stat approve-stat">✓ 12 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 18 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Student Loan Relief Expansion</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HJRES-50'">
+            <div class="bill-title">Providing for Congressional Disapproval under Chapter 8 of Title 5, United States Code</div>
             <div class="bill-meta">
-              <span>S. 3892</span>
+              <span>HJRES-50</span>
               <span>•</span>
               <span>Education</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,198 approvals</span>
-              <span class="engagement-stat">💬 743 comments</span>
+              <span class="engagement-stat approve-stat">✓ 19 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 11 disapprovals</span>
             </div>
           </div>
 
-          <div class="bill-item">
-            <div class="bill-title">Healthcare Access Improvement Act</div>
+          <div class="bill-item" onclick="window.location.href='bill.html?id=HCONRES-53'">
+            <div class="bill-title">Expressing Support for World Contraception Day and Global Access</div>
             <div class="bill-meta">
-              <span>H.R. 5673</span>
+              <span>HCONRES-53</span>
               <span>•</span>
-              <span>Healthcare</span>
+              <span>Health</span>
             </div>
             <div class="bill-engagement">
-              <span class="engagement-stat">👍 2,053 approvals</span>
-              <span class="engagement-stat">💬 692 comments</span>
+              <span class="engagement-stat approve-stat">✓ 14 approvals</span>
+              <span class="engagement-stat disapprove-stat">✕ 16 disapprovals</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Logout Button -->
-    <button id="logout">Log Out</button>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-    import { child, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-    
-    let currentUser = "";
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyCS07UgX2GnmuufEQET-RYOtm8i0XaZkWk",
-      authDomain: "orwell-ea558.firebaseapp.com",
-      databaseURL: "https://orwell-ea558-default-rtdb.firebaseio.com",
-      projectId: "orwell-ea558",
-      storageBucket: "orwell-ea558.firebasestorage.app",
-      messagingSenderId: "301391502605",
-      appId: "1:301391502605:web:67c58902e72044cd03a444"
-    };
-    
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const logout = document.getElementById('logout');
-    const message = document.getElementById('message');
-    const welcome = document.getElementById('welcome');
-
-    async function loadActiveUser() {
-      try {
-        const snapshot = await get(child(ref(db), 'users'));
-
-        if (snapshot.exists()) {
-          const users = snapshot.val();
-
-          for (const key in users) {
-            if (users[key].active === true) {
-              currentUser = users[key].name; 
-              break;
-            } 
-          }
-        }
-
-        welcome.textContent = currentUser ? `Hello, ${currentUser}!` : "Welcome!";
-
-        // Simulate loading some stats (replace with real data later)
-        document.getElementById('streak-value').textContent = '7';
-        document.getElementById('quiz-value').textContent = '23';
-        document.getElementById('votes-value').textContent = '142';
-
-      } catch (error) {
-        console.error(error);
-        welcome.textContent = "Welcome!";
-      }
-    }
-
-    loadActiveUser();
-
-    logout.addEventListener('click', async (e) => {
-      e.preventDefault();
-
-      try {
-        const snapshot = await get(child(ref(db), 'users'));
-
-        if (snapshot.exists()) {
-          const users = snapshot.val();
-
-          for (const key in users) {
-            if (users[key].active === true) {
-              await update(ref(db, `users/${key}`), { active: false });
-
-              message.textContent = "Logout successful!";
-              message.style.color = "#8ba888";
-              setTimeout(() => {
-                window.location.href = 'signIn.html';
-              }, 1000);
-              break;
-            }  
-          }
-        }
-      } catch (error) {
-        console.error(error);
-        message.textContent = "Error connecting to database.";
-        message.style.color = "#d17a5c";
-      }
-    });
-  </script>
+ <script type="module" src="module.js"></script>
 </body>
 </html>
