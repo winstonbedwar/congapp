@@ -95,6 +95,74 @@ async function makeBillsAppear() {
   });
 };
 
+// Function to create a cute bill celebration animation
+function createBillCelebration() {
+  const celebration = document.createElement('div');
+  celebration.className = 'streak-celebration';
+  celebration.innerHTML = `
+    <div class="celebrating-bill">
+      <div class="bill-body">
+        <div class="bill-lines">
+          <div class="bill-line"></div>
+          <div class="bill-line"></div>
+          <div class="bill-line"></div>
+          <div class="bill-line"></div>
+        </div>
+        <div class="bill-face">
+          <div class="bill-eye eye-left"></div>
+          <div class="bill-eye eye-right"></div>
+          <div class="bill-smile"></div>
+        </div>
+      </div>
+      <div class="bill-helmet">
+        <div class="helmet-star">⭐</div>
+        <div class="helmet-rim"></div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(celebration);
+  setTimeout(() => celebration.remove(), 1500);
+}
+
+// Function to create confetti
+function createConfetti() {
+  const colors = ['#ff8c42', '#ec6918', '#5c99d1', '#08a4ff', '#ffd700'];
+  const confettiCount = 30;
+
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s linear forwards`;
+    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 5000);
+  }
+}
+
+// Function to animate the streak number
+function animateStreakNumber() {
+  const streakValue = document.getElementById('streak-value');
+  if (streakValue) {
+    streakValue.classList.add('streak-number-pop');
+    setTimeout(() => {
+      streakValue.classList.remove('streak-number-pop');
+    }, 600);
+  }
+}
+
+// Function to show streak message
+function showStreakMessage(streak) {
+  const message = document.createElement('div');
+  message.className = 'streak-message';
+  message.textContent = ` ${streak} Day Streak! `;
+  document.body.appendChild(message);
+  setTimeout(() => message.remove(), 2000);
+}
+
 async function loadActiveUser() {
   const logout = document.getElementById('logout');
   const message = document.getElementById('message');
@@ -118,8 +186,16 @@ async function loadActiveUser() {
 
     // Simulate loading some stats (replace with real data later)
     document.getElementById('streak-value').textContent = '7';
-    document.getElementById('quiz-value').textContent = '23';
+    document.getElementById('quiz-value').textContent = '130';
     document.getElementById('votes-value').textContent = '142';
+
+    // Trigger cute celebration animation after a short delay
+    setTimeout(() => {
+      createBillCelebration();
+      createConfetti();
+      showStreakMessage(7);
+      animateStreakNumber();
+    }, 500);
 
   } catch (error) {
     console.error(error);
