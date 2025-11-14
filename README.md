@@ -1,7 +1,8 @@
+**NOTE:** we originally did all our coding on the frontend branch and then moved it here...please check that branch to see our code properly : ) 
+
 # congapp
 2025-2026 Congressional App Challenge submission by Vijeta Garg, Winston Law, Tanush Lingala, Tanush Kandpal
 <br>
-**NOTE:** we originally did all our coding on the frontend branch and then moved it here...please check that branch to see our code properly : ) 
 # about
 An app that aims to increase youth political literacy in the US : ) 
 
